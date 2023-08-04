@@ -1,0 +1,74 @@
+//************************************  subscription page  *************************************//
+
+.plans {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 3%;
+}
+
+@media only screen and (max-width: 1280px) {
+    .plans {
+        flex-direction: column;
+    }
+}
+
+.plan {
+    min-width: 320px;
+    background-color: var(--primary);
+    border: 1px solid #ccc;
+    margin: 15px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 30px;
+}
+
+.plan-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.plan-price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.plan-features li {
+    margin-bottom: 10px;
+}
+
+.plan-btn {
+    display: block;
+    background-color: var(--30color) !important;
+    color: var(--60color) !important;
+    text-decoration: dashed !important;
+    margin: 0 auto;
+    padding: 10px 20px !important;
+    border: none !important;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 90% !important;
+    transition: background-color 0.3s ease;
+}
+
+.plan-btn:hover {
+    background-color: var(--60color) !important;
+    outline: var(--10color) 1px solid !important;
+    color: var(--10color) !important;
+}
+
+@media (max-width: 768px) {
+    .plan {
+        margin: 15px 0px !important;
+    }
+}

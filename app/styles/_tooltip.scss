@@ -1,0 +1,54 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  padding: 3%;
+  border-radius: 5px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tooltip {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--60color);
+  color: var(--30color);
+  padding: 5px 10px; /* Adjust the padding to your desired size */
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent the text from wrapping */
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 2;
+  white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+}
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%; /* Position the triangle above the tooltip */
+  left: 50%; /* Position the triangle in the middle */
+  transform: translateX(-50%); /* Center the triangle horizontally */
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--60color) transparent; /* Set the border color to match the tooltip background */
+}
+
+.tooltip-container:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+}
+
+.tooltip-container:hover {
+  background-color: var(--60color);
+}
+
+
