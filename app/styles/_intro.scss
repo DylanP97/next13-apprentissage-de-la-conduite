@@ -1,0 +1,92 @@
+//************************************  Intro  *************************************//
+
+.intro {
+    height: 100%;
+    min-height: 100vh;
+    color: white;
+    background-color: var(--60color);
+}
+
+.intro-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .btn-primary {
+        padding: 10px 10px;
+        margin-bottom: 7px;
+        width: 90% !important;
+        border-radius: 6px !important;
+        
+        .social-login-icon {
+            margin: 0 10px 0 0;
+        }
+    }
+}
+
+.bottom-png {
+    position: fixed;
+    bottom: 3%;
+    left: 7%;
+    height: 25%;
+    object-fit: cover;
+    z-index: 5;
+}
+
+@media (max-width: 768px) {
+    .bottom-png {
+        display: none;
+    }
+}
+
+
+.mb-3 {
+    color: var(--60color) !important;
+}
+
+.form-floating {
+    color: #000000 !important;
+}
+
+.form-check-label {
+    color: white !important;
+}
+
+.btn-group {
+    display: block !important;
+}
+
+.password-eye {
+    cursor: pointer;
+    max-height: 25px;
+    aspect-ratio: 1 / 1;
+}
+
+.intro-text {
+    padding: 5% !important;
+}
+.sign-text {
+    padding: 3% !important;
+}
+
+.intro-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0% !important;
+
+    & img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 0px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .intro-photo {
+        display: none;
+    }
+}

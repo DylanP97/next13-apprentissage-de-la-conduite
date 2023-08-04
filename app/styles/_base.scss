@@ -1,0 +1,109 @@
+//************************************  Base CSS  *************************************//
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+:root {
+    --60color: #0e0d29;
+    --30color: #ffffff;
+    --10color: #91e5f6;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif !important;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 0% 0%;
+    background-color: var(--60color) !important;
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    color: white !important;
+}
+
+p {
+    margin: 0px !important;
+}
+
+button,
+.btn {
+    margin: 2px;
+}
+
+.btn-10color {
+    background-color: var(--10color) !important;
+    color: var(--60color) !important;
+    border: 0px !important;
+
+    &:hover {
+        background-color: var(--60color) !important;
+        color: var(--10color) !important;
+        outline: var(--10color) 1px solid !important;
+    }
+}
+
+.btn-30color {
+    background-color: var(--30color) !important;
+    color: var(--60color) !important;
+    border: 0px !important;
+
+    &:hover {
+        background-color: var(--60color) !important;
+        color: var(--30color) !important;
+        outline: var(--30color) 1px solid !important;
+    }
+}
+
+
+
+
+//************************************  Form  *************************************//
+
+
+tr {
+    font-size: 12px !important;
+}
+td {
+    font-size: 12px !important;
+}
+td button {
+    font-size: 12px !important;
+}
+
+.responsive-table {
+    overflow-x: auto;
+}
+
+.error,
+.errorzone {
+    color: white !important;
+}
+
+.form-label {
+    color: white !important;
+}
+
+
+
+
+
+//************************************  Contact  *************************************//
+
+#success-message {
+    display: none;
+    color: hsl(120, 100%, 25%);
+}
+
+
+
+
+
+

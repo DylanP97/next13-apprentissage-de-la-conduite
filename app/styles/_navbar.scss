@@ -1,0 +1,28 @@
+
+//************************************  Navbar  *************************************//
+
+nav {
+    border-bottom: 1px var(--30color) solid !important;
+    color: white !important;
+}
+.navbar-container {
+    margin: 0% 4% !important;
+    max-width: 3000px !important;
+}
+
+.navbar-brand {
+    white-space: normal !important;
+    color: white !important;
+}
+
+.nav-link {
+    color: white !important;
+
+    &:hover {
+        color: var(--10color) !important;
+    }
+}
+
+.navbar a:hover {
+    color: var(--10color) !important;
+}
