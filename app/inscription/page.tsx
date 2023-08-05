@@ -24,6 +24,7 @@ import { signIn } from "next-auth/react";
 import Input from "../components/Input";
 
 function SignUp() {
+    const [errorMessages, setErrorMessages] = useState({ email: "", password: "" })
 
     const {
         register,
@@ -41,15 +42,25 @@ function SignUp() {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-
         axios.post('/api/user/signup', data)
             .then(() => {
-                toast.success('Registered!');
+                toast.success("Merci pour votre demande d'inscription !");
             })
             .catch((error) => {
-                toast.error(error);
-            })
-    }
+                if (error.response) {
+                    const errorMessage = error.response.data;
+
+                    setErrorMessages({
+                        email: errorMessage.email || '',
+                        password: errorMessage.password || '',
+                    });
+                } else {
+                    console.error("Il y a eu une erreur:", error);
+                    toast.error("Il y a eu une erreur. Veuillez essayez à nouveau.");
+                }
+            });
+    }   
+
 
     return (
         <div className='intro'>
@@ -87,8 +98,11 @@ function SignUp() {
                                 required
                             />
                         </FloatingLabel>
-                        <Form.Text className="email error"></Form.Text>
+                        <Form.Text className="email error">
+                            {errorMessages.email && <span className="error-message">{errorMessages.email}</span>}
+                        </Form.Text>
                     </Form.Group>
+
                     <Row className="mb-3">
                         <Form.Group as={Col} md="6">
                             <InputGroup className="mb-3">
@@ -111,6 +125,9 @@ function SignUp() {
                                     />
                                 </InputGroup.Text>
                             </InputGroup>
+                            <Form.Text className="email error">
+                                {errorMessages.email && <span className="error-message">{errorMessages.password}</span>}
+                            </Form.Text>
                         </Form.Group>
                         <Form.Text className="password error"></Form.Text>
                     </Row>
