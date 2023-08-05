@@ -1,6 +1,6 @@
 export { default } from "next-auth/middleware"
 
-export const config = { 
+export const config = {
   matcher: [
     "/abonnement",
     "/article",
@@ -11,5 +11,5 @@ export const config = {
     "/profil",
     "/quiz",
     "/quiz-admin",
-  ]
+  ],
 };
