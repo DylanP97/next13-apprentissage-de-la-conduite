@@ -1,15 +1,14 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import ConnexionClient from "./ConnexionClient";
-import ClientOnly from "../components/ClientOnly";
+import ResetPasswordClient from "./ResetPasswordClient";
+import ClientOnly from "../../components/ClientOnly";
 import { redirect } from "next/navigation";
 
-
-export default async function ConnexionPage() {
+export default async function ResetPasswordPage() {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) return (
         <ClientOnly>
-            <ConnexionClient />
+            <ResetPasswordClient />
         </ClientOnly>
     )
 

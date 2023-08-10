@@ -1,19 +1,20 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getBlogs from '@/app/actions/getBlogs';
 import getBlogById from '@/app/actions/getBlogById';
 import ClientOnly from "@/app/components/ClientOnly";
-import ArticleClient from "./ArticleClient";
+import ArticleAdminClient from "./ArticleAdminClient";
+import getCurrentUser from '@/app/actions/getCurrentUser';
 import { redirect } from "next/navigation";
 
 interface IParams {
     articleId?: string;
 }
 
-const ArticlePage = async ({ params }: { params: IParams }) => {
+const ArticleAdminPage = async ({ params }: { params: IParams }) => {
+    const blogs = await getBlogs();
     const blog = await getBlogById(params);
     const currentUser = await getCurrentUser();
-    const isAdmin = currentUser?.isAdmin;
-
-    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed) {
+    
+    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
         redirect("/");
     }
 
@@ -27,12 +28,12 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
 
     return (
         <ClientOnly>
-            <ArticleClient
-                blog={blog}
-                isAdmin={isAdmin}
+            <ArticleAdminClient
+                // blogs={blogs}
+                // blog={blog}
             />
         </ClientOnly>
     );
 }
 
-export default ArticlePage;
+export default ArticleAdminPage;
