@@ -44,7 +44,7 @@ model User {
   email                String?   @unique
   emailVerified        DateTime?
   hashedPassword       String?
-  resetPasswordToken   String?
+  resetPasswordToken   String?   @unique
   resetPasswordExpires Int?
   image                String?
   isAdmin              Boolean   @default(false)

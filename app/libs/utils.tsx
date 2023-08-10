@@ -32,19 +32,19 @@ export const isEmpty = (value: any) => {
   );
 };
 
-export const getAccessToken = () => {
-  return axios({
-    method: "get",
-    url: `${process.env.REACT_APP_API_URL}api/verifyRefreshToken`,
-    withCredentials: true,
-  })
-    .then((res) => {
-      return res.data.accessToken
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-}
+// export const getAccessToken = () => {
+//   return axios({
+//     method: "get",
+//     url: `${process.env.REACT_APP_API_URL}api/verifyRefreshToken`,
+//     withCredentials: true,
+//   })
+//     .then((res) => {
+//       return res.data.accessToken
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+// }
 
 
 export const handleSubscription = (subcriptionPlan: any) => {

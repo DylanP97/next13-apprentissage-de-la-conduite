@@ -3,16 +3,12 @@
 
 import { Col, Form, InputGroup, FloatingLabel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import photo1 from "@/public/images/categoriespermis.jpg";
 import view from "@/public/icons/view.png";
 import ButtonBootstrap from "react-bootstrap/Button"
 import Button from "../components/Button";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-
 import { showPassword } from "../libs/utils";
 import Image from "next/image";
-
 import { toast } from "react-hot-toast";
 import { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -52,7 +48,7 @@ function ConnexionClient() {
                     }
 
                     if (callback?.error) {
-                        // console.log(callback.error)
+                        console.log(callback.error)
                         toast.error("Il y a eu une erreur !");
                     }
                 });
