@@ -1,37 +1,28 @@
 import getBlogs from '@/app/actions/getBlogs';
-import getBlogById from '@/app/actions/getBlogById';
 import ClientOnly from "@/app/components/ClientOnly";
 import ArticleAdminClient from "./ArticleAdminClient";
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import { redirect } from "next/navigation";
+import NavBar from '../components/NavBar';
 
-interface IParams {
-    articleId?: string;
-}
-
-const ArticleAdminPage = async ({ params }: { params: IParams }) => {
+const ArticleAdminPage = async () => {
     const blogs = await getBlogs();
-    const blog = await getBlogById(params);
     const currentUser = await getCurrentUser();
-    
+
     if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
         redirect("/");
     }
 
-    if (!blog?.id) {
-        return (
-            <ClientOnly>
-                <h1>L&apos;article de blog que vous cherchez n&apos;existe pas ou il y a une erreur !</h1>
-            </ClientOnly>
-        );
-    }
-
     return (
         <ClientOnly>
-            <ArticleAdminClient
-                // blogs={blogs}
-                // blog={blog}
-            />
+            <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+            {
+                blogs ? (
+                    <ArticleAdminClient
+                        blogs={blogs}
+                    />) : (<h1>Il n&apos;y a pas d&apos;article pour le moment!</h1>)
+            }
+
         </ClientOnly>
     );
 }

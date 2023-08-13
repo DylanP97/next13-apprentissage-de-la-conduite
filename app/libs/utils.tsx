@@ -47,7 +47,7 @@ export const isEmpty = (value: any) => {
 // }
 
 
-export const handleSubscription = (subcriptionPlan: any) => {
+export const getSubscriptionLabel = (subcriptionPlan: any) => {
 
   switch (subcriptionPlan) {
     case 1:
