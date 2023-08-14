@@ -12,7 +12,7 @@ import photo1 from "@/public/images/retroviseur.jpg";
 import view from "@/public/icons/view.png";
 import Button from "../components/Button";
 import { showPassword } from "../libs/utils";
-import { interfaceIcons } from "@/public/interface";
+import googleIcon from "@/public/icons/google.png";
 import Image from "next/image";
 
 import { toast } from "react-hot-toast";
@@ -152,7 +152,7 @@ function SignUp() {
                     </ButtonBootstrap>
                     <Button
                         label="Continuer avec Google"
-                        icon={interfaceIcons['google']}
+                        icon={googleIcon}
                         onClick={() => signIn('google')}
                     />
                 </div>

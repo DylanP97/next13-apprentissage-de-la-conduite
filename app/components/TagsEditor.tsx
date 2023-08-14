@@ -18,7 +18,7 @@ export const TagsEditor: React.FC<TagsEditorProps> = ({ blogs, tags, state, blog
     if (blogs.length > 0) {
       const allTags = new Set();
 
-      blogs?.forEach((obj: any) => {
+      blogs && blogs?.forEach((obj: any) => {
         obj.tags.forEach((tag: string) => {
           allTags.add(tag);
         });

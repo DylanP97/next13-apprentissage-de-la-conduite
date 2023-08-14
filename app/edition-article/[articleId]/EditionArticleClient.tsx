@@ -6,7 +6,8 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { ArticleEditionSimpleInput } from "../../components/ArticleEditionSimpleInput";
 import { TagsEditor } from "../../components/TagsEditor";
-
+import { toast } from "react-hot-toast";
+import axios from "axios";
 import ImageResize from "quill-image-resize-module-react";
 import ImageUploader from "quill-image-uploader";
 import { TOOLBAR_OPTIONS } from "@/app/libs/utils";
@@ -18,7 +19,7 @@ Quill.register("modules/imageUploader", ImageUploader);
 
 interface EditionArticleClientProps {
     blogs: any,
-    blog: any,
+    blog?: any,
 }
 
 const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog }) => {
@@ -34,7 +35,6 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
     const [quill, setQuill] = useState<Quill | null>(null);
     const [created, setCreated] = useState<boolean | null>();
     const [dataFetch, setDataFetch] = useState(false);
-    const saveZone: any = document.querySelector(".savezone");
 
     const slugTitle = (title: string) => {
         const newSlug: any = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '').replace(/^-+|-+$/g, '');
@@ -44,21 +44,21 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
     const saveBlog = () => {
         if (quill == null) return;
         const quillContent = JSON.stringify(quill.getContents());
-        const data = new FormData();
 
+        const data = new FormData();
         if (title) data.append("title", title ? title : blog?.title);
         if (slug) data.append("slug", slug ? slug : blog?.slug);
         if (tags) data.append("tags", tags ? JSON.stringify(tags) : blog?.tags);
         if (blogPicture && file) data.append("imageUrl", file);
         if (html) data.append("data", quillContent);
 
-        // dispatch(modifyBlog(blogId, data)).then((res: any) => {
-        //     if (res.response && res.response.data.error) saveZone.innerHTML = res.response.data.error;
-        //     else saveZone.innerHTML = "Votre article vient d'être sauvegarder";
-        //     setTimeout(() => {
-        //         saveZone.innerHTML = "N'oubliez pas de sauvegarder vos modifications.";
-        //     }, 4000)
-        // });
+        axios.put(`http://localhost:3000/api/blog/${blog.id}`, { data })
+        .then(() => {
+            toast.success("Votre article vient d'être sauvegarder");
+        })
+        .catch((error) => {
+            toast.error(error.message)
+        })
     };
 
     const wrapperRef = useCallback((wrapper: any) => {
@@ -112,8 +112,11 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
         if (quill == null) return;
         if (blog) quill.setContents(blog.data);
         if (!blog && !created) {
+            axios.post(`http://localhost:3000/api/blog`, blog.id)
+            .then(() => {
+                setCreated(true)
+            })
             // dispatch(createBlog(blogId))
-            setCreated(true)
         }
         if (!dataFetch) {
             // dispatch(getBlog(blogId));
@@ -129,9 +132,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
         setHtml(quill.root.innerHTML);
     }, [setHtml, quill]);
 
-
     return (
-
         <div className="createblog">
             <div className="settingsblog">
                 <ArticleEditionSimpleInput instruction="Choissisez un titre pour votre article" label="Titre" data={blog?.title} state={setTitle} />

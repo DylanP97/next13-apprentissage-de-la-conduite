@@ -1,26 +1,16 @@
-// import { Listing } from '@prisma/client';
-// import { Reservation } from '@prisma/client';
-import { User } from '@prisma/client';
+import { Question } from "@prisma/client";
+import { Blog } from "@prisma/client";
+import { User } from "@prisma/client";
 
-// export type SafeListing = Omit<Listing, "createdAt"> & {
-//   createdAt: string;
-// };
-
-// export type SafeReservation = Omit<
-//   Reservation, 
-//   "createdAt" | "startDate" | "endDate" | "listing"
-// > & {
-//   createdAt: string;
-//   startDate: string;
-//   endDate: string;
-//   listing: SafeListing;
-// };
-
-export type SafeUser = Omit<
-  User,
-  "createdAt" | "updatedAt" | "emailVerified"
-> & {
+export type SafeQuestion = Omit<Question, "createdAt"> & {
   createdAt: string;
-  updatedAt: string;
+};
+
+export type SafeBlog = Omit<Blog, "createdAt"> & {
+  createdAt: string;
+};
+
+export type SafeUser = Omit<User, "createdAt" | "emailVerified"> & {
+  createdAt: string;
   emailVerified: string | null;
 };

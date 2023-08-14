@@ -374,6 +374,9 @@ footer a:hover {
   -o-object-fit: contain;
      object-fit: contain;
 }
+.article-table .blog-card-edition .question-edition .current-question-img:hover {
+  cursor: pointer;
+}
 .article-table .blog-card-edition .question-edition button {
   padding: 10px;
   margin: 0% 2%;
@@ -486,6 +489,11 @@ ff .article-table .blog-card:hover .icon {
     padding: 1rem !important;
   }
 }
+.tablebootstrap {
+  background-color: var(--60color) !important;
+  margin-bottom: 0px !important;
+}
+
 .intro {
   height: 100%;
   min-height: 100vh;
@@ -584,6 +592,7 @@ ff .article-table .blog-card:hover .icon {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .tooltip {
@@ -612,6 +621,7 @@ ff .article-table .blog-card:hover .icon {
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent var(--60color) transparent; /* Set the border color to match the tooltip background */
+  cursor: pointer;
 }
 
 .tooltip-container:hover .tooltip {
@@ -621,6 +631,7 @@ ff .article-table .blog-card:hover .icon {
   align-items: center;
   justify-content: center;
   white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+  cursor: pointer;
 }
 
 .tooltip-container:hover {
@@ -846,7 +857,7 @@ nav {
 .quiz p {
   text-align: center;
 }
-.quiz .image {
+.quiz img {
   aspect-ratio: 16/9;
   max-height: 300px;
   max-width: 100%;
@@ -905,7 +916,7 @@ nav {
 
 .slide-score {
   position: absolute;
-  top: 30%;
+  top: 200px;
   left: 0;
   display: flex;
   justify-content: flex-start;

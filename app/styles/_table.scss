@@ -135,6 +135,10 @@
                 max-height: 250px;
                 aspect-ratio: 16 / 9;
                 object-fit: contain;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
             & button {
@@ -256,14 +260,18 @@
     }
 }
 
-
 .error-text {
     margin-top: 10px !important;
     min-height: 25px;
-}    
+}
 
 @media (max-width: 1280px) {
     .blog-card-edition {
         padding: 1rem !important;
-    }    
+    }
+}
+
+.tablebootstrap {
+    background-color: var(--60color) !important;
+    margin-bottom: 0px !important;
 }
