@@ -1,33 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
-
-const storeItems = new Map([
-  [
-    1,
-    {
-      priceInCents: 999,
-      name: "Abonnement d'un mois",
-      productId: "price_1Ndz5RFgJQlKBjkeNon42oIX",
-    },
-  ],
-  [
-    2,
-    {
-      priceInCents: 2499,
-      name: "Abonnement de trois mois",
-      productId: "price_1NdzC3FgJQlKBjken3i8X4l2",
-    },
-  ],
-  [
-    3,
-    {
-      priceInCents: 3999,
-      name: "Abonnement de six mois",
-      productId: "price_1NdzC3FgJQlKBjkeyMPBTlHq",
-    },
-  ],
-]);
+import subscriptionPlans from "@/app/libs/subscriptionPlans";
 
 const handleCheckoutSessionCompleted = async (session: { id: any; metadata: { plan_id: any; id: any; }; }) => {
   console.log("Checkout session completed:", session.id);
@@ -46,7 +20,6 @@ const handleCheckoutSessionCompleted = async (session: { id: any; metadata: { pl
   console.log("User subscription updated:", session.metadata.id);
 };
 
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -57,7 +30,7 @@ export async function POST(request: Request) {
       mode: "subscription",
       line_items: items.map((item: { id: number; quantity: any }) => {
         console.log(items)
-        const storeItem = storeItems.get(item.id);
+        const storeItem = subscriptionPlans.get(item.id);
         return {
           price: storeItem?.productId,
           quantity: item.quantity,
@@ -92,7 +65,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: error.message, status: 500 });
   }
 }
-
 
 export async function handleStripeWebhook(request: Request) {
   const payload = await request.text();

@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .tooltip {
@@ -36,6 +37,7 @@
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent var(--60color) transparent; /* Set the border color to match the tooltip background */
+  cursor: pointer;
 }
 
 .tooltip-container:hover .tooltip {
@@ -45,6 +47,7 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+  cursor: pointer;
 }
 
 .tooltip-container:hover {

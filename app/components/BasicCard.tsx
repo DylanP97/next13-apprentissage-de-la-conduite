@@ -6,6 +6,10 @@ import eyeCrossWhite from "@/public/icons/eye-crossed-out.png";
 import linkWhite from "@/public/icons/external-link.png";
 import trashWhite from "@/public/icons/trash-white.png";
 import plusWhite from "@/public/icons/plus-white.png";
+import adminPrimary from "@/public/icons/admin-primary.png";
+import adminWhite from "@/public/icons/admin-white.png";
+import blockUser from "@/public/icons/block-user.png";
+import checkUserWhite from "@/public/icons/check-user-white.png";
 
 import { dateParser } from '@/app/libs/utils';
 import { MDBSwitch, MDBModal, MDBModalBody } from 'mdb-react-ui-kit';
@@ -13,15 +17,17 @@ import CardEditionStep from './CardEditionStep';
 import Tooltip from './Tooltip';
 import Image from 'next/image';
 import { useState } from "react";
+import { getSubscriptionLabel } from '@/app/libs/utils';
 
-interface BasicTableCardProps {
+interface BasicCardProps {
     data?: any,
     type: string,
-    toggleMethod: (blogId: string | number, status: any) => Promise<void>,
-    deleteMethod: (blogId: string | number) => Promise<void>,
+    toggleMethod?: any,
+    toggleMethod2?: any,
+    deleteMethod?: any,
 }
 
-const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMethod, deleteMethod }) => {
+const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleMethod2, deleteMethod }) => {
     const [edition, setEdition] = useState(false);
 
     const handleNewQuestionClick = () => {
@@ -36,7 +42,53 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
         setEdition(false);
     }
 
-    if (type === 'createQuestion' && edition === true) {
+    if (type === 'user') {
+
+        return (
+            <div className="blog-card">
+                <div className="blog-card-title">
+                    <p>{data.name ? data.name : data.firstName + ' ' + data.lastName}</p>
+                </div>
+                <div className="">
+                    <p>{data.email}</p>
+                    {data.isAdmin ? <p>Rôle Administrateur</p> : <p>{getSubscriptionLabel(data.subscriptionPlan)}</p>}
+                </div>
+                <div className="blog-card-buttons">
+                    <Tooltip message={`${data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'inscription de l'utilistateur"}`}>
+                        <Image
+                            src={data.isAccepted ? blockUser : checkUserWhite}
+                            alt="accepted"
+                            className="icon"
+                            onClick={() => {
+                                toggleMethod && toggleMethod(data.id, data.isAccepted);
+                            }}
+                        />
+                    </Tooltip>
+                    <Tooltip message={`${data.isAdmin ? "Enlever rôle d'administrateur" : "Promouvoir au rôle d'administrateur"}`}>
+                        <Image
+                            src={data.isAdmin ? adminPrimary : adminWhite}
+                            alt="admin"
+                            className="icon"
+                            onClick={() => {
+                                toggleMethod2 && toggleMethod2(data.id, data.isAdmin);
+                            }}
+                        />
+                    </Tooltip>
+                    <Tooltip message="Supprimer l'utilisateur">
+                        <Image
+                            src={trashWhite}
+                            alt="trash"
+                            className="icon"
+                            onClick={() => {
+                                deleteMethod && deleteMethod(data.id);
+                            }}
+                        />
+                    </Tooltip>
+                </div>
+            </div>
+        )
+    
+    } else if (type === 'createQuestion' && edition === true) {
 
         return (
             <MDBModal tabIndex='-1' show={edition} setShow={setEdition} >
@@ -52,17 +104,6 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
                     </div >
                 </MDBModalBody>
             </MDBModal>
-        )
-
-    } else if (type === 'createQuestion') {
-
-        return (
-            <div className="blog-card new-question" onClick={(() => handleNewQuestionClick())}>
-                <div className="question-edition">
-                    <Image src={plusWhite} alt="" className='big-plus' />
-                    <p>Ajouter une nouvelle question</p>
-                </div>
-            </div >
         )
 
     } else if (type === 'question' && edition === true) {
@@ -83,7 +124,17 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
                     </div>
                 </MDBModalBody>
             </MDBModal>
+        )
 
+    } else if (type === 'createQuestion') {
+
+        return (
+            <div className="blog-card new-question" onClick={(() => handleNewQuestionClick())}>
+                <div className="question-edition">
+                    <Image src={plusWhite} alt="" className='big-plus' style={{ width: "100px", height: "auto" }} />
+                    <p>Ajouter une nouvelle question</p>
+                </div>
+            </div >
         )
 
     } else if (type === 'question') {
@@ -94,26 +145,23 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
                     <p>{data.question}</p>
                 </div>
                 <div className="blog-card-content">
-                    <p>
-                        {/* {
-                            data.answers.map((answer: any, index: number) => {
-                                return (
-                                    <React.Fragment key={index}>
-                                        <span>{index}. {answer}</span><br />
-                                    </React.Fragment>
-                                )
-                            })
-                        } */}
-                    </p>
+                    {
+                        data.answers.map((answer: any, index: number) => {
+                            return (
+                                <p key={index}>{answer}</p>
+                            )
+                        })
+                    }
                     <br />
                     <div className="blog-card-buttons">
-                        <Tooltip message="Changer la visibilité">
-                            <MDBSwitch
-                                checked={data?.published}
-                                onChange={() => {
-                                    toggleMethod(data.id, data.published);
+                        <Tooltip message={`Visibilité (Actuellement : ${data.published ? "Visible" : "Invisible"})`}>
+                            <Image
+                                src={data.published ? eyeWhite : eyeCrossWhite}
+                                alt="view"
+                                className="icon"
+                                onClick={() => {
+                                    toggleMethod && toggleMethod(data.id, data.published);
                                 }}
-                                label=""
                             />
                         </Tooltip>
                         <Tooltip message="Éditer">
@@ -129,10 +177,10 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
                         <Tooltip message="Supprimer">
                             <Image
                                 src={trashWhite}
-                                alt="view"
+                                alt="trash"
                                 className="icon"
                                 onClick={() => {
-                                    deleteMethod(data.id);
+                                    deleteMethod && deleteMethod(data.id);
                                 }}
                             />
                         </Tooltip>
@@ -170,7 +218,7 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
                             alt="view"
                             className="icon"
                             onClick={() => {
-                                toggleMethod(data.id, data.published);
+                                toggleMethod && toggleMethod(data.id, data.published);
                             }}
                         />
                     </Tooltip>
@@ -197,10 +245,10 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
                     <Tooltip message="Supprimer">
                         <Image
                             src={trashWhite}
-                            alt="view"
+                            alt="trash"
                             className="icon"
                             onClick={() => {
-                                deleteMethod(data.id);
+                                deleteMethod && deleteMethod(data.id);
                             }}
                         />
                     </Tooltip>
@@ -210,11 +258,6 @@ const BasicTableCard: React.FC<BasicTableCardProps> = ({ type, data, toggleMetho
     } else {
         return null
     }
-
-
-
-
-
 }
 
-export default BasicTableCard
+export default BasicCard

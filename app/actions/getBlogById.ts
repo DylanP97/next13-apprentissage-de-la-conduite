@@ -15,7 +15,7 @@ export default async function getBlogById(params: IParams) {
     });
 
     if (!blog) {
-      return null;
+      return null
     }
 
     return {

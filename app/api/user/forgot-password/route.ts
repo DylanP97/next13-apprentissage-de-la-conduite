@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     const mail3 = resetPasswordLink(email, token);
 
-    await transporter.sendMail(mail3, (error: any, info: any) => {
+    await transporter.sendMail(mail3, (error: any) => {
       if (error) throw new Error();
     });
 

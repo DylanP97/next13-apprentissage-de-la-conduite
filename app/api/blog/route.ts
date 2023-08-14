@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+
+const { ObjectId } = require("mongodb");
 
 export async function POST(
   request: Request, 
@@ -12,34 +13,19 @@ export async function POST(
     return NextResponse.error();
   }
 
-  const body = await request.json();
-  const { 
-    blogId,
-    title,
-    category,
-    tags,
-    slug,
-    data,
-    imageUrl,
-    published,
-   } = body;
-
-  Object.keys(body).forEach((value: any) => {
-    if (!body[value]) {
-      NextResponse.error();
-    }
-  });
+  const blogId = new ObjectId().toHexString()
 
   const blog = await prisma.blog.create({
     data: {
-      blogId,
-      title,
-      category,
-      tags,
-      slug,
-      data,
-      imageUrl,
-      published,
+      id : blogId,
+      blogId : blogId,
+      title : "",
+      category : "",
+      tags : [],
+      slug : "",
+      data : {},
+      imageUrl : "",
+      published : false,
       posterId: currentUser.id
     }
   });

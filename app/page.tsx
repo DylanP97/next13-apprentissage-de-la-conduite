@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import NavBar from './components/NavBar';
 import Subscription from './components/Subscription';
 import ThanksForYourApplication from './components/ThanksForYourApplication';
+import Footer from './components/Footer';
 
 export default async function Home() {
   const blogs = await getPublishedBlogs();
@@ -28,6 +29,7 @@ export default async function Home() {
             <Subscription currentUser={currentUser} />
           )
       }
+      <Footer />
     </ClientOnly>
   )
 }

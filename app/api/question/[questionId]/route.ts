@@ -1,41 +1,36 @@
 import prisma from "@/app/libs/prismadb";
-import { mailValidAccepted, transporter } from "@/app/libs/transporter";
 import { NextResponse } from "next/server";
+const cloudinary = require('@/middleware/cloudinary');
 
 interface IParams {
-  userId?: string;
+  questionId?: string;
 }
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
-    const { userId } = params;
+    cloudinary()
+
+    const { questionId } = params;
     const body = await request.json();
     const { data } = body;
 
-    const user = await prisma.user.update({
+    if (data.answers) data.answers = JSON.parse(data.answers);
+
+    const question = await prisma.question.update({
       where: {
-        id: userId,
+        id: questionId,
       },
       data: data,
     });
 
-    if (!user) {
+    if (!question) {
       return null;
     }
 
-    if (data.isAccepted) {
-      const mail = mailValidAccepted(data.email, data.firstName);
-
-      await transporter.sendMail(mail, function (error: any) {
-        if (error) {
-          console.log(error);
-        }
-      });
-    }
-
     return NextResponse.json({
-      message: "User successfully updated",
+      message: "Question successfully updated",
       status: 200,
+      data: question,
     });
   } catch (error: any) {
     return NextResponse.json({ message: error.message, status: 500 });
@@ -44,20 +39,20 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
 export async function DELETE({ params }: { params: IParams }) {
   try {
-    const { userId } = params;
+    const { questionId } = params;
 
-    const user = await prisma.user.delete({
+    const question = await prisma.question.delete({
       where: {
-        id: userId,
+        id: questionId,
       },
     });
 
-    if (!user) {
+    if (!question) {
       return null;
     }
 
     return NextResponse.json({
-      message: "User successfully deleted",
+      message: "Question successfully deleted",
       status: 200,
     });
   } catch (error: any) {

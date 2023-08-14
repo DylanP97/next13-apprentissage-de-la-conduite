@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState, useRef } from 'react'
 // import { createQuestion, modifyQuestion } from '../redux-actions/question';
 import trashWhite from "@/public/icons/trash-white.png";
@@ -96,6 +98,9 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
     };
 
     const handleDeleteAnswer = (index: number) => {
+
+        console.log(index)
+
         const updatedAnswers = [...answers];
         updatedAnswers.splice(index, 1);
         setAnswers(updatedAnswers);
@@ -161,9 +166,10 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
             {
                 editionStep === 'image' && (
                     <div className='edit-image-div'>
-                        <label htmlFor="file">Éditer ou ajouter une Image
+                        <label htmlFor="file">
+                            <p>Éditer ou ajouter une Image</p>
                             <br />
-                            <Image src={addImage} alt="" className='click-edit-image' onClick={() => inputFileRef.current && inputFileRef.current.click()} />
+                            {image ? <Image className='current-question-img' src={image} alt="Your current question pic" width={1000} height={1000} onClick={() => inputFileRef.current && inputFileRef.current.click()} /> : <Image src={addImage} alt="" className='click-edit-image' style={{ width: "100px", height: "auto" }} onClick={() => inputFileRef.current && inputFileRef.current.click()} />}
                             <input type="file" alt="image" name={editionStep} id={editionStep}
                                 lang="fr"
                                 accept=".jpg, .jpeg, .png"
@@ -175,15 +181,6 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
                                 }}
                                 style={{ display: "none" }}
                             ></input>
-                            <br />
-                            {image ? (
-                                <>
-                                    <p>Voici l&apos;image actuelle</p>
-                                    <Image className='current-question-img' src={image} alt="Your current question pic" />
-                                </>
-                            ) : (
-                                <p>Il n&apos;y a pas d&apos;image sur cette question</p>
-                            )}
                         </label>
 
                     </div>
