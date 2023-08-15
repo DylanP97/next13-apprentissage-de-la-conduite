@@ -1,17 +1,15 @@
 'use client'
 
-import React, { useContext, useEffect } from 'react'
+import { User } from "@prisma/client";
 
 interface HomeGreetingProps {
-    currentUser: any,
+    currentUser: User,
 }
 
 const HomeGreetings: React.FC<HomeGreetingProps> = ({ currentUser }) => {
 
     return (
-        <p>
-            Bonjour {currentUser.firstName ? currentUser.firstName : currentUser.name}
-        </p>
+        <p>Bonjour {currentUser.firstName ? currentUser.firstName : currentUser.name}</p>
     )
 }
 

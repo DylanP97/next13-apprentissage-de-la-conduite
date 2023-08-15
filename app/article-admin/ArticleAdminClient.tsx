@@ -5,6 +5,7 @@ import BasicCard from "../components/BasicCard";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 interface ArticleAdminClientProps {
   blogs: any
@@ -17,13 +18,11 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
   const handleNewArticle = async () => {
     axios.post(`http://localhost:3000/api/blog`)
       .then((response) => {
-        console.log(response.data)
-        console.log(response.data.blog)
-        console.log(response.data.blog.id)
-        router.push(`/edition-article/${response.data.blog.id}`)
+        router.push(`/edition-article/${response.data.blogId}`)
       })
-      .catch(() => {
-        alert("une erreur s'est produite dans la requête");
+      .catch((error) => {
+        console.log(error)
+        toast.error("une erreur s'est produite dans la requête");
       })
   }
 
@@ -38,21 +37,20 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
           updatedBlogs[blogIndex] = updatedBlog;
           setBlogsData(updatedBlogs);
         }
-        alert(!status ? "le blog est désormais visible" : "le blog est désormais invisible");
+        toast.success(!status ? "le blog est désormais visible" : "le blog est désormais invisible");
       })
-      .catch(() => {
-        alert("une erreur s'est produite dans la requête");
+      .catch((error) => {
+        toast.error("une erreur s'est produite dans la requête");
       })
   };
 
-  const DeleteArticle = async (blogId: string | number) => {
-    console.log(blogId)
+  const DeleteArticle = async (blogId: string) => {
     axios.delete(`http://localhost:3000/api/blog/${blogId}`)
       .then(() => {
-        alert("ce blog a été supprimer");
+        toast.success("ce blog a été supprimer");
       })
       .catch(() => {
-        alert("une erreur s'est produite dans la requête");
+        toast.error("une erreur s'est produite dans la requête");
       })
   };
 
