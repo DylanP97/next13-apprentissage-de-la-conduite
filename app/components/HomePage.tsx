@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import { Loader } from "./Loader";
 import { HomeCard } from "./HomeCard";
 import HomeGreeting from "./HomeGreeting";
 import { TagsEditor } from "./TagsEditor";
@@ -11,8 +10,7 @@ interface HomePageProps {
   blogs: any,
 }
 
-const HomePage:React.FC<HomePageProps> = ({ currentUser, blogs }) => {
-  // const [loadPage, setLoadPage] = useState(true);
+const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
   // const [count, setCount] = useState(9);
   // const [data, setData] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -24,14 +22,10 @@ const HomePage:React.FC<HomePageProps> = ({ currentUser, blogs }) => {
   // };
 
   // useEffect(() => {
-  //   if (loadPage) {
-  //   //   dispatch(getPublishedBlogs());
-  //     setLoadPage(false);
   //     // setCount(count + 6);
   //   }
   //   //     window.addEventListener('scroll', loadMore);
   //   //     return () => window.removeEventListener('scroll', loadMore);
-  // }, [dispatch, loadPage]);
 
   return (
     <main className="home-container">
@@ -41,28 +35,24 @@ const HomePage:React.FC<HomePageProps> = ({ currentUser, blogs }) => {
       <TagsEditor blogs={blogs} tags={selectedTags} state={setSelectedTags} />
       <hr />
       {
-        // loadPage ? (
-        //   <Loader />
-        // ) : (
-          <div className="home-grid">
-            {blogs.length === 0 ? (
-              <h1>Il n&apos;y a pas d&apos;articles</h1>
-            ) : (
-              Object.values(blogs).map((blog: any, index: any) => {
-                if (selectedTags.length === 0) {
-                  return (
-                    <HomeCard blog={blog} key={`nofilter${blog.id}`} />
-                  );
-                } else if (
-                  selectedTags.some((tag: string) => blog.tags.includes(tag))
-                ) {
-                  return <HomeCard blog={blog} key={`filter${blog.id}`} />;
-                }
-                return null;
-              })
-            )}
-          </div>
-        // )
+        <div className="home-grid">
+          {blogs.length === 0 ? (
+            <h1>Il n&apos;y a pas d&apos;articles</h1>
+          ) : (
+            Object.values(blogs).map((blog: any, index: any) => {
+              if (selectedTags.length === 0) {
+                return (
+                  <HomeCard blog={blog} key={`nofilter${blog.id}`} />
+                );
+              } else if (
+                selectedTags.some((tag: string) => blog.tags.includes(tag))
+              ) {
+                return <HomeCard blog={blog} key={`filter${blog.id}`} />;
+              }
+              return null;
+            })
+          )}
+        </div>
       }
     </main>
   );

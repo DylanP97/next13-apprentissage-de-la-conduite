@@ -14,9 +14,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
 
   return ( 
     <div>
-        <h1>
-            Il y a eu une erreur!
-        </h1>
+        <h1>Il y a eu une erreur!</h1>
     </div>
    );
 }

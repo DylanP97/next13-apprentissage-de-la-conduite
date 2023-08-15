@@ -1,3 +1,4 @@
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 const cloudinary = require('@/middleware/cloudinary');
@@ -8,8 +9,12 @@ interface IParams {
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
+    const currentUser = await getCurrentUser();
 
+    if (!currentUser) return NextResponse.error();
+  
     const { blogId } = params;
+  
     const body = await request.json();
     const { data } = body;
 
@@ -41,25 +46,27 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
   }
 }
 
-export async function DELETE({ params }: { params: IParams }) {
-  try {
-    const { blogId } = params;
+export async function DELETE(
+  request: Request,
+  { params }: { params: IParams }
+) {
+  const currentUser = await getCurrentUser();
 
-    const blog = await prisma.blog.delete({
-      where: {
-        id: blogId,
-      },
-    });
-
-    if (!blog) {
-      return null;
-    }
-
-    return NextResponse.json({
-      message: "Blog successfully deleted",
-      status: 200,
-    });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message, status: 500 });
+  if (!currentUser) {
+    return NextResponse.error();
   }
+
+  const { blogId } = params;
+
+  if (!blogId || typeof blogId !== 'string') {
+    throw new Error('Invalid ID');
+  }
+
+  const blog = await prisma.blog.deleteMany({
+    where: {
+      id: blogId
+    }
+  });
+
+  return NextResponse.json(blog);
 }

@@ -1,20 +1,19 @@
 'use client'
 
-import { useContext, useState, useEffect } from 'react'
+import { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
-import getCurrentUser from '../actions/getCurrentUser';
 
 interface ContactClientProps {
   currentUser: any
 }
 
 const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
-  const [firstName, setFirstName] = useState(currentUser.firstName ? currentUser.firstName : currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
+  const firstName = currentUser.firstName ? currentUser.firstName : currentUser.name
+  const email = currentUser.email
   const [message, setMessage] = useState("");
 
   const handleSend = async () => {

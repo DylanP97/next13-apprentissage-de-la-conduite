@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-// import { createQuestion, modifyQuestion } from '../redux-actions/question';
 import trashWhite from "@/public/icons/trash-white.png";
 import addImage from "@/public/icons/add-image.png";
 import Image from 'next/image';
@@ -110,10 +109,7 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
         cancelEdition && cancelEdition()
     }
 
-
-
     return (
-
 
         <>
             {

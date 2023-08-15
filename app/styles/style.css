@@ -713,6 +713,10 @@ nav {
   color: var(--10color) !important;
 }
 
+.dropdown-menu {
+  background-color: var(--60color) !important;
+}
+
 .page-404 {
   display: flex;
   flex-direction: column;

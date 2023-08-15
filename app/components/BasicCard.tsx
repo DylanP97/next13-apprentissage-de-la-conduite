@@ -87,7 +87,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                 </div>
             </div>
         )
-    
+
     } else if (type === 'createQuestion' && edition === true) {
 
         return (
@@ -242,14 +242,13 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                             }}
                         />
                     </Tooltip>
-                    <Tooltip message="Supprimer">
+                    <Tooltip message="Supprimer" clicking={() => {
+                        deleteMethod && deleteMethod(data.id);
+                    }}>
                         <Image
                             src={trashWhite}
                             alt="trash"
                             className="icon"
-                            onClick={() => {
-                                deleteMethod && deleteMethod(data.id);
-                            }}
                         />
                     </Tooltip>
                 </div>
