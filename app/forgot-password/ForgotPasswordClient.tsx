@@ -15,10 +15,10 @@ const ForgotPasswordClient = () => {
 
     axios.post(`http://localhost:3000/api/user/forgot-password`, { email })
       .then(() => {
-        toast.success('Un email de réinitialisation de votre mot de passe vous a été envoyé. Regardez votre boîte email !')
+        toast.success('Un email de réinitialisation de votre mot de passe vous a été envoyé. Regardez votre boîte email.')
       })
-      .catch((error) => {
-        toast.error("Il n'y a pas de compte actif avec cet email")
+      .catch(() => {
+        toast.error("Il n'y a pas de compte actif avec cet email.")
       });
   };
 

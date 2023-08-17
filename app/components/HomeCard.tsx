@@ -26,7 +26,7 @@ export const HomeCard = ({ blog }: HomeCardProps) => {
             <article>
                 <div className='card-top'>
                     <time>Le {dateParser(blog.createdAt)}</time>
-                    <Image width={400} height={400} src={blog.imageUrl ? `${blog.imageUrl}` : illustration} alt="" priority />
+                    <Image width={1000} height={1000} src={blog.imageUrl ? `${blog.imageUrl}` : illustration} alt="" priority />
                 </div>
                 <div className='card-bottom'>
                     <div className='card-tags'>

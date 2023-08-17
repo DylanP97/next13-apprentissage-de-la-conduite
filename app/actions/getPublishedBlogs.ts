@@ -5,6 +5,9 @@ export default async function getPublishedBlogs() {
     const blogs = await prisma.blog.findMany({
         where: {
             published: true
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     });
 

@@ -34,6 +34,13 @@ const ArticleClient: React.FC<ArticleClientProps> = ({ blog, isAdmin }) => {
             />
 
             <h1>{blog.title}</h1>
+            <div style={{ marginBottom: '20px' }}>
+                {
+                    blog.tags.map((tag: string) => {
+                        return <p style={{ width: 'fit-content' }} key={tag}>#{tag}</p>
+                    })
+                }
+            </div>
             {
                 isAdmin && (
                     <Button

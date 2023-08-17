@@ -1,6 +1,5 @@
 'use client'
 
-
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -13,8 +12,10 @@ import ImageUploader from "quill-image-uploader";
 import { TOOLBAR_OPTIONS } from "@/app/libs/utils";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
+import ImageUpload from "@/app/components/ImageUpload";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
+
 
 
 interface EditionArticleClientProps {
@@ -23,12 +24,9 @@ interface EditionArticleClientProps {
 }
 
 const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog }) => {
-    //   const blog = useSelector((state: any) => state.blogReducer);
-    //   const dispatch = useDispatch();
-
     const [title, setTitle] = useState<string | null>();
     const [slug, setSlug] = useState<string | null>();
-    const [tags, setTags] = useState<string[]>(blog?.tags || []);
+    const [tags, setTags] = useState(blog?.tags || [""]);
     const [blogPicture, setBlogPicture] = useState<any>();
     const [file, setFile] = useState<any>();
     const [html, setHtml] = useState<string | null>();
@@ -45,20 +43,21 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
         if (quill == null) return;
         const quillContent = JSON.stringify(quill.getContents());
 
-        const data = new FormData();
-        if (title) data.append("title", title ? title : blog?.title);
-        if (slug) data.append("slug", slug ? slug : blog?.slug);
-        if (tags) data.append("tags", tags ? JSON.stringify(tags) : blog?.tags);
-        if (blogPicture && file) data.append("imageUrl", file);
-        if (html) data.append("data", quillContent);
+        const data = {
+            "title": title ? title : blog?.title,
+            "slug" : slug || blog?.slug,
+            "tags": tags ? tags : blog?.tags,
+            "imageUrl": file && file,
+            "data": html && quillContent,
+        }
 
         axios.put(`http://localhost:3000/api/blog/${blog.id}`, { data })
-        .then(() => {
-            toast.success("Votre article vient d'être sauvegarder");
-        })
-        .catch((error) => {
-            toast.error(error.message)
-        })
+            .then(() => {
+                toast.success("Votre article vient d'être sauvegarder.");
+            })
+            .catch((error) => {
+                toast.error(error.message)
+            })
     };
 
     const wrapperRef = useCallback((wrapper: any) => {
@@ -113,9 +112,9 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
         if (blog) quill.setContents(blog.data);
         if (!blog && !created) {
             axios.post(`http://localhost:3000/api/blog`, blog.id)
-            .then(() => {
-                setCreated(true)
-            })
+                .then(() => {
+                    setCreated(true)
+                })
             // dispatch(createBlog(blogId))
         }
         if (!dataFetch) {
@@ -141,23 +140,12 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                     Sélectionner des catégories pour votre article
                     <TagsEditor blogs={blogs} tags={tags} state={setTags} blogtags={blog?.tags} /><br />
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label htmlFor="file">
-                        Image de couverture
-                        <br />
-                    </Form.Label>
-                    <Form.Control
-                        type="file"
-                        id="file"
-                        lang="fr"
-                        accept=".jpg, .jpeg, .png"
-                        onChange={(event: any) => {
-                            const file = event.target.files[0];
-                            setFile(file);
-                            setBlogPicture(URL.createObjectURL(file));
-                        }}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                    <ImageUpload
+                        onChange={(value) => setFile(value)}
+                        value={file}
                     />
-                </Form.Group>
+                </div>
                 <br />
                 <div>
                     <Button
@@ -179,7 +167,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                     <Button
                         className="btn-30color"
                         onClick={() => {
-                            window.location.assign(`/article-menu`);
+                            window.location.assign(`/article-admin`);
                         }}
                     >
                         Retour à la gestion des articles
@@ -193,7 +181,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                 <br />
             </div>
             <br />
-            <div ref={wrapperRef}/>
+            <div ref={wrapperRef} />
         </div>
     );
 };
