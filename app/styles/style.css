@@ -743,19 +743,19 @@ nav {
   width: 100%;
   padding: 0.375rem 0.75rem;
   border: 0px !important;
-  background-color: white;
+  background-color: var(--60color) !important;
   font-size: 1rem;
   line-height: 2rem !important;
-  color: #212529;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   border-radius: 0.375rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-shadow: 0px 0px 5px 1px var(--30color);
 }
 
 .ql-editor:focus {
-  box-shadow: 0px 0px 5px 1px rgba(13, 109, 253, 0.4235294118);
+  box-shadow: 0px 0px 5px 1px var(--30color);
   border: rgba(13, 109, 253, 0.61) 0.3px solid;
 }
 
@@ -1078,6 +1078,7 @@ nav {
   border: 0px;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .new-tag input {
   border: 0px;

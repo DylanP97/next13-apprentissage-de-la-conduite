@@ -37,20 +37,20 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
           updatedBlogs[blogIndex] = updatedBlog;
           setBlogsData(updatedBlogs);
         }
-        toast.success(!status ? "le blog est désormais visible" : "le blog est désormais invisible");
+        toast.success(!status ? "Le blog est désormais visible." : "Le blog est désormais invisible.");
       })
       .catch((error) => {
-        toast.error("une erreur s'est produite dans la requête");
+        toast.error("Une erreur s'est produite dans la requête.");
       })
   };
 
   const DeleteArticle = async (blogId: string) => {
     axios.delete(`http://localhost:3000/api/blog/${blogId}`)
       .then(() => {
-        toast.success("ce blog a été supprimer");
+        toast.success("Ce blog a été supprimer.");
       })
       .catch(() => {
-        toast.error("une erreur s'est produite dans la requête");
+        toast.error("Une erreur s'est produite dans la requête.");
       })
   };
 

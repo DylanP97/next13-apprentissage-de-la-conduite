@@ -16,7 +16,7 @@ import { FieldValues } from 'react-hook-form';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Input from "../components/Input";
-import { interfaceIcons } from "@/public/interface";
+import google from "@/public/icons/google.png";
 
 function ConnexionClient() {
     const router = useRouter()
@@ -103,7 +103,7 @@ function ConnexionClient() {
                     </ButtonBootstrap>
                     <Button
                         label="Continuer avec Google"
-                        icon={interfaceIcons['google']}
+                        icon={google}
                         onClick={() => signIn('google')}
                     />
                 </div>

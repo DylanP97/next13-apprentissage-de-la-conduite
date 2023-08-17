@@ -36,12 +36,11 @@ const PlanCard: React.FC<PlanCardProps> = ({
     }
 
     const handleClick = async (itemNumber: number) => {
-        console.log(itemNumber)
         axios.post(`http://localhost:3000/api/stripe`, transformToBody(itemNumber))
             .then(response => {
                 const url = response.data.message
                 router.push(url)
-                toast.success('blablabla')
+                toast.success('En route !')
             }).catch(e => {
                 console.error(e.error)
                 toast.error(e.error)

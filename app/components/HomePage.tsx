@@ -39,7 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
           {blogs.length === 0 ? (
             <h1>Il n&apos;y a pas d&apos;articles</h1>
           ) : (
-            Object.values(blogs).map((blog: any, index: any) => {
+            Object.values(blogs).map((blog: any) => {
               if (selectedTags.length === 0) {
                 return (
                   <HomeCard blog={blog} key={`nofilter${blog.id}`} />

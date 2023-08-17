@@ -2,8 +2,12 @@ import prisma from "@/app/libs/prismadb";
 
 export default async function getQuestions() {
   try {
-    const questions = await prisma.question.findMany();
-    
+    const questions = await prisma.question.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
     const safeQuestions = questions.map((question: any) => ({
       ...question,
       createdAt: question.createdAt.toISOString(),

@@ -16,8 +16,6 @@ const EditionArticlePage = async ({ params }: { params: IParams }) => {
     const blog = await getBlogById(params);
     const currentUser = await getCurrentUser();
 
-    console.log(blog)
-
     if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
         redirect("/");
     }

@@ -5,6 +5,9 @@ export default async function getPublishedQuestions() {
     const questions = await prisma.question.findMany({
         where: {
             published: true
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     });
 

@@ -1,7 +1,6 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
-const cloudinary = require('@/middleware/cloudinary');
 
 interface IParams {
   blogId?: string;
@@ -10,20 +9,14 @@ interface IParams {
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
     const currentUser = await getCurrentUser();
-
     if (!currentUser) return NextResponse.error();
-  
+
     const { blogId } = params;
-  
     const body = await request.json();
     const { data } = body;
 
     if (data.data) data.data = JSON.parse(data.data);
-    if (data.tags) data.tags = JSON.parse(data.tags);
-
-    if (data.imageUrl) {
-      data.append('imageUrl', cloudinary(request))
-    }
+    // if (data.tags) data.tags = JSON.parse(data.tags);
 
     const blog = await prisma.blog.update({
       where: {
