@@ -1,9 +1,6 @@
 import view from "@/public/icons/view.png";
 import hidden from "@/public/icons/hidden.png";
 
-import axios from "axios";
-
-
 let options: object = {
   weekday: "short",
   year: "numeric",
@@ -32,21 +29,6 @@ export const isEmpty = (value: any) => {
   );
 };
 
-// export const getAccessToken = () => {
-//   return axios({
-//     method: "get",
-//     url: `${process.env.REACT_APP_API_URL}api/verifyRefreshToken`,
-//     withCredentials: true,
-//   })
-//     .then((res) => {
-//       return res.data.accessToken
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-// }
-
-
 export const getSubscriptionLabel = (subcriptionPlan: any) => {
 
   switch (subcriptionPlan) {
@@ -62,19 +44,6 @@ export const getSubscriptionLabel = (subcriptionPlan: any) => {
       return "N'a pas souscrit à un abonnement";
   }
 }
-
-
-export const logout = async () => {
-  await axios({
-    method: "get",
-    url: `${process.env.REACT_APP_API_URL}api/user/logout`,
-    withCredentials: true,
-  })
-    .then((res: any) => window.location.assign("/"))
-    .catch((err) => console.log(err));
-
-  window.location.assign("/");
-};
 
 export const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
