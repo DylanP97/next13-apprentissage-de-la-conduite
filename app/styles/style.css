@@ -466,8 +466,8 @@ ff .article-table .blog-card:hover .icon {
 }
 
 .icon {
-  height: 20px !important;
-  width: 20px !important;
+  height: 25px !important;
+  width: 25px !important;
   margin: 0% 5px !important;
   cursor: pointer;
 }
@@ -586,7 +586,7 @@ ff .article-table .blog-card:hover .icon {
   position: relative;
   display: inline-block;
   z-index: 1;
-  padding: 3%;
+  padding: 0.3rem;
   border-radius: 5px;
   aspect-ratio: 1/1;
   display: flex;
@@ -600,8 +600,8 @@ ff .article-table .blog-card:hover .icon {
   visibility: hidden;
   position: absolute;
   top: 130%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 10%;
+  transform: translateX(0%);
   background-color: var(--60color);
   color: var(--30color);
   padding: 5px 10px; /* Adjust the padding to your desired size */
@@ -616,7 +616,7 @@ ff .article-table .blog-card:hover .icon {
   content: "";
   position: absolute;
   bottom: 100%; /* Position the triangle above the tooltip */
-  left: 50%; /* Position the triangle in the middle */
+  left: 10%; /* Position the triangle in the middle */
   transform: translateX(-50%); /* Center the triangle horizontally */
   border-width: 5px;
   border-style: solid;
@@ -704,6 +704,7 @@ nav {
 
 .nav-link {
   color: white !important;
+  transition: color 0.45s ease-in-out, background-color 0.45s ease-in-out, border-color 0.45s ease-in-out !important;
 }
 .nav-link:hover {
   color: var(--10color) !important;
@@ -717,6 +718,17 @@ nav {
   background-color: var(--60color) !important;
 }
 
+@media (max-width: 768px) {
+  .nav-dropdown {
+    text-align: center !important;
+  }
+  .nav-dropdown .dropdown-menu {
+    padding: 0% !important;
+  }
+  .nav-dropdown a {
+    text-align: center !important;
+  }
+}
 .page-404 {
   display: flex;
   flex-direction: column;
@@ -861,7 +873,7 @@ nav {
 .quiz p {
   text-align: center;
 }
-.quiz img {
+.quiz .question-img {
   aspect-ratio: 16/9;
   max-height: 300px;
   max-width: 100%;

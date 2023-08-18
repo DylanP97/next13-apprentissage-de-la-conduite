@@ -21,7 +21,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
         isSubscribed: false,
       }
 
-      axios.put(`http://localhost:3000/api/user/${userId}`, { data })
+      axios.put(`/api/user/${userId}`, { data })
         .then(() => {
           router.push("/");
           toast.success('Annulation de votre abonnement bien prise en compte !')

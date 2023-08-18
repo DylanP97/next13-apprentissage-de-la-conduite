@@ -4,12 +4,12 @@ export const config = {
   matcher: [
     "/abonnement",
     "/article",
-    "/article-admin",
+    "/admin-edition",
+    "/admin-articles",
+    "/admin-eleves",
+    "/admin-questions",
     "/contact",
-    "/edition-article",
-    "/eleves-admin",
     "/profil",
     "/quiz",
-    "/quiz-admin",
   ],
 };

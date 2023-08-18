@@ -4,6 +4,9 @@ import { useEffect, useState, useRef } from 'react'
 import trashWhite from "@/public/icons/trash-white.png";
 import addImage from "@/public/icons/add-image.png";
 import Image from 'next/image';
+import { toast } from "react-hot-toast";
+import axios from 'axios';
+import ImageUpload from './ImageUpload';
 
 interface CardEditionStepProps {
     isNewQuestion?: boolean;
@@ -77,18 +80,33 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
 
         if (!questionError && !answersError) {
 
-            const formData = new FormData();
-            if (question) formData.append('question', question);
-            if (answers) formData.append('answers', JSON.stringify(answers));
-            if (correctAnswer) formData.append('correctAnswer', correctAnswer);
-            if (image && file) formData.append('imageUrl', file);
+            const data = {
+                "question": question && question,
+                "answers": answers && answers,
+                "correctAnswer": correctAnswer && correctAnswer,
+                "imageUrl": file && file,
+            }
+            
+            const createNew = (data: any) => {
+                axios.post(`/api/question`, { data })
+                    .then(() => {
+                        saveResponse && saveResponse()
+                        toast.success('Question créé.')
+                    })
+            }
 
-            // const saveAction = isNewQuestion ? createQuestion(formData) : modifyQuestion(id, formData);
-            // dispatch(saveAction).then((res: any) => {
-            //     saveResponse && saveResponse();
-            // });
+            const updateOne = (data: any) => {
+                axios.put(`/api/question/${id}`, { data })
+                    .then(() => {
+                        saveResponse && saveResponse()
+                        toast.success('Question sauvegardé.')
+                    })
+            }
+
+            isNewQuestion ? createNew(data) : updateOne(data);
+
         } else {
-            alert('Veuillez remplir tous les champs')
+            toast.error('Veuillez remplir tous les champs')
         }
     }
 
@@ -162,7 +180,12 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
             {
                 editionStep === 'image' && (
                     <div className='edit-image-div'>
-                        <label htmlFor="file">
+                        <ImageUpload
+                            id={editionStep}
+                            onChange={(value) => setFile(value)}
+                            value={file ? file : question?.imageUrl}
+                        />
+                        {/* <label htmlFor="file">
                             <p>Éditer ou ajouter une Image</p>
                             <br />
                             {image ? <Image className='current-question-img' src={image} alt="Your current question pic" width={1000} height={1000} onClick={() => inputFileRef.current && inputFileRef.current.click()} /> : <Image src={addImage} alt="" className='click-edit-image' style={{ width: "100px", height: "auto" }} onClick={() => inputFileRef.current && inputFileRef.current.click()} />}
@@ -177,7 +200,7 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
                                 }}
                                 style={{ display: "none" }}
                             ></input>
-                        </label>
+                        </label> */}
 
                     </div>
                 )

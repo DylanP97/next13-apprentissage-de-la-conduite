@@ -54,6 +54,7 @@ export const TagsEditor: React.FC<TagsEditorProps> = ({ blogs, tags, state, blog
       const updatedTags = [...allTagsState, newTag.trim()];
       setAllTagsState(updatedTags);
       setNewTag("");
+      handleAddTag(newTag.trim())
     }
   };
 

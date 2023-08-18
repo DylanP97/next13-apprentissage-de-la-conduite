@@ -6,7 +6,7 @@ import eyeCrossWhite from "@/public/icons/eye-crossed-out.png";
 import linkWhite from "@/public/icons/external-link.png";
 import trashWhite from "@/public/icons/trash-white.png";
 import plusWhite from "@/public/icons/plus-white.png";
-import adminPrimary from "@/public/icons/admin-primary.png";
+import adminPrimary from "@/public/icons/close-white.png";
 import adminWhite from "@/public/icons/admin-white.png";
 import blockUser from "@/public/icons/block-user.png";
 import checkUserWhite from "@/public/icons/check-user-white.png";
@@ -18,6 +18,7 @@ import Tooltip from './Tooltip';
 import Image from 'next/image';
 import { useState } from "react";
 import { getSubscriptionLabel } from '@/app/libs/utils';
+import { Button } from "react-bootstrap";
 
 interface BasicCardProps {
     data?: any,
@@ -29,6 +30,8 @@ interface BasicCardProps {
 
 const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleMethod2, deleteMethod }) => {
     const [edition, setEdition] = useState(false);
+
+    const isMobile = window.innerWidth <= 768;
 
     const handleNewQuestionClick = () => {
         setEdition(true);
@@ -51,39 +54,66 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                 </div>
                 <div className="">
                     <p>{data.email}</p>
+                    {!data.isAdmin ? data.isAccepted ? <p>Inscription validée</p> : <p>Inscription non validée</p> : null}
                     {data.isAdmin ? <p>Rôle Administrateur</p> : <p>{getSubscriptionLabel(data.subscriptionPlan)}</p>}
                 </div>
+                <br />
+                {
+                    isMobile && (
+                        <>
+                            {
+                                !data.isAccepted && <Button onClick={() => {
+                                    toggleMethod && toggleMethod(data.id, data.isAccepted);
+                                }}>{data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'utilistateur"}</Button>
+                            }{
+                                <Button onClick={() => {
+                                    toggleMethod2 && toggleMethod2(data.id, data.isAdmin);
+                                }}>{data.isAdmin ? "Enlever rôle d'administrateur" : "Promouvoir administrateur"}</Button>
+                            }{
+                                <Button onClick={() => {
+                                    deleteMethod && deleteMethod(data.id);
+                                }}>Supprimer l&apos;utilisateur</Button>
+                            }
+                        </>
+                    )
+                }
                 <div className="blog-card-buttons">
-                    <Tooltip message={`${data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'inscription de l'utilistateur"}`}>
-                        <Image
-                            src={data.isAccepted ? blockUser : checkUserWhite}
-                            alt="accepted"
-                            className="icon"
-                            onClick={() => {
-                                toggleMethod && toggleMethod(data.id, data.isAccepted);
-                            }}
-                        />
-                    </Tooltip>
-                    <Tooltip message={`${data.isAdmin ? "Enlever rôle d'administrateur" : "Promouvoir au rôle d'administrateur"}`}>
-                        <Image
-                            src={data.isAdmin ? adminPrimary : adminWhite}
-                            alt="admin"
-                            className="icon"
-                            onClick={() => {
-                                toggleMethod2 && toggleMethod2(data.id, data.isAdmin);
-                            }}
-                        />
-                    </Tooltip>
-                    <Tooltip message="Supprimer l'utilisateur">
-                        <Image
-                            src={trashWhite}
-                            alt="trash"
-                            className="icon"
-                            onClick={() => {
-                                deleteMethod && deleteMethod(data.id);
-                            }}
-                        />
-                    </Tooltip>
+                    {
+                        !isMobile && !data.isAdmin && <Tooltip message={`${data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'inscription de l'utilistateur"}`}>
+                            <Image
+                                src={data.isAccepted ? blockUser : checkUserWhite}
+                                alt="accepted"
+                                className="icon"
+                                onClick={() => {
+                                    toggleMethod && toggleMethod(data.id, data.isAccepted);
+                                }}
+                            />
+                        </Tooltip>
+                    }
+                    {
+                        !isMobile && <Tooltip message={`${data.isAdmin ? "Enlever rôle d'administrateur" : "Promouvoir au rôle d'administrateur"}`}>
+                            <Image
+                                src={data.isAdmin ? adminPrimary : adminWhite}
+                                alt="admin"
+                                className="icon"
+                                onClick={() => {
+                                    toggleMethod2 && toggleMethod2(data.id, data.isAdmin);
+                                }}
+                            />
+                        </Tooltip>
+                    }
+                    {
+                        !isMobile && <Tooltip message="Supprimer l'utilisateur">
+                            <Image
+                                src={trashWhite}
+                                alt="trash"
+                                className="icon"
+                                onClick={() => {
+                                    deleteMethod && deleteMethod(data.id);
+                                }}
+                            />
+                        </Tooltip>
+                    }
                 </div>
             </div>
         )
@@ -164,7 +194,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                                 }}
                             />
                         </Tooltip>
-                        <Tooltip message="Éditer">
+                        <Tooltip message="Modifier la question">
                             <Image
                                 src={editWhite}
                                 alt="view"
@@ -174,7 +204,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                                 }}
                             />
                         </Tooltip>
-                        <Tooltip message="Supprimer">
+                        <Tooltip message="Supprimer la question">
                             <Image
                                 src={trashWhite}
                                 alt="trash"
@@ -238,7 +268,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                             alt="view"
                             className="icon"
                             onClick={() => {
-                                window.location.assign(`/edition-article/${data.id}`);
+                                window.location.assign(`/admin-edition/${data.id}`);
                             }}
                         />
                     </Tooltip>

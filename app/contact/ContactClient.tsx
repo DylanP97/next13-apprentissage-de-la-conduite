@@ -19,7 +19,7 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
   const handleSend = async () => {
     const data = { firstName, email, message }
     
-    axios.post(`http://localhost:3000/api/contact`, { data })
+    axios.post(`/api/contact`, { data })
       .then((res) => {
         console.log(res)
         var success: any = document.getElementById('success-message')

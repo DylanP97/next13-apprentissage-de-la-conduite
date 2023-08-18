@@ -16,7 +16,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     const { data } = body;
 
     if (data.data) data.data = JSON.parse(data.data);
-    // if (data.tags) data.tags = JSON.parse(data.tags);
 
     const blog = await prisma.blog.update({
       where: {

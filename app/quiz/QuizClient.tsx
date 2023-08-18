@@ -25,6 +25,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
   const [availableQuestions, setAvailableQuestions] = useState(publishedQuestions);
   const [infoText, setInfoText] = useState("");
 
+  const isMobile = window.innerWidth <= 768;
 
   function handleAnswerClick(answer: any, index: number) {
     setIsAnswered(true)
@@ -116,6 +117,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
                       width={1000}
                       height={1000}
                       src={image} alt=""
+                      className='question-img'
                     />}
                     <p className='question'>{question && question}</p>
                     <div className='responses'>
@@ -126,26 +128,34 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
                       ))}
                     </div>
                     <div className='quiz-btn'>
-                      {
-                        isAnswered && <Button className="btn-10color" onClick={(() => handleNewQuestionClick())}>{availableQuestions.length === 0 ? "Voir mes scores" : "Question suivante"}</Button>
-                      }
-                      <hr />
                       <p className='error-text'>{infoText}</p>
+                      <hr />
                     </div>
-                  </div>
 
-                  {
-                    !slideScore ? (
-                      <div className='slide-score' onClick={(() => setSlideScore(true))}>
-                        <Image className='slide-score-img' src={AngleDoubleSmallRight} alt="slide" style={{ width: "48px", height: "auto" }} />
-                      </div>
-                    ) : (
-                      <div className='slide-score active' onClick={(() => setSlideScore(false))}>
-                        <p>Score : {questionHistory.filter((q: any) => q.isCorrect).length} sur {questionHistory.length}</p>
-                        <p>Nbr de Questions : {publishedQuestions.length} </p>
-                      </div>
-                    )
-                  }
+                    {
+                      isMobile ? (
+                        <div>
+                          <p style={{ fontWeight: "600" }}>Score : {questionHistory.filter((q: any) => q.isCorrect).length} sur {questionHistory.length}</p>
+                          <p>{publishedQuestions.length} questions</p>
+                        </div>
+                      ) : (
+                        !slideScore ? (
+                          <div className='slide-score' onClick={(() => setSlideScore(true))}>
+                            <Image className='slide-score-img' src={AngleDoubleSmallRight} alt="slide" style={{ width: "48px", height: "auto" }} />
+                          </div>
+                        ) : (
+                          <div className='slide-score active' onClick={(() => setSlideScore(false))}>
+                            <p style={{ fontWeight: "600" }}>Score : {questionHistory.filter((q: any) => q.isCorrect).length} sur {questionHistory.length}</p>
+                            <p>{publishedQuestions.length} questions</p>
+                          </div>
+                        )
+                      )
+                    }
+                    <hr />
+                    {
+                      isAnswered && <Button className="btn-10color" onClick={(() => handleNewQuestionClick())}>{availableQuestions.length === 0 ? "Voir mes scores" : "Question suivante"}</Button>
+                    }
+                  </div>
                 </>
               ) : (
                 <div>

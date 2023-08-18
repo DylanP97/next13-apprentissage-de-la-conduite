@@ -13,7 +13,7 @@ const ForgotPasswordClient = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    axios.post(`http://localhost:3000/api/user/forgot-password`, { email })
+    axios.post(`/api/user/forgot-password`, { email })
       .then(() => {
         toast.success('Un email de réinitialisation de votre mot de passe vous a été envoyé. Regardez votre boîte email.')
       })

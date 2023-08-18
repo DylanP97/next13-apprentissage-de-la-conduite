@@ -1,6 +1,6 @@
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
-const cloudinary = require('@/middleware/cloudinary');
 
 interface IParams {
   questionId?: string;
@@ -8,13 +8,12 @@ interface IParams {
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
-    cloudinary()
+    const currentUser = await getCurrentUser();
+    if (!currentUser) return NextResponse.error();
 
     const { questionId } = params;
     const body = await request.json();
     const { data } = body;
-
-    if (data.answers) data.answers = JSON.parse(data.answers);
 
     const question = await prisma.question.update({
       where: {
@@ -37,25 +36,27 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
   }
 }
 
-export async function DELETE({ params }: { params: IParams }) {
-  try {
-    const { questionId } = params;
+export async function DELETE(
+  request: Request,
+  { params }: { params: IParams }
+) {
+  const currentUser = await getCurrentUser();
 
-    const question = await prisma.question.delete({
-      where: {
-        id: questionId,
-      },
-    });
-
-    if (!question) {
-      return null;
-    }
-
-    return NextResponse.json({
-      message: "Question successfully deleted",
-      status: 200,
-    });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message, status: 500 });
+  if (!currentUser) {
+    return NextResponse.error();
   }
+
+  const { questionId } = params;
+
+  if (!questionId || typeof questionId !== 'string') {
+    throw new Error('Invalid ID');
+  }
+
+  const question = await prisma.question.deleteMany({
+    where: {
+      id: questionId
+    }
+  });
+
+  return NextResponse.json(question);
 }

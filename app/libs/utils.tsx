@@ -59,7 +59,7 @@ export const getSubscriptionLabel = (subcriptionPlan: any) => {
     case 4:
       return "Test";
     default:
-      return "Pas d'abonnement";
+      return "N'a pas souscrit à un abonnement";
   }
 }
 

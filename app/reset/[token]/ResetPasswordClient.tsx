@@ -28,7 +28,7 @@ const ResetPasswordClient = () => {
       toast.error("Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre.")
     } else {
       if (userToken && userToken.token) {
-        axios.post(`http://localhost:3000/api/user/reset/${userToken.token}`, { password })
+        axios.post(`/api/user/reset/${userToken.token}`, { password })
           .then(() => {
             toast.success("Votre mot de passe a été modifié avec succès. Vous pouvez désormais vous connectez avec votre nouveau mot de passe.");
             router.push('/connexion')
