@@ -12,11 +12,13 @@ declare global {
 const uploadPreset = "epbhod94";
 
 interface ImageUploadProps {
+  id? : any;
   onChange: (value: string) => void;
   value?: string;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
+  id,
   onChange,
   value
 }) => {
@@ -35,6 +37,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       {({ open }) => {
         return (
           <div
+            id={id}
             onClick={() => open?.()}
             style={{
                 position: 'relative',
@@ -57,7 +60,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           >
             <Image src={addImage} alt="add-image" height={25} width={25} />
             <div>
-              Click to upload
+              Cliquer pour télécharger une image
             </div>
             {value && (
               <div style={{

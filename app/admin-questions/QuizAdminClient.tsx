@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import BasicCard from '../components/BasicCard'
 import axios from 'axios'
+import { toast } from "react-hot-toast";
 
 interface QuizAdminClientProps {
   questions: any
@@ -17,7 +18,7 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
 
   const TogglePublish = async (questionId: string | number, status: any) => {
     const data = { "published": !status }
-    axios.put(`http://localhost:3000/api/question/${questionId}`, { data })
+    axios.put(`/api/question/${questionId}`, { data })
       .then((response) => {
         const updatedQuestion = response.data.data;
         const questionIndex = questions.findIndex((question: any) => question.id === updatedQuestion.id);
@@ -26,20 +27,20 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
           updatedQuestions[questionIndex] = updatedQuestion;
           setQuestionsData(updatedQuestions);
         }
-        alert(!status ? "le question est désormais visible" : "le question est désormais invisible");
+        toast.success(!status ? "La question est désormais dans le quiz." : "La question n'est désormais plus dans le quiz");
       })
       .catch(() => {
-        alert("une erreur s'est produite dans la requête");
+        toast.error("Une erreur s'est produite dans la requête.");
       })
   };
 
   const DeleteQuestion = async (questionId: string | number) => {
-    axios.delete(`http://localhost:3000/api/question/${questionId}`)
+    axios.delete(`/api/question/${questionId}`)
       .then(() => {
-        alert("ce question a été supprimer");
+        toast.success("Cette question a été supprimer.");
       })
       .catch(() => {
-        alert("une erreur s'est produite dans la requête");
+        toast.error("Une erreur s'est produite dans la requête.");
       })
   };
 

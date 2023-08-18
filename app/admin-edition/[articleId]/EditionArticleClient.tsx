@@ -16,8 +16,6 @@ import ImageUpload from "@/app/components/ImageUpload";
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
 
-
-
 interface EditionArticleClientProps {
     blogs: any,
     blog?: any,
@@ -51,7 +49,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
             "data": html && quillContent,
         }
 
-        axios.put(`http://localhost:3000/api/blog/${blog.id}`, { data })
+        axios.put(`/api/blog/${blog.id}`, { data })
             .then(() => {
                 toast.success("Votre article vient d'être sauvegarder.");
             })
@@ -111,16 +109,13 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
         if (quill == null) return;
         if (blog) quill.setContents(blog.data);
         if (!blog && !created) {
-            axios.post(`http://localhost:3000/api/blog`, blog.id)
+            axios.post(`/api/blog`)
                 .then(() => {
                     setCreated(true)
                 })
-            // dispatch(createBlog(blogId))
         }
         if (!dataFetch) {
-            // dispatch(getBlog(blogId));
             if (created) setTags(blog.tags)
-            // dispatch(getBlogs());
             setDataFetch(true)
         }
         quill.enable();
@@ -143,7 +138,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     <ImageUpload
                         onChange={(value) => setFile(value)}
-                        value={file}
+                        value={file ? file : blog?.imageUrl}
                     />
                 </div>
                 <br />
@@ -167,7 +162,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                     <Button
                         className="btn-30color"
                         onClick={() => {
-                            window.location.assign(`/article-admin`);
+                            window.location.assign(`/admin-articles`);
                         }}
                     >
                         Retour à la gestion des articles

@@ -16,9 +16,9 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
   const router = useRouter()
 
   const handleNewArticle = async () => {
-    axios.post(`http://localhost:3000/api/blog`)
+    axios.post(`/api/blog`)
       .then((response) => {
-        router.push(`/edition-article/${response.data.blogId}`)
+        router.push(`/admin-edition/${response.data.blogId}`)
       })
       .catch((error) => {
         console.log(error)
@@ -28,7 +28,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
 
   const TogglePublish = async (blogId: string | number, status: any) => {
     const data = { "published": !status }
-    axios.put(`http://localhost:3000/api/blog/${blogId}`, { data })
+    axios.put(`/api/blog/${blogId}`, { data })
       .then((response) => {
         const updatedBlog = response.data.data;
         const blogIndex = blogs.findIndex((blog: any) => blog.id === updatedBlog.id);
@@ -45,7 +45,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
   };
 
   const DeleteArticle = async (blogId: string) => {
-    axios.delete(`http://localhost:3000/api/blog/${blogId}`)
+    axios.delete(`/api/blog/${blogId}`)
       .then(() => {
         toast.success("Ce blog a été supprimer.");
       })
@@ -60,7 +60,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
       <h1>Gérer les articles</h1>
       <p>Ici changer la visibilité, jeter un oeil, modifier ou supprimer l&apos;un de vos articles.</p>
       <br />
-      <Button className="btn-30color" onClick={() => { handleNewArticle() }}>Écrire un nouveau article</Button>
+      <Button className="btn-10color" onClick={() => { handleNewArticle() }}>Écrire un nouveau article</Button>
       <hr />
       <div className="article-table">
         {Object.values(blogsData).map((blog: any) => {

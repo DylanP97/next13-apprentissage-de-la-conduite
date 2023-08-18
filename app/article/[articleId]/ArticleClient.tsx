@@ -15,7 +15,7 @@ interface ArticleClientProps {
 
 const ArticleClient: React.FC<ArticleClientProps> = ({ blog, isAdmin }) => {
 
-    const editLink = `/edition-article/${blog.id}`;
+    const editLink = `/admin-edition/${blog.id}`;
     var cfg = {};
     var converter = new QuillDeltaToHtmlConverter(blog?.data?.ops, cfg);
 

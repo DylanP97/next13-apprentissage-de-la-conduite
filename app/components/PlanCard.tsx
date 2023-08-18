@@ -36,7 +36,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
     }
 
     const handleClick = async (itemNumber: number) => {
-        axios.post(`http://localhost:3000/api/stripe`, transformToBody(itemNumber))
+        axios.post(`/api/stripe`, transformToBody(itemNumber))
             .then(response => {
                 const url = response.data.message
                 router.push(url)

@@ -1,12 +1,23 @@
 'use client'
 
+import axios from 'axios';
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { NavDropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 function NavBar({ isSubscribed, isAdmin, userId }: { isSubscribed: any, isAdmin: any, userId: any }) {
+
+    const router = useRouter();
+
+    const createBlog = () => {
+        axios.post(`/api/blog`)
+            .then((response) => {
+                router.push(`/admin-edition/${response.data.blogId}`)
+            })
+    }
 
     return (
         <Navbar className='navbar navbar-dark' expand="lg">
@@ -30,10 +41,10 @@ function NavBar({ isSubscribed, isAdmin, userId }: { isSubscribed: any, isAdmin:
                         {
                             isAdmin && (
                                 <NavDropdown className='nav-dropdown' title="Administrateur" >
-                                    <Nav.Link href="/edition-article">Écrire un nouvel article</Nav.Link>
-                                    <Nav.Link href="/article-admin">Gestion des articles</Nav.Link>
-                                    <Nav.Link href="/eleves-admin">Gestion des élèves</Nav.Link>
-                                    <Nav.Link href="/quiz-admin">Gestion des questions</Nav.Link>
+                                    <Nav.Link onClick={createBlog}>Écrire un nouvel article</Nav.Link>
+                                    <Nav.Link href="/admin-articles">Gestion des articles</Nav.Link>
+                                    <Nav.Link href="/admin-eleves">Gestion des élèves</Nav.Link>
+                                    <Nav.Link href="/admin-questions">Gestion des questions</Nav.Link>
                                 </NavDropdown>
                             )
                         }
