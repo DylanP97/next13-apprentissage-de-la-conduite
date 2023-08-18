@@ -65,21 +65,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: error.message, status: 500 });
   }
 }
-
-export async function handleStripeWebhook(request: Request) {
-  const payload = await request.text();
-  const sig = request.headers.get("Stripe-Signature");
-
-  try {
-    const event = stripe.webhooks.constructEvent(payload, sig, process.env.STRIPE_WEBHOOK_SECRET);
-
-    if (event.type === "checkout.session.completed") {
-      await handleCheckoutSessionCompleted(event.data.object);
-    }
-
-    return NextResponse.json({ message: "greeat" });
-  } catch (err: any) {
-    console.error("Webhook error:", err.message);
-    return NextResponse.json({ message: err.message });
-  }
-}

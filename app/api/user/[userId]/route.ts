@@ -1,3 +1,4 @@
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { mailValidAccepted, transporter } from "@/app/libs/transporter";
 import { NextResponse } from "next/server";
@@ -42,25 +43,27 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
   }
 }
 
-export async function DELETE({ params }: { params: IParams }) {
-  try {
-    const { userId } = params;
+export async function DELETE(
+  request: Request,
+  { params }: { params: IParams }
+) {
+  const currentUser = await getCurrentUser();
 
-    const user = await prisma.user.delete({
-      where: {
-        id: userId,
-      },
-    });
-
-    if (!user) {
-      return null;
-    }
-
-    return NextResponse.json({
-      message: "User successfully deleted",
-      status: 200,
-    });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message, status: 500 });
+  if (!currentUser) {
+    return NextResponse.error();
   }
+
+  const { userId } = params;
+
+  if (!userId || typeof userId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const user = await prisma.user.delete({
+    where: {
+      id: userId,
+    },
+  });
+
+  return NextResponse.json(user);
 }
