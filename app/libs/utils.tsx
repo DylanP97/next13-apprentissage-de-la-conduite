@@ -8,7 +8,6 @@ let options: object = {
   day: "numeric",
 };
 
-
 export const dateParser = (num: any) => {
   let timestamp = Date.parse(num);
   let date = new Date(timestamp).toLocaleDateString("fr-FR", options);

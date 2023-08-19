@@ -2,18 +2,15 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
 import { ArticleEditionSimpleInput } from "../../components/ArticleEditionSimpleInput";
 import { TagsEditor } from "../../components/TagsEditor";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import ImageResize from "quill-image-resize-module-react";
 import ImageUploader from "quill-image-uploader";
 import { TOOLBAR_OPTIONS } from "@/app/libs/utils";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import ImageUpload from "@/app/components/ImageUpload";
-Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/imageUploader", ImageUploader);
 
 interface EditionArticleClientProps {
@@ -25,7 +22,6 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
     const [title, setTitle] = useState<string | null>();
     const [slug, setSlug] = useState<string | null>();
     const [tags, setTags] = useState(blog?.tags || [""]);
-    const [blogPicture, setBlogPicture] = useState<any>();
     const [file, setFile] = useState<any>();
     const [html, setHtml] = useState<string | null>();
     const [quill, setQuill] = useState<Quill | null>(null);
@@ -67,9 +63,6 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
             theme: "snow",
             modules: {
                 toolbar: TOOLBAR_OPTIONS,
-                imageResize: {
-                    parchment: Quill.import("parchment"),
-                },
                 imageUploader: {
                     upload: (file: any) => {
                         return new Promise((resolve, reject) => {
@@ -131,10 +124,10 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
             <div className="settingsblog">
                 <ArticleEditionSimpleInput instruction="Choissisez un titre pour votre article" label="Titre" data={blog?.title} state={setTitle} />
                 <br />
-                <Form.Group>
+                <div>
                     Sélectionner des catégories pour votre article
                     <TagsEditor blogs={blogs} tags={tags} state={setTags} blogtags={blog?.tags} /><br />
-                </Form.Group>
+                </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     <ImageUpload
                         onChange={(value) => setFile(value)}
@@ -160,7 +153,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                         Voir l&apos;article
                     </Button>
                     <Button
-                        className="btn-30color"
+                        className="btn-60color"
                         onClick={() => {
                             window.location.assign(`/admin-articles`);
                         }}
@@ -168,9 +161,9 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                         Retour à la gestion des articles
                     </Button>
                 </div>
-                <Form.Label className="savezone">
+                <p className="savezone">
                     N&apos;oubliez pas de sauvegarder vos modifications.
-                </Form.Label>
+                </p>
                 <br />
                 <label style={{ display: "none" }} htmlFor="html"></label>
                 <br />
