@@ -2,7 +2,10 @@ import prisma from "@/app/libs/prismadb";
 
 export default async function getBlogs() {
   try {
+    const query: any = {};
+
     const blogs = await prisma.blog.findMany({
+      where: query,
       orderBy: {
         createdAt: "desc",
       },
