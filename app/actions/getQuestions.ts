@@ -2,7 +2,10 @@ import prisma from "@/app/libs/prismadb";
 
 export default async function getQuestions() {
   try {
+    const query: any = {};
+
     const questions = await prisma.question.findMany({
+      where: query,
       orderBy: {
         createdAt: "desc",
       },

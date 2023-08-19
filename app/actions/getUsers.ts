@@ -2,7 +2,11 @@ import prisma from "@/app/libs/prismadb";
 
 export default async function getUsers() {
   try {
-    const users = await prisma.user.findMany();
+    const query: any = {};
+
+    const users = await prisma.user.findMany({
+      where: query,
+    });
 
     const safeUsers = users.map((user: any) => ({
       ...user,
