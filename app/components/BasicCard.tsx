@@ -12,7 +12,7 @@ import blockUser from "@/public/icons/block-user.png";
 import checkUserWhite from "@/public/icons/check-user-white.png";
 
 import { dateParser } from '@/app/libs/utils';
-import { MDBSwitch, MDBModal, MDBModalBody } from 'mdb-react-ui-kit';
+import { MDBModal, MDBModalBody } from 'mdb-react-ui-kit';
 import CardEditionStep from './CardEditionStep';
 import Tooltip from './Tooltip';
 import Image from 'next/image';
@@ -30,8 +30,9 @@ interface BasicCardProps {
 
 const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleMethod2, deleteMethod }) => {
     const [edition, setEdition] = useState(false);
-
     const isMobile = window.innerWidth <= 768;
+
+    // console.log(data?.published && data.published)
 
     const handleNewQuestionClick = () => {
         setEdition(true);

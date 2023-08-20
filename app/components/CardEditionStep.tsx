@@ -22,16 +22,16 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
     const [question, setQuestion] = useState(data ? data.question : '');
     const [answers, setAnswers] = useState(data ? data.answers : []);
     const [correctAnswer, setCorrectAnswer] = useState(data ? data.correctAnswer : 0);
-    const [image, setImage] = useState(data ? data.imageUrl : '');
     const [file, setFile] = useState<any>();
     const [questionError, setQuestionError] = useState('');
     const [answersError, setAnswersError] = useState('');
-    const inputFileRef = useRef<HTMLInputElement | null>(null);
+    // const inputFileRef = useRef<HTMLInputElement | null>(null);
 
     const [editionStep, setEditionStep] = useState("question");
 
     let questionErrorEl = document.querySelector('#error-question');
     let answersErrorEl = document.querySelector('#error-answers');
+
 
     useEffect(() => {
         if (!question) {
@@ -115,9 +115,6 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
     };
 
     const handleDeleteAnswer = (index: number) => {
-
-        console.log(index)
-
         const updatedAnswers = [...answers];
         updatedAnswers.splice(index, 1);
         setAnswers(updatedAnswers);
@@ -183,25 +180,8 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
                         <ImageUpload
                             id={editionStep}
                             onChange={(value) => setFile(value)}
-                            value={file ? file : question?.imageUrl}
+                            value={file ? file : data?.imageUrl}
                         />
-                        {/* <label htmlFor="file">
-                            <p>Éditer ou ajouter une Image</p>
-                            <br />
-                            {image ? <Image className='current-question-img' src={image} alt="Your current question pic" width={1000} height={1000} onClick={() => inputFileRef.current && inputFileRef.current.click()} /> : <Image src={addImage} alt="" className='click-edit-image' style={{ width: "100px", height: "auto" }} onClick={() => inputFileRef.current && inputFileRef.current.click()} />}
-                            <input type="file" alt="image" name={editionStep} id={editionStep}
-                                lang="fr"
-                                accept=".jpg, .jpeg, .png"
-                                ref={inputFileRef}
-                                onChange={(event: any) => {
-                                    const file = event.target.files[0];
-                                    setFile(file);
-                                    setImage(URL.createObjectURL(file));
-                                }}
-                                style={{ display: "none" }}
-                            ></input>
-                        </label> */}
-
                     </div>
                 )
             }
@@ -211,14 +191,14 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
                     editionStep === "question" ? (
                         <button className='next-step' onClick={(() => handleCancelClick())} >Annuler</button>
                     ) : (
-                        editionStep !== "question" && <button className='next-step' onClick={(() => handleEditionStep("previous"))} >Précédent</button>
+                        editionStep !== "question" && <button className='next-step btn-30color' onClick={(() => handleEditionStep("previous"))} >Précédent</button>
                     )
                 }
                 {
                     editionStep === "image" ? (
-                        <button className='next-step' onClick={(() => handleSaveResponse())} >Valider</button>
+                        <button className='next-step btn-10color' onClick={(() => handleSaveResponse())} >Valider</button>
                     ) : (
-                        <button className='next-step' onClick={(() => handleEditionStep("next"))} >Suivant</button>
+                        <button className='next-step btn-10color' onClick={(() => handleEditionStep("next"))} >Suivant</button>
                     )
                 }
             </div>

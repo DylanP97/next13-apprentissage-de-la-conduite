@@ -395,13 +395,6 @@ footer a:hover {
   padding: 10px;
   margin: 0% 2%;
   border-radius: 5px;
-  border: 1px solid var(--30color);
-}
-.article-table .blog-card-edition .question-edition .next-step:hover {
-  background-color: var(--60color);
-  color: var(--30color);
-  border: 1px solid var(--30color);
-  transition: 300ms ease-in-out;
 }
 .article-table .blog-card {
   background-color: var(--60color);
@@ -566,7 +559,6 @@ ff .article-table .blog-card:hover .icon {
   top: 0;
   right: 0;
   height: 100%;
-  width: 100%;
   padding: 0% !important;
 }
 .intro-photo img {

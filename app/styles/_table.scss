@@ -161,14 +161,6 @@
                 padding: 10px;
                 margin: 0% 2%;
                 border-radius: 5px;
-                border: 1px solid var(--30color);
-
-                &:hover {
-                    background-color: var(--60color);
-                    color: var(--30color);
-                    border: 1px solid var(--30color);
-                    transition: 300ms ease-in-out;
-                }
             }
         }
     }
