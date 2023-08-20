@@ -151,7 +151,6 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
                         )
                       )
                     }
-                    <hr />
                     {
                       isAnswered && <Button className="btn-10color" onClick={(() => handleNewQuestionClick())}>{availableQuestions.length === 0 ? "Voir mes scores" : "Question suivante"}</Button>
                     }

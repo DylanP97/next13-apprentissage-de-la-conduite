@@ -14,7 +14,7 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
     const currentUser = await getCurrentUser();
     const isAdmin = currentUser?.isAdmin;
 
-    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed) {
+    if (!currentUser || (!currentUser?.isAccepted && !currentUser?.isAdmin) || !currentUser?.isSubscribed) {
         redirect("/");
     }
 

@@ -13,17 +13,17 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
   const [questionsData, setQuestionsData] = useState(questions)
 
   useEffect(() => {
-    setQuestionsData(questions)
-  }, [questions]);
+    setQuestionsData(questionsData)
+  }, [questionsData]);
 
   const TogglePublish = async (questionId: string | number, status: any) => {
     const data = { "published": !status }
     axios.put(`/api/question/${questionId}`, { data })
       .then((response) => {
         const updatedQuestion = response.data.data;
-        const questionIndex = questions.findIndex((question: any) => question.id === updatedQuestion.id);
+        const questionIndex = questionsData.findIndex((question: any) => question.id === updatedQuestion.id);
         if (questionIndex !== -1) {
-          const updatedQuestions = [...questions];
+          const updatedQuestions = [...questionsData];
           updatedQuestions[questionIndex] = updatedQuestion;
           setQuestionsData(updatedQuestions);
         }
@@ -55,6 +55,7 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
           type='createQuestion'
         />
         {questionsData && Object.values(questionsData).map((question: any) => {
+
           return (
             <BasicCard
               key={question.id}

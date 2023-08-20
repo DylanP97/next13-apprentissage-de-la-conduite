@@ -3,7 +3,7 @@
 import { Button } from "react-bootstrap";
 import BasicCard from "../components/BasicCard";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
@@ -14,6 +14,10 @@ interface ArticleAdminClientProps {
 const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
   const [blogsData, setBlogsData] = useState(blogs)
   const router = useRouter()
+
+  useEffect(() => {
+    setBlogsData(blogsData)
+  }, [blogsData]);
 
   const handleNewArticle = async () => {
     axios.post(`/api/blog`)
@@ -31,9 +35,9 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
     axios.put(`/api/blog/${blogId}`, { data })
       .then((response) => {
         const updatedBlog = response.data.data;
-        const blogIndex = blogs.findIndex((blog: any) => blog.id === updatedBlog.id);
+        const blogIndex = blogsData.findIndex((blog: any) => blog.id === updatedBlog.id);
         if (blogIndex !== -1) {
-          const updatedBlogs = [...blogs];
+          const updatedBlogs = [...blogsData];
           updatedBlogs[blogIndex] = updatedBlog;
           setBlogsData(updatedBlogs);
         }
