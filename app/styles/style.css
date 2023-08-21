@@ -401,7 +401,7 @@ footer a:hover {
   color: var(--30color);
   outline: var(--30color) 1px solid;
   width: 350px;
-  height: 250px;
+  height: 270px;
   border-radius: 15px;
   padding: 1rem;
   margin: 1rem;
@@ -1069,9 +1069,11 @@ nav {
   background-color: var(--30color);
   color: var(--60color);
 }
-.badge-tag.not-active:hover {
-  background-color: var(--10color);
-  color: var(--60color);
+@media (min-width: 768px) {
+  .badge-tag.not-active:hover {
+    background-color: var(--10color);
+    color: var(--60color);
+  }
 }
 
 .new-tag {

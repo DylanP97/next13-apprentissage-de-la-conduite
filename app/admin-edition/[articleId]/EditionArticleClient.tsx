@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { ArticleEditionSimpleInput } from "../../components/ArticleEditionSimpleInput";
 import { TagsEditor } from "../../components/TagsEditor";
 import { toast } from "react-hot-toast";
@@ -21,6 +21,7 @@ interface EditionArticleClientProps {
 const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog }) => {
     const [title, setTitle] = useState<string | null>();
     const [slug, setSlug] = useState<string | null>();
+    const [published, setPublished] = useState<boolean>(blog.published || false);
     const [tags, setTags] = useState(blog?.tags || [""]);
     const [file, setFile] = useState<any>();
     const [html, setHtml] = useState<string | null>();
@@ -39,7 +40,8 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
 
         const data = {
             "title": title ? title : blog?.title,
-            "slug" : slug || blog?.slug,
+            "slug": slug || blog?.slug,
+            "published": published,
             "tags": tags ? tags : blog?.tags,
             "imageUrl": file && file,
             "data": html && quillContent,
@@ -122,19 +124,26 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
     return (
         <div className="createblog">
             <div className="settingsblog">
-                <ArticleEditionSimpleInput instruction="Choissisez un titre pour votre article" label="Titre" data={blog?.title} state={setTitle} />
+                <ArticleEditionSimpleInput instruction="Choisissez un titre pour votre article" label="Titre" data={blog?.title} state={setTitle} />
                 <br />
                 <div>
                     Sélectionner des catégories pour votre article
                     <TagsEditor blogs={blogs} tags={tags} state={setTags} blogtags={blog?.tags} /><br />
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Form.Label>Choisissez la photo de couverture</Form.Label>
                     <ImageUpload
                         onChange={(value) => setFile(value)}
                         value={file ? file : blog?.imageUrl}
                     />
                 </div>
                 <br />
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Form.Label>Visibilité de votre article : {published ? "Article Publié" : "Non visible"}</Form.Label>
+                    <Button style={{ maxWidth : "350px", textAlign : "left"}} className="btn-30color" onClick={(() => setPublished(!published))}>{published ? 'Cliquez pour le rendre invisible aux utilisateurs' : 'Cliquez pour le rendre disponible aux utilisateurs.'}</Button>
+                </div>
+                <br />
+                <p className="savezone">N&apos;oubliez pas de sauvegarder vos modifications.</p>
                 <div>
                     <Button
                         className="btn-10color"
@@ -161,9 +170,6 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                         Retour à la gestion des articles
                     </Button>
                 </div>
-                <p className="savezone">
-                    N&apos;oubliez pas de sauvegarder vos modifications.
-                </p>
                 <br />
                 <label style={{ display: "none" }} htmlFor="html"></label>
                 <br />

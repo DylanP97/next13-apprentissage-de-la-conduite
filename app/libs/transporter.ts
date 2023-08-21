@@ -44,7 +44,7 @@ export const resetPasswordLink = (email: string, token: any) => {
     text:
       "Vous recevez ceci parce que vous (ou quelqu'un d'autre) avez demandé la réinitialisation du mot de passe de votre compte.\n\n" +
       "Veuillez cliquer sur le lien suivant ou le coller dans votre navigateur pour terminer le processus :\n\n" +
-      `${process.env.FRONTEND_URL}/reset/${token}` +
+      `${process.env.BASE_URL}reset/${token}` +
       " " +
       "Si vous ne l'avez pas demandé, veuillez ignorer cet e-mail et votre mot de passe restera inchangé.\n",
   };
@@ -82,7 +82,7 @@ export const mailValidAccepted = (email: string, firstName: string) => {
     subject: `Bonjour ${firstName}, votre inscription a été validé`,
     html: ` <div>
                 <h3 style="padding: 20px; width: 100%">Votre demande d'inscription vient d'être valider</h3>
-                <p>Vous pouvez désormais poursuivre votre inscription en sélectionnant votre abonnement sur cette page ${process.env.FRONTEND_URL}/abonnement </p>
+                <p>Vous pouvez désormais poursuivre votre inscription en sélectionnant votre abonnement sur cette page ${process.env.BASE_URL}abonnement </p>
               </div>`,
   };
 };
