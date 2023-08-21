@@ -55,7 +55,6 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
           type='createQuestion'
         />
         {questionsData && Object.values(questionsData).map((question: any) => {
-
           return (
             <BasicCard
               key={question.id}

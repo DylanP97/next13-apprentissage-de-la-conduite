@@ -1,24 +1,7 @@
-import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 import subscriptionPlans from "@/app/libs/subscriptionPlans";
-
-const handleCheckoutSessionCompleted = async (session: { id: any; metadata: { plan_id: any; id: any; }; }) => {
-  console.log("Checkout session completed:", session.id);
-  
-  const planId = session.metadata.plan_id;
-  await prisma.user.update({
-    where: {
-      id: session.metadata.id,
-    },
-    data: {
-      isSubscribed: true,
-      subscriptionPlan: planId,
-    },
-  });
-  
-  console.log("User subscription updated:", session.metadata.id);
-};
+import handleEvent from "./handleEvent";
 
 export async function POST(request: Request) {
   try {
@@ -29,35 +12,19 @@ export async function POST(request: Request) {
       payment_method_types: ["card"],
       mode: "subscription",
       line_items: items.map((item: { id: number; quantity: any }) => {
-        console.log(items)
         const storeItem = subscriptionPlans.get(item.id);
         return {
           price: storeItem?.productId,
           quantity: item.quantity,
         };
       }),
-      success_url: `http://localhost:3000/`,
-      cancel_url: `http://localhost:3000/`,
+      success_url: process.env.BASE_URL,
+      cancel_url: process.env.BASE_URL,
       metadata: {
         plan_id: items[0].id,
         id: userId,
       },
-    });
-
-    // stripe.on("checkout.session.completed", async (session: any) => {
-    //   console.log("welcome to he");
-    //   const planId = session.metadata.plan_id;
-    //   await prisma.user.update({
-    //     where: {
-    //       id: session.metadata.id,
-    //     },
-    //     data: {
-    //       isSubscribed: true,
-    //       subscriptionPlan: planId,
-    //     },
-    //   });
-    //   console.log("User subscription updated:", session.metadata.id);
-    // });
+    })
 
     return NextResponse.json({ message: session.url, status: 200 });
   } catch (error: any) {
@@ -65,3 +32,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: error.message, status: 500 });
   }
 }
+
+// stripe.on('payment_pages.submit_payment.success', () => {
+//   handleEvent(session, session.metadata.plan_id)
+// })
+
+// stripe.on('submit_payment.success', () => {
+//   handleEvent(session, session.metadata.plan_id)
+// })

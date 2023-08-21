@@ -30,7 +30,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
       })
   }
 
-  const TogglePublish = async (blogId: string | number, status: any) => {
+  const togglePublish = async (blogId: string | number, status: any) => {
     const data = { "published": !status }
     axios.put(`/api/blog/${blogId}`, { data })
       .then((response) => {
@@ -48,9 +48,15 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
       })
   };
 
-  const DeleteArticle = async (blogId: string) => {
+  const deleteArticle = async (blogId: string) => {
     axios.delete(`/api/blog/${blogId}`)
       .then(() => {
+        const blogIndex = blogsData.findIndex((blog: any) => blog.id === blogId);
+        if (blogIndex !== -1) {
+          let updatedBlogs = [...blogsData];
+          delete updatedBlogs[blogIndex]
+          setBlogsData(updatedBlogs);
+        }
         toast.success("Ce blog a été supprimer.");
       })
       .catch(() => {
@@ -69,7 +75,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
       <div className="article-table">
         {Object.values(blogsData).map((blog: any) => {
           return (
-            <BasicCard key={blog.id} data={blog} type="article" toggleMethod={TogglePublish} deleteMethod={DeleteArticle} />
+            <BasicCard key={blog.id} data={blog} type="article" toggleMethod={togglePublish} deleteMethod={deleteArticle} />
           )
         })}
       </div>

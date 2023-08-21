@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from "axios";
 import BasicCard from '../components/BasicCard';
 import { toast } from "react-hot-toast";
@@ -14,7 +14,11 @@ const ElevesAdminClient: React.FC<ElevesAdminClientProps> = ({
 }) => {
   const [usersData, setUsersData] = useState(users);
 
-  const ToggleAccept = async (userId: number | string, status: any, email: string, firstName: string) => {
+  useEffect(() => {
+    setUsersData(usersData)
+  }, [usersData]);
+
+  const toggleAccept = async (userId: number | string, status: any, email: string, firstName: string) => {
     const data = { 'firstName': firstName, 'email': email, 'isAccepted': !status };
     axios.put(`/api/user/${userId}`, { data })
       .then(() => {
@@ -25,7 +29,7 @@ const ElevesAdminClient: React.FC<ElevesAdminClientProps> = ({
       })
   }
 
-  const ToggleAdmin = async (userId: number | string, status: any) => {
+  const toggleAdmin = async (userId: number | string, status: any) => {
     const data = { 'isAdmin': !status };
     axios.put(`/api/user/${userId}`, { data })
       .then(() => {
@@ -36,7 +40,7 @@ const ElevesAdminClient: React.FC<ElevesAdminClientProps> = ({
       })
   }
 
-  const HandleDelete = async (userId: number | string) => {
+  const handleDelete = async (userId: number | string) => {
     axios.delete(`/api/user/${userId}`)
       .then(() => {
         toast.success("L'utilisateur vient d'être supprimé.")
@@ -54,13 +58,15 @@ const ElevesAdminClient: React.FC<ElevesAdminClientProps> = ({
       <hr />
       <br />
       <div className="article-table">
-        {Object.values(usersData)?.map((user: any, index: number) => {
+        {usersData && Object.values(usersData)?.map((user: any) => {
           return (
             <BasicCard
               key={user.id}
               type='user'
               data={user}
-              deleteMethod={HandleDelete}
+              toggleMethod={toggleAccept}
+              toggleMethod2={toggleAdmin}
+              deleteMethod={handleDelete}
             />
           )
         })}

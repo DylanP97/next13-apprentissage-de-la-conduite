@@ -32,8 +32,6 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
     const [edition, setEdition] = useState(false);
     const isMobile = window.innerWidth <= 768;
 
-    // console.log(data?.published && data.published)
-
     const handleNewQuestionClick = () => {
         setEdition(true);
     }
@@ -56,7 +54,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                 <div className="">
                     <p>{data.email}</p>
                     {!data.isAdmin ? data.isAccepted ? <p>Inscription validée</p> : <p>Inscription non validée</p> : null}
-                    {data.isAdmin ? <p>Rôle Administrateur</p> : <p>{getSubscriptionLabel(data.subscriptionPlan)}</p>}
+                    {data.isAdmin ? <p>Rôle Administrateur 👨🏻‍🔧</p> : <p>{getSubscriptionLabel(data.subscriptionPlan)}</p>}
                 </div>
                 <br />
                 {
@@ -64,7 +62,7 @@ const BasicCard: React.FC<BasicCardProps> = ({ type, data, toggleMethod, toggleM
                         <>
                             {
                                 !data.isAccepted && <Button onClick={() => {
-                                    toggleMethod && toggleMethod(data.id, data.isAccepted);
+                                    toggleMethod && toggleMethod(data.id, data.isAccepted, data.email, data.firstName || data.name);
                                 }}>{data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'utilistateur"}</Button>
                             }{
                                 <Button onClick={() => {

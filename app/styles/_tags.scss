@@ -11,7 +11,7 @@
     padding: 1% !important;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 10px; 
+    border-radius: 10px;
 }
 
 .badge-tag.active-tag {
@@ -22,9 +22,11 @@
     background-color: var(--30color);
     color: var(--60color);
 
-    &:hover {
-        background-color: var(--10color);
-        color: var(--60color);
+    @media (min-width: 768px) {
+        &:hover {
+            background-color: var(--10color);
+            color: var(--60color);
+        }
     }
 }
 
@@ -37,7 +39,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+
     & input {
         border: 0px;
         outline: 0px;
