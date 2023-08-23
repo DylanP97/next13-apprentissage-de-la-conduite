@@ -23,6 +23,14 @@ const subscriptionPlans = new Map([
       productId: "price_1NhUlaFgJQlKBjkeZoDffJCX",
     },
   ],
+  [
+    4,
+    {
+      priceInCents: 0,
+      name: "Abonnement gratuit TEST",
+      productId: "price_1NiFelFgJQlKBjkejswrgodG",
+    },
+  ],
 ]);
 
 export default subscriptionPlans;
