@@ -1,8 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 import { buffer } from 'micro'
 
-export const config = { api: { bodyParser: false } }
-
 const handler = async (req: any, res: any) => {
   const signature = req.headers["stripe-signature"];
   const signingSecret = process.env.STRIPE_SIGNING_SECRET;
