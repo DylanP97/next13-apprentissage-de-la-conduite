@@ -42,23 +42,24 @@ export async function POST(request: Request) {
 //   handleEvent(session, session.metadata.plan_id)
 // })
 
-export const config = { api: { bodyParser: false } };
+// export const runtime = 'nodejs'
 
-export const handler = async (req: any, res: any) => {
-  const text = await req.text();
-  const signature = req.headers["stripe-signature"];
-  const signingSecret = process.env.STRIPE_SIGNING_SECRET;
-  const reqBuffer = await buffer(text);
+// export const config = { api: { bodyParser: false}};
 
-  let event;
+// export const handler = async (req: any, res: any) => {
+//   const signature = req.headers["stripe-signature"];
+//   const signingSecret = process.env.STRIPE_SIGNING_SECRET;
+//   const reqBuffer = await buffer(req);
 
-  try {
-    event = stripe.webhooks.constructEvent(text, signature, signingSecret);
-  } catch (error: any) {
-    return res.status(400).send(`Webhook error: ${error?.message}`);
-  }
+//   let event;
 
-  console.log({ event });
+//   try {
+//     event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret);
+//   } catch (error: any) {
+//     return res.status(400).send(`Webhook error: ${error?.message}`);
+//   }
 
-  res.send({ received: true });
-};
+//   console.log({ event });
+
+//   res.send({ received: true });
+// };
