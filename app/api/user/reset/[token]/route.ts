@@ -38,9 +38,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       return null;
     }
 
-    const mail = passwordSuccesfullyChanged(email);
-
-    await transporter.sendMail(mail, (error: any, info: any) => {
+    await transporter.sendMail(passwordSuccesfullyChanged(email), (error: any, info: any) => {
       if (error) throw new Error();
     });
 

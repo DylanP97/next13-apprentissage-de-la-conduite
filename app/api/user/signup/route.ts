@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb";
 import validator from "validator";
+import { transporter, newSignUpRequest, signUpRequestReceived} from "@/app/libs/transporter"
 
 const { ObjectId } = require("mongodb");
 
@@ -41,6 +42,14 @@ export async function POST(request: Request) {
         hashedPassword,
       },
     });
+
+    await transporter.sendMail(newSignUpRequest(email, firstName, lastName), function (error: any) {
+      if (error) return NextResponse.error();
+    });
+    
+    await transporter.sendMail(signUpRequestReceived(email, firstName), function (error: any) {
+      if (error) return NextResponse.error();
+    });  
 
     return NextResponse.json(user);
   } catch (error) {

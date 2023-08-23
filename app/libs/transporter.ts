@@ -8,12 +8,16 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-export const newSignUpRequest = (email: string, firstName: string, lastName: string) => {
+export const newSignUpRequest = (
+  email: string,
+  firstName: string,
+  lastName?: string
+) => {
   return {
     from: `${email}`,
     to: `${process.env.GMAIL_USER}`,
-    subject: `Nouvelle demande d'inscription de ${firstName} ${lastName}`,
-    html: ` <div>
+    subject: `Nouvelle demande d'inscription de ${firstName} ${lastName && lastName}`,
+    html: `<div>
                 <h3>Un utilisateur a fait une demande d'inscription :</h3>
                 <div style="padding: 20px">
                   <p style="margin: 0px 0px 5px 0px">${firstName} ${lastName}</p>
@@ -29,9 +33,21 @@ export const signUpRequestReceived = (email: string, firstName: string) => {
     from: `${process.env.GMAIL_USER}`,
     to: `${email}`,
     subject: `Bonjour ${firstName}! Votre demande d'inscription a bien été reçue`,
-    html: ` <div>
+    html: `<div>
                 <p>Votre demande d'inscription a bien été reçue.
                 Nous reviendrons très rapidement vers vous pour valider votre inscription.</p>
+              </div>`,
+  };
+};
+
+export const signUpRequestAccepted = (email: string, firstName: string) => {
+  return {
+    from: `${process.env.GMAIL_USER}`,
+    to: `${email}`,
+    subject: `Bonjour ${firstName}, votre inscription a été validé`,
+    html: `<div>
+                <h3 style="padding: 20px; width: 100%">Votre demande d'inscription vient d'être valider</h3>
+                <p>Vous pouvez désormais poursuivre votre inscription en sélectionnant votre abonnement sur cette page ${process.env.BASE_URL}abonnement </p>
               </div>`,
   };
 };
@@ -62,7 +78,11 @@ export const passwordSuccesfullyChanged = (email: string) => {
   };
 };
 
-export const contactMail = (email: string, firstName: string, message: string) => {
+export const contactMail = (
+  email: string,
+  firstName: string,
+  message: string
+) => {
   return {
     from: `${email}`,
     to: `${process.env.GMAIL_USER}`,
@@ -72,17 +92,5 @@ export const contactMail = (email: string, firstName: string, message: string) =
               <br/>
               <p>${message}</p>
             </div>`,
-  };
-};
-
-export const mailValidAccepted = (email: string, firstName: string) => {
-  return {
-    from: `${process.env.GMAIL_USER}`,
-    to: `${email}`,
-    subject: `Bonjour ${firstName}, votre inscription a été validé`,
-    html: ` <div>
-                <h3 style="padding: 20px; width: 100%">Votre demande d'inscription vient d'être valider</h3>
-                <p>Vous pouvez désormais poursuivre votre inscription en sélectionnant votre abonnement sur cette page ${process.env.BASE_URL}abonnement </p>
-              </div>`,
   };
 };
