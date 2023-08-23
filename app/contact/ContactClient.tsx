@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 interface ContactClientProps {
   currentUser: any
@@ -15,16 +16,17 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
   const firstName = currentUser.firstName ? currentUser.firstName : currentUser.name
   const email = currentUser.email
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSend = async () => {
     const data = { firstName, email, message }
     
     axios.post(`/api/contact`, { data })
       .then((res) => {
-        console.log(res)
         var success: any = document.getElementById('success-message')
         success.style.display = 'block'
         success.innerHTML = "<p>Votre message a bien été envoyé! Vous pouvez retourner à la page d'accueil</p>"
+        router.push('/')
       })
       .catch((err) => {
         console.log(err)
