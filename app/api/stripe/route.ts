@@ -45,14 +45,15 @@ export async function POST(request: Request) {
 export const config = { api: { bodyParser: false } };
 
 export const handler = async (req: any, res: any) => {
+  const text = await req.text();
   const signature = req.headers["stripe-signature"];
   const signingSecret = process.env.STRIPE_SIGNING_SECRET;
-  const reqBuffer = await buffer(req);
+  const reqBuffer = await buffer(text);
 
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret);
+    event = stripe.webhooks.constructEvent(text, signature, signingSecret);
   } catch (error: any) {
     return res.status(400).send(`Webhook error: ${error?.message}`);
   }
