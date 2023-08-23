@@ -1,6 +1,6 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
-import { mailValidAccepted, transporter } from "@/app/libs/transporter";
+import { signUpRequestAccepted, transporter } from "@/app/libs/transporter";
 import { NextResponse } from "next/server";
 
 interface IParams {
@@ -25,7 +25,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     }
 
     if (data.isAccepted) {
-      const mail = mailValidAccepted(data.email, data.firstName);
+      const mail = signUpRequestAccepted(data.email, data.firstName);
 
       await transporter.sendMail(mail, function (error: any) {
         if (error) {
