@@ -38,6 +38,13 @@ const Subscription = ({ currentUser }: { currentUser: any }) => {
                     features={['Accès illimité aux articles et vidéos', 'Conseils personnalisés de nos experts', 'Support prioritaire']}
                     userId={currentUser.id}
                 />
+                <PlanCard
+                    label='Abonnement Test'
+                    priceLabel={"0€"}
+                    planId={4}
+                    features={['Accès illimité aux articles et vidéos', 'Conseils personnalisés de nos experts', 'Support prioritaire']}
+                    userId={currentUser.id}
+                />
             </section>
         </Col>
 
