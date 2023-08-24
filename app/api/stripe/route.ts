@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 // export const runtime = 'nodejs'
 // export const config = { api: { bodyParser: false}};
 
-export const handler = async (req: any, res: any) => {
+export default async function handler(req: any, res: any) {
   const signature = req.headers["stripe-signature"];
   const signingSecret = process.env.STRIPE_SIGNING_SECRET;
   const reqBuffer = await buffer(req);
