@@ -4,6 +4,24 @@ import subscriptionPlans from "@/app/libs/subscriptionPlans";
 import handleEvent from "./handleEvent";
 import { buffer } from "micro";
 
+
+export default async function handler(req: any, res: any) {
+  const signature = req.headers["stripe-signature"];
+  const signingSecret = process.env.STRIPE_SIGNING_SECRET;
+  const reqBuffer = await buffer(req);
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret);
+  } catch (error: any) {
+    return res.status(400).send(`Webhook error: ${error?.message}`);
+  }
+
+  console.log({ event });
+  res.send({ received: true });
+};
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -44,20 +62,3 @@ export async function POST(request: Request) {
 
 // export const runtime = 'nodejs'
 // export const config = { api: { bodyParser: false}};
-
-export default async function handler(req: any, res: any) {
-  const signature = req.headers["stripe-signature"];
-  const signingSecret = process.env.STRIPE_SIGNING_SECRET;
-  const reqBuffer = await buffer(req);
-
-  let event;
-
-  try {
-    event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret);
-  } catch (error: any) {
-    return res.status(400).send(`Webhook error: ${error?.message}`);
-  }
-
-  console.log({ event });
-  res.send({ received: true });
-};
