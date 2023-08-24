@@ -2,11 +2,11 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 import { buffer } from "micro";
 import { NextResponse } from "next/server";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 export async function POST(req: any, res: any) {
   const signature = req.headers["stripe-signature"];
