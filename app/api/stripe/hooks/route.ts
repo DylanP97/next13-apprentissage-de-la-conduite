@@ -1,8 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 import { buffer } from "micro";
-import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: any, res: any) {
     const signature = req.headers["stripe-signature"];
     const signingSecret = process.env.STRIPE_SIGNING_SECRET;
     const reqBuffer = await buffer(req);
@@ -16,5 +15,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   
     console.log({ event });
-    res.send({ received: true });
+    res.send({ received: true, status: 200 });
   };
