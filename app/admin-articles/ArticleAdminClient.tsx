@@ -44,6 +44,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
         toast.success(!status ? "Le blog est désormais visible." : "Le blog est désormais invisible.");
       })
       .catch((error) => {
+        console.log(error)
         toast.error("Une erreur s'est produite dans la requête.");
       })
   };
@@ -54,8 +55,8 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
         const blogIndex = blogsData.findIndex((blog: any) => blog.id === blogId);
         if (blogIndex !== -1) {
           let updatedBlogs = [...blogsData];
-          delete updatedBlogs[blogIndex]
-          setBlogsData(updatedBlogs);
+          const newUpdatedBlogs = updatedBlogs.filter((_, index) => index !== blogIndex);
+          setBlogsData(newUpdatedBlogs);
         }
         toast.success("Ce blog a été supprimer.");
       })
@@ -69,6 +70,8 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
     <div className="home-container">
       <h1>Gérer les articles</h1>
       <p>Ici changer la visibilité, jeter un oeil, modifier ou supprimer l&apos;un de vos articles.</p>
+      <p>Nombre total d&apos;articles actuellement : {blogsData.length}</p>
+      <p>Nombre d&apos;articles visibles aux élèves : {blogsData.filter((blog: any) => blog.published).length}</p>
       <br />
       <Button className="btn-10color" onClick={() => { handleNewArticle() }}>Écrire un nouveau article</Button>
       <hr />

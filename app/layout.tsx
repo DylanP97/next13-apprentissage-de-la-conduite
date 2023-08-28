@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import ClientOnly from './components/ClientOnly'
-
 import ToasterProvider from '@/app/providers/ToasterProvider';
 
 const inter = Inter({ subsets: ['latin'] })

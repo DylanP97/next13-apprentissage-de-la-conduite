@@ -20,6 +20,3 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
 }
  
 export default ErrorState;
-
-
-
