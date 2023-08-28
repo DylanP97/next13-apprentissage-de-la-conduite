@@ -1,11 +1,10 @@
 'use client'
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import ButtonBootstrap from "react-bootstrap/Button"
-import "bootstrap/dist/css/bootstrap.min.css";
 import { FloatingLabel, InputGroup } from "react-bootstrap";
 import axios from "axios";
 import photo1 from "@/public/images/retroviseur.jpg";

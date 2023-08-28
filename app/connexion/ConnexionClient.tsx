@@ -2,7 +2,6 @@
 'use client'
 
 import { Col, Form, InputGroup, FloatingLabel } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import photo1 from "@/public/images/categoriespermis.jpg";
 import view from "@/public/icons/view.png";
 import ButtonBootstrap from "react-bootstrap/Button"

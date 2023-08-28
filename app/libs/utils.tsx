@@ -1,7 +1,7 @@
 import view from "@/public/icons/view.png";
 import hidden from "@/public/icons/hidden.png";
 
-let options: object = {
+const options: object = {
   weekday: "short",
   year: "numeric",
   month: "short",
@@ -17,7 +17,7 @@ export const dateParser = (num: any) => {
 export const timestampParser = (num: any) => {
   let date = new Date(num).toLocaleDateString("fr-FR", options);
   return date.toString();
-}
+};
 
 export const isEmpty = (value: any) => {
   return (
@@ -28,8 +28,7 @@ export const isEmpty = (value: any) => {
   );
 };
 
-export const getSubscriptionLabel = (subcriptionPlan: any) => {
-
+export const getSubscriptionLabel = (subcriptionPlan: number) => {
   switch (subcriptionPlan) {
     case 1:
       return "Abonnement 1 mois";
@@ -38,11 +37,11 @@ export const getSubscriptionLabel = (subcriptionPlan: any) => {
     case 3:
       return "Abonnement 6 mois";
     case 4:
-      return "Test";
+      return "Abonnement gratuit";
     default:
       return "N'a pas souscrit à un abonnement";
   }
-}
+};
 
 export const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],

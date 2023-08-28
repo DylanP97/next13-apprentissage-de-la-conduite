@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HomeCard } from "./HomeCard";
 import HomeGreeting from "./HomeGreeting";
 import { TagsEditor } from "./TagsEditor";
@@ -11,21 +11,7 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
-  // const [count, setCount] = useState(9);
-  // const [data, setData] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
-  // const loadMore = () => {
-  //   if (window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight) {
-  //     setLoadPost(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //     // setCount(count + 6);
-  //   }
-  //   //     window.addEventListener('scroll', loadMore);
-  //   //     return () => window.removeEventListener('scroll', loadMore);
 
   return (
     <main className="home-container">
@@ -59,3 +45,18 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
 }
 
 export default HomePage;
+
+  // const [count, setCount] = useState(9);
+  // const [data, setData] = useState(false);
+  
+  // const loadMore = () => {
+  //   if (window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight) {
+  //     setLoadPost(true);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //     // setCount(count + 6);
+  //   }
+  //   //     window.addEventListener('scroll', loadMore);
+  //   //     return () => window.removeEventListener('scroll', loadMore);

@@ -1,10 +1,7 @@
 'use client'
 
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Col, Row, Button } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 import photo1 from '@/public/images/conduite.jpeg'
-import car from '@/public/images/car.png'
 import Image from 'next/image';
 
 function Intro() {

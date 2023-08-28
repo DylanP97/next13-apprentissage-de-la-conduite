@@ -8,8 +8,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { items, userId } = body;
 
+    stripe.locale = 'fr'
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
+      locale: 'fr',
       mode: "subscription",
       line_items: items.map((item: { id: number; quantity: any }) => {
         const storeItem = subscriptionPlans.get(item.id);

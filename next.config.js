@@ -5,6 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   module.exports = withBundleAnalyzer({
     experimental: {
       appDir: true,
+      forceSwcTransforms: true,
     },
     images: {
       domains: [
@@ -14,4 +15,3 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
       ]
     },
   })
-  
