@@ -9,7 +9,11 @@ const ArticleAdminPage = async () => {
     const blogs = await getBlogs();
     const currentUser = await getCurrentUser();
 
-    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
+    if (!currentUser) {
+        redirect("/");
+    }
+
+    if (!currentUser?.isAdmin) {
         redirect("/");
     }
 

@@ -16,7 +16,11 @@ const EditionArticlePage = async ({ params }: { params: IParams }) => {
     const blog = await getBlogById(params);
     const currentUser = await getCurrentUser();
 
-    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
+    if (!currentUser) {
+        redirect("/");
+    }
+
+    if (!currentUser.isAdmin) {
         redirect("/");
     }
 

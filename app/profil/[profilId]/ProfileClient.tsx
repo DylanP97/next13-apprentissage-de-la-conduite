@@ -37,14 +37,22 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
     }
   }
 
+  const handleDelete = async (userId: number | string) => {
+    axios.delete(`/api/user/${userId}`)
+      .then(() => {
+        toast.success("Votre compte vient d'être supprimé.")
+        router.push("/")
+      })
+      .catch((error) => {
+        toast.error("Il y a eu une erreur.")
+        console.log(error.message)
+      })
+  }
+
   return (
     <section className="home-container">
-      <h1>Bienvenue sur votre profil {currentUser.firstName}</h1><br />
-      <p>Voici vos informations</p>
-      <p>{currentUser.firstName} {currentUser.lastName}</p>
-      <p>{currentUser.email}</p>
-      <br />
-      <hr />
+      <h1>{currentUser.firstName ? currentUser.firstName : currentUser.name}</h1><br />
+      <p>Votre adresse email : {currentUser.email}</p>
       {
         !currentUser.isAdmin ? (
           <div>
@@ -53,8 +61,10 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
             <br />
             <Button className='btn-30color' onClick={(() => cancelSubscription(currentUser.id))}>Suspendre mon abonnement</Button><br />
           </div>
-        ) : (<p>Vous êtes administrateur. Vous pouvez créer, modifier, supprimer des articles et également gérer les utilisateurs.</p>)
+        ) : (<p>Vous avez un rôle administrateur. Vous pouvez créer, modifier, supprimer des articles et également gérer les utilisateurs.</p>)
       }
+      <hr />
+      <Button onClick={(() => handleDelete(currentUser.id))} className='btn-30color'>Supprimer mon compte</Button>
     </section>
   )
 }

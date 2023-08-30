@@ -715,6 +715,13 @@ nav {
 
 .dropdown-menu {
   background-color: var(--60color) !important;
+  margin: 0 !important;
+}
+@media (min-width: 768px) {
+  .dropdown-menu a:hover {
+    background-color: var(--10color) !important;
+    color: var(--60color) !important;
+  }
 }
 
 @media (max-width: 768px) {

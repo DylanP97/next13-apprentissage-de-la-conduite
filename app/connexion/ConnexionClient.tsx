@@ -40,6 +40,9 @@ function ConnexionClient() {
                 redirect: false,
             })
                 .then((callback) => {
+
+                    console.log(callback)
+
                     if (callback?.ok) {
                         toast.success('En route !');
                         router.refresh();
@@ -47,7 +50,7 @@ function ConnexionClient() {
 
                     if (callback?.error) {
                         console.log(callback.error)
-                        toast.error("Il y a eu une erreur !");
+                        toast.error(callback.error);
                     }
                 });
         }
