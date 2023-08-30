@@ -4,7 +4,7 @@ import Image from "next/image";
 
 interface ButtonProps {
   label: string;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: any;
   disabled?: boolean;
   icon?: any;
 }

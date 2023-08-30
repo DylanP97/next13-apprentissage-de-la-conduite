@@ -3,6 +3,7 @@
   --60color: #0e0d29;
   --30color: #ffffff;
   --10color: #91e5f6;
+  --10biscolor: #3893a6;
 }
 
 * {
@@ -31,17 +32,19 @@ p {
 button,
 .btn {
   margin: 2px;
+  text-decoration: none;
+  font-style: normal;
 }
 
 .btn-10color {
-  background-color: var(--10color) !important;
+  background: linear-gradient(to left, var(--10color), var(--10biscolor));
   color: var(--60color) !important;
   border: 0px !important;
 }
 .btn-10color:hover {
   background-color: var(--60color) !important;
-  color: var(--10color) !important;
-  outline: var(--10color) 1px solid !important;
+  color: var(--30color) !important;
+  outline: var(--30color) 1px solid !important;
 }
 
 .btn-30color {
@@ -78,11 +81,6 @@ td button {
 
 .form-label {
   color: white !important;
-}
-
-#success-message {
-  display: none;
-  color: hsl(120, 100%, 25%);
 }
 
 footer {
@@ -548,9 +546,11 @@ ff .article-table .blog-card:hover .icon {
 
 .intro-text {
   padding: 5% !important;
+  width: 50%;
 }
 
 .sign-text {
+  width: 50%;
   padding: 3% !important;
 }
 
@@ -559,6 +559,7 @@ ff .article-table .blog-card:hover .icon {
   top: 0;
   right: 0;
   height: 100%;
+  width: 50%;
   padding: 0% !important;
 }
 .intro-photo img {
@@ -569,9 +570,15 @@ ff .article-table .blog-card:hover .icon {
   border-radius: 0px !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1280px) {
+  .intro-text {
+    width: 100%;
+  }
   .intro-photo {
     display: none;
+  }
+  .sign-text {
+    width: 100%;
   }
 }
 .tooltip-container {
@@ -911,13 +918,13 @@ nav {
   padding: 2%;
 }
 .response:hover {
-  background-color: var(--10color);
+  background: linear-gradient(to left, var(--10color), var(--10biscolor));
   color: var(--60color);
   outline: var(--10color) 0px solid;
   cursor: pointer;
 }
 .response:visited {
-  background-color: var(--10color);
+  background: linear-gradient(to left, var(--10color), var(--10biscolor));
   color: var(--60color);
   outline: var(--10color) 0px solid;
 }
@@ -1061,7 +1068,7 @@ nav {
 }
 
 .badge-tag.active-tag {
-  background-color: var(--10color);
+  background: linear-gradient(to left, var(--10color), var(--10biscolor));
   color: var(--60color);
 }
 
@@ -1071,7 +1078,7 @@ nav {
 }
 @media (min-width: 768px) {
   .badge-tag.not-active:hover {
-    background-color: var(--10color);
+    background: linear-gradient(to left, var(--10color), var(--10biscolor));
     color: var(--60color);
   }
 }

@@ -57,14 +57,14 @@
     padding: 2%;
 
     &:hover {
-        background-color: var(--10color);
+        background: linear-gradient(to left, var(--10color), var(--10biscolor));;
         color: var(--60color);
         outline: var(--10color) 0px solid;
         cursor: pointer;
     }
 
     &:visited {
-        background-color: var(--10color);
+        background: linear-gradient(to left, var(--10color), var(--10biscolor));;
         color: var(--60color);
         outline: var(--10color) 0px solid;
     }

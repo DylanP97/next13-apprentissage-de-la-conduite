@@ -7,10 +7,9 @@ import Image from 'next/image';
 function Intro() {
     return (
         <div className='intro'>
-            <Col className='intro-text' md="6" xl="6">
-                <h3 style={{ marginBottom: "20px" }}>Bienvenue sur Apprentissage de la Conduite et de la Sécurité Routière</h3>
-                <p>Bonjour je m’appelle Alexandre, je suis moniteur enseignant à la conduite depuis 5 ans.
-                    Je propose un contenu exclusif pour vous aider à réussir votre conduite avec des articles, des conseils pour l’examen, des animations, des quiz et des vidéos en situation réél.</p>
+            <Col className='intro-text'>
+                <h1 style={{ marginBottom: "20px" }}>Bienvenue sur Apprentissage de la Conduite et de la Sécurité Routière</h1>
+                <p>Apprentissage de la Conduite et de la Sécurité Routière est une plateforme novatrice dédiée à accompagner les élèves dans leur parcours d&apos;apprentissage de la conduite automobile. Des leçons interactives permettent aux élèves de renforcer leur compréhension des règles de conduite et des bonnes pratiques tout en cultivant une sensibilisation accrue à la sécurité sur les routes.</p>
                 <br />
                 <div className='intro-buttons'>
                     <Button className='btn-30color' href="/inscription" type="submit">Inscription</Button>
