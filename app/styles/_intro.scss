@@ -64,16 +64,18 @@
 
 .intro-text {
     padding: 5% !important;
+    width: 50%;
 }
 .sign-text {
+    width: 50%;
     padding: 3% !important;
 }
-
 .intro-photo {
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
+    width: 50%;
     padding: 0% !important;
 
     & img {
@@ -83,9 +85,14 @@
         border-radius: 0px !important;
     }
 }
-
-@media (max-width: 767px) {
+@media (max-width: 1280px) {
+    .intro-text {
+        width: 100%;
+    }
     .intro-photo {
         display: none;
+    }
+    .sign-text {
+        width: 100%;
     }
 }

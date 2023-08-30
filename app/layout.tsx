@@ -1,11 +1,11 @@
 import './styles/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import ClientOnly from './components/ClientOnly'
 import ToasterProvider from '@/app/providers/ToasterProvider';
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Apprentissage de la Conduite et de la Sécurité Routière',
@@ -23,7 +23,7 @@ export default async function RootLayout({
 
   return (
     <html lang="fr-FR">
-      <body className={inter.className}>
+      <body>
         <ClientOnly>
           <ToasterProvider />
         </ClientOnly>

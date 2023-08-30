@@ -15,7 +15,7 @@
 }
 
 .badge-tag.active-tag {
-    background-color: var(--10color);
+    background: linear-gradient(to left, var(--10color), var(--10biscolor));;
     color: var(--60color);
 }
 .badge-tag.not-active {
@@ -24,7 +24,7 @@
 
     @media (min-width: 768px) {
         &:hover {
-            background-color: var(--10color);
+            background: linear-gradient(to left, var(--10color), var(--10biscolor));;
             color: var(--60color);
         }
     }

@@ -1,11 +1,11 @@
 
 'use client'
 
-import { Col, Form, InputGroup, FloatingLabel } from "react-bootstrap";
+import { Col, Form, InputGroup, FloatingLabel, Button } from "react-bootstrap";
+import CustomButton from "../components/Button";
+import Input from "../components/Input";
 import photo1 from "@/public/images/categoriespermis.jpg";
 import view from "@/public/icons/view.png";
-import ButtonBootstrap from "react-bootstrap/Button"
-import Button from "../components/Button";
 import { showPassword } from "../libs/utils";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { FieldValues } from 'react-hook-form';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Input from "../components/Input";
 import google from "@/public/icons/google.png";
 
 function ConnexionClient() {
@@ -55,7 +54,7 @@ function ConnexionClient() {
 
     return (
         <div className="intro">
-            <Col className="sign-text" md="6" xl="6">
+            <Col className="sign-text">
                 <h1 style={{ margin: "20px 0px" }}>Se Connecter</h1>
                 <Form>
                     <FloatingLabel
@@ -93,14 +92,15 @@ function ConnexionClient() {
                     <hr />
                 </Form>
                 <div className='intro-buttons'>
-                    <ButtonBootstrap
+                    <Button
                         className="btn-10color"
                         type="submit"
+                        href=""
                         onClick={handleSubmit(onSubmit)}
                     >
                         Se connecter
-                    </ButtonBootstrap>
-                    <Button
+                    </Button>
+                    <CustomButton
                         label="Continuer avec Google"
                         icon={google}
                         onClick={() => signIn('google')}
@@ -108,30 +108,33 @@ function ConnexionClient() {
                 </div>
                 <hr />
                 <div className="intro-buttons">
-                    <ButtonBootstrap
+                    <Button
                         className="btn-30color"
+                        href=""
                         onClick={() => {
                             window.location.href = "/inscription";
                         }}
                     >
                         Pas Encore Inscrit ? S&apos;Inscrire
-                    </ButtonBootstrap>
-                    <ButtonBootstrap
+                    </Button>
+                    <Button
                         className="btn-30color"
+                        href=""
                         onClick={() => {
                             window.location.href = "/";
                         }}
                     >
                         Retour à la page d&apos;accueil
-                    </ButtonBootstrap>
-                    <ButtonBootstrap
+                    </Button>
+                    <Button
                         className="btn-30color"
+                        href=""
                         onClick={() => {
                             window.location.href = "/forgot-password";
                         }}
                     >
                         J&apos;ai oublié mon mot de passe
-                    </ButtonBootstrap>
+                    </Button>
                 </div>
             </Col>
             <Col className="intro-photo" md="6" xl="6">

@@ -30,7 +30,8 @@ const ArticleClient: React.FC<ArticleClientProps> = ({ blog, isAdmin }) => {
                 alt="blog-img"
                 width={2000}
                 height={2000}
-                priority
+                priority={true}
+                loading="eager"
             />
 
             <h1>{blog.title}</h1>

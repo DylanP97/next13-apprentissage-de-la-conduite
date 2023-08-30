@@ -4,12 +4,11 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import ButtonBootstrap from "react-bootstrap/Button"
-import { FloatingLabel, InputGroup } from "react-bootstrap";
+import { FloatingLabel, InputGroup, Button } from "react-bootstrap";
 import axios from "axios";
 import photo1 from "@/public/images/retroviseur.jpg";
 import view from "@/public/icons/view.png";
-import Button from "../components/Button";
+import CustomButton from "../components/Button";
 import { showPassword } from "../libs/utils";
 import googleIcon from "@/public/icons/google.png";
 import Image from "next/image";
@@ -63,7 +62,7 @@ function SignUp() {
 
     return (
         <div className='intro'>
-            <Col className="sign-text" md="6" xl="6">
+            <Col className="sign-text">
                 <h1 style={{ margin: "20px 0px" }}>S&apos;Inscrire</h1>
                 <Form>
                     <Row>
@@ -141,15 +140,15 @@ function SignUp() {
                     <Form.Text className="errorzone" />
                 </Form>
                 <div className="intro-buttons">
-                    <ButtonBootstrap
+                    <Button
                         className="btn-10color"
                         type="submit"
                         onClick={handleSubmit(onSubmit)}
                         id="checkout_btn"
                     >
                         Envoyé ma demande d&apos;inscription
-                    </ButtonBootstrap>
-                    <Button
+                    </Button>
+                    <CustomButton
                         label="Continuer avec Google"
                         icon={googleIcon}
                         onClick={() => signIn('google')}
@@ -157,12 +156,12 @@ function SignUp() {
                 </div>
                 <hr />
                 <div className="intro-buttons">
-                    <ButtonBootstrap className="btn-30color" onClick={() => { window.location.href = "/connexion" }}>
+                    <Button className="btn-30color" onClick={() => { window.location.href = "/connexion" }}>
                         Vous avez déjà un compte ? Connectez-vous !
-                    </ButtonBootstrap>
-                    <ButtonBootstrap className="btn-30color" onClick={() => { window.location.href = "/" }}>
+                    </Button>
+                    <Button className="btn-30color" onClick={() => { window.location.href = "/" }}>
                         Retour à l&apos;accueil
-                    </ButtonBootstrap>
+                    </Button>
                 </div>
                 <br />
             </Col>
