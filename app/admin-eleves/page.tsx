@@ -9,6 +9,10 @@ export default async function ElevesAdminPage() {
     const currentUser = await getCurrentUser();
     const users = await getUsers();
 
+    if (!currentUser) {
+        redirect("/");
+    }
+
     if (!currentUser?.isAdmin) {
         redirect("/");
     }

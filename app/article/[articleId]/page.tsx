@@ -14,25 +14,49 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
     const currentUser = await getCurrentUser();
     const isAdmin = currentUser?.isAdmin;
 
-    if (!currentUser || (!currentUser?.isAccepted && !currentUser?.isAdmin) || !currentUser?.isSubscribed) {
+    if (!currentUser) {
         redirect("/");
     }
 
-    return (
-        <ClientOnly>
-            <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
-            {
-                !blog?.id ? (
-                    <h1>L&apos;article de blog que vous cherchez n&apos;existe pas ou il y a une erreur !</h1>
-                ) : (
-                    <ArticleClient
-                        blog={blog}
-                        isAdmin={isAdmin}
-                    />
-                )
+    if (!currentUser.isAdmin) {
+        if (!currentUser?.isAccepted) {
+            if (!currentUser?.isSubscribed) {
+                redirect("/");
+            } else {
+                return (
+                    <ClientOnly>
+                        <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+                        {
+                            !blog?.id ? (
+                                <h1>L&apos;article de blog que vous cherchez n&apos;existe pas ou il y a une erreur !</h1>
+                            ) : (
+                                <ArticleClient
+                                    blog={blog}
+                                    isAdmin={isAdmin}
+                                />
+                            )
+                        }
+                    </ClientOnly>
+                );
             }
-        </ClientOnly>
-    );
+        }
+    } else {
+        return (
+            <ClientOnly>
+                <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+                {
+                    !blog?.id ? (
+                        <h1>L&apos;article de blog que vous cherchez n&apos;existe pas ou il y a une erreur !</h1>
+                    ) : (
+                        <ArticleClient
+                            blog={blog}
+                            isAdmin={isAdmin}
+                        />
+                    )
+                }
+            </ClientOnly>
+        );
+    }
 }
 
 export default ArticlePage;

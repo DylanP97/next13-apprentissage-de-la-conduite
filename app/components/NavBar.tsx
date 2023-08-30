@@ -41,10 +41,10 @@ function NavBar({ isSubscribed, isAdmin, userId }: { isSubscribed: any, isAdmin:
                         {
                             isAdmin && (
                                 <NavDropdown className='nav-dropdown' title="Administrateur" >
-                                    <Nav.Link onClick={createBlog}>Écrire un nouvel article</Nav.Link>
-                                    <Nav.Link href="/admin-articles">Gestion des articles</Nav.Link>
-                                    <Nav.Link href="/admin-eleves">Gestion des élèves</Nav.Link>
-                                    <Nav.Link href="/admin-questions">Gestion des questions</Nav.Link>
+                                    <Nav.Link className='nav-dropdown' onClick={createBlog}>Écrire un nouvel article</Nav.Link>
+                                    <Nav.Link className='nav-dropdown' href="/admin-articles">Gestion des articles</Nav.Link>
+                                    <Nav.Link className='nav-dropdown' href="/admin-eleves">Gestion des élèves</Nav.Link>
+                                    <Nav.Link className='nav-dropdown' href="/admin-questions">Gestion des questions</Nav.Link>
                                 </NavDropdown>
                             )
                         }

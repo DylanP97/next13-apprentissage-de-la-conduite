@@ -65,5 +65,17 @@ export async function DELETE(
     },
   });
 
-  return NextResponse.json(user);
+  const account = await prisma.account.findMany({
+    where: {
+      userId: userId,
+    }
+  }).then((account: any) => {
+    prisma.account.delete({
+      where: {
+        id: account.id,
+      }
+    })
+  });
+
+  return NextResponse.json({user, account});
 }

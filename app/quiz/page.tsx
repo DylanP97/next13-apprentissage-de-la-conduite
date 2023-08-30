@@ -10,23 +10,45 @@ const QuizPage = async () => {
     const currentUser = await getCurrentUser();
     const publishedQuestions = await getPublishedQuestions();
 
-    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
+    if (!currentUser) {
         redirect("/");
     }
 
-    return (
-        <ClientOnly>
-            <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
-            {
-                publishedQuestions ? (
-                    <QuizClient publishedQuestions={publishedQuestions} />) : (
+    if (!currentUser.isAdmin) {
+        if (!currentUser?.isAccepted) {
+            if (!currentUser?.isSubscribed) {
+                redirect("/");
+            } else {
+                return (
+                    <ClientOnly>
+                        <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+                        {
+                            publishedQuestions ? (
+                                <QuizClient publishedQuestions={publishedQuestions} />) : (
+                                <h1>Il n&apos;y a aucune question</h1>
+                            )
+                        }
+
+                        <Footer />
+                    </ClientOnly>
+                );
+            }
+        }
+    } else {
+        return (
+            <ClientOnly>
+                <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+                {
+                    publishedQuestions ? (
+                        <QuizClient publishedQuestions={publishedQuestions} />) : (
                         <h1>Il n&apos;y a aucune question</h1>
                     )
-            }
+                }
 
-            <Footer />
-        </ClientOnly>
-    )
+                <Footer />
+            </ClientOnly>
+        );
+    }
 }
 
 export default QuizPage;

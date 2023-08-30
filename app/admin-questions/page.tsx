@@ -9,7 +9,11 @@ const QuizAdminPage = async () => {
     const questions = await getQuestions();
     const currentUser = await getCurrentUser();
 
-    if (!currentUser || !currentUser?.isAccepted || !currentUser?.isSubscribed || !currentUser?.isAdmin) {
+    if (!currentUser) {
+        redirect("/");
+    }
+
+    if (!currentUser?.isAdmin) {
         redirect("/");
     }
 
