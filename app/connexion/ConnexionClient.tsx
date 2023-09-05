@@ -6,17 +6,27 @@ import CustomButton from "../components/Button";
 import Input from "../components/Input";
 import photo1 from "@/public/images/categoriespermis.jpg";
 import view from "@/public/icons/view.png";
+import google from "@/public/icons/google.png";
 import { showPassword } from "../libs/utils";
+
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 import { toast } from "react-hot-toast";
 import { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FieldValues } from 'react-hook-form';
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import google from "@/public/icons/google.png";
 
-function ConnexionClient() {
+interface SignInProps {
+    isSignIn: boolean,
+    state: any,
+}
+
+const SignIn: React.FC<SignInProps> = ({
+    isSignIn,
+    state
+}) => {
     const router = useRouter()
 
     const {
@@ -34,15 +44,12 @@ function ConnexionClient() {
 
     const onSubmit: SubmitHandler<FieldValues> =
         (data) => {
-
             signIn('credentials', {
                 ...data,
                 redirect: false,
             })
                 .then((callback) => {
-
                     console.log(callback)
-
                     if (callback?.ok) {
                         toast.success('En route !');
                         router.refresh();
@@ -56,10 +63,10 @@ function ConnexionClient() {
         }
 
     return (
-        <div className="intro">
-            <Col className="sign-text">
+        // <div className="intro">
+            <Col className={`${isSignIn ? "" : "disabled-sign"} sign-text`}>
                 <h1 style={{ margin: "20px 0px" }}>Se Connecter</h1>
-                <Form>
+                <Form style={{ height: '270px' }}>
                     <FloatingLabel
                         label="Adresse e-mail"
                         className="mb-3"
@@ -92,13 +99,11 @@ function ConnexionClient() {
                         </InputGroup.Text>
                     </InputGroup>
                     <Form.Text className="errorzone" />
-                    <hr />
                 </Form>
                 <div className='intro-buttons'>
                     <Button
                         className="btn-10color"
                         type="submit"
-                        href=""
                         onClick={handleSubmit(onSubmit)}
                     >
                         Se connecter
@@ -113,16 +118,12 @@ function ConnexionClient() {
                 <div className="intro-buttons">
                     <Button
                         className="btn-30color"
-                        href=""
-                        onClick={() => {
-                            window.location.href = "/inscription";
-                        }}
+                        onClick={() => state(!isSignIn)}
                     >
                         Pas Encore Inscrit ? S&apos;Inscrire
                     </Button>
                     <Button
                         className="btn-30color"
-                        href=""
                         onClick={() => {
                             window.location.href = "/";
                         }}
@@ -131,7 +132,6 @@ function ConnexionClient() {
                     </Button>
                     <Button
                         className="btn-30color"
-                        href=""
                         onClick={() => {
                             window.location.href = "/forgot-password";
                         }}
@@ -140,14 +140,14 @@ function ConnexionClient() {
                     </Button>
                 </div>
             </Col>
-            <Col className="intro-photo" md="6" xl="6">
+            /* <Col className="intro-photo" md="6" xl="6">
                 <Image
                     src={photo1}
                     alt=""
                 />
             </Col>
-        </div>
+        </div> */
     );
 }
 
-export default ConnexionClient;
+export default SignIn;
