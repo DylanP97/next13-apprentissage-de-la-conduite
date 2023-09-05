@@ -58,8 +58,8 @@ const ResetPasswordClient = () => {
   }
 
   return (
-    <>
-      <Col className='intro-text' md="6" xl="6">
+    <div className='intro sign'>
+      <div className='intro-text'>
         <h2 style={{ marginBottom: '30px' }}>Changer votre mot de passe</h2>
         <Form onSubmit={handleSubmit}>
           <InputGroup>
@@ -94,11 +94,11 @@ const ResetPasswordClient = () => {
           </div>
           <Form.Text className="notifzone" />
         </Form>
-      </Col>
-      <Col className='intro-photo' md="6" xl="6">
+      </div>
+      <div className='intro-photo'>
         <Image src={zone30} alt='' />
-      </Col>
-    </>
+      </div>
+    </div>
   );
 }
 
