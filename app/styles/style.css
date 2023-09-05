@@ -492,6 +492,38 @@ ff .article-table .blog-card:hover .icon {
   background-color: var(--60color);
 }
 
+.sign {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 1280px) {
+  .sign {
+    flex-direction: column;
+  }
+  .sign-text {
+    width: 100%;
+  }
+}
+.disabled-sign {
+  position: relative;
+  /* Add your other styles for the div here */
+  /* Create a pseudo-element to cover the entire div */
+}
+.disabled-sign::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px); /* Apply the blur effect */
+  pointer-events: none; /* Allow interactions with elements beneath */
+  z-index: 5; /* Adjust the z-index to your needs */
+}
+
 .intro-buttons {
   display: flex;
   flex-direction: column;
@@ -550,7 +582,6 @@ ff .article-table .blog-card:hover .icon {
 }
 
 .sign-text {
-  width: 50%;
   padding: 3% !important;
 }
 
@@ -576,9 +607,6 @@ ff .article-table .blog-card:hover .icon {
   }
   .intro-photo {
     display: none;
-  }
-  .sign-text {
-    width: 100%;
   }
 }
 .tooltip-container {
