@@ -23,8 +23,8 @@ const ForgotPasswordClient = () => {
   };
 
   return (
-    <>
-      <Col className='intro-text' md="6" xl="6">
+    <div className='intro sign'>
+      <div className='intro-text'>
         <h2 style={{ marginBottom: '30px' }}>Réinitialiser votre mot de passe</h2>
         <Form onSubmit={handleSubmit}>
           <FloatingLabel label='Votre Email'>
@@ -43,11 +43,11 @@ const ForgotPasswordClient = () => {
           </div>
           <Form.Text className="notifzone" />
         </Form>
-      </Col>
-      <Col className='intro-photo' md="6" xl="6">
+      </div>
+      <div className='intro-photo'>
         <Image src={autoroute} alt='' />
-      </Col>
-    </>
+      </div>
+    </div>
   );
 }
 
