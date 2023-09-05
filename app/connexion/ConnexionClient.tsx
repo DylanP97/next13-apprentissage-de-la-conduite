@@ -63,90 +63,96 @@ const SignIn: React.FC<SignInProps> = ({
         }
 
     return (
-        // <div className="intro">
-            <Col className={`${isSignIn ? "" : "disabled-sign"} sign-text`}>
-                <h1 style={{ margin: "20px 0px" }}>Se Connecter</h1>
-                <Form style={{ height: '270px' }}>
-                    <FloatingLabel
-                        label="Adresse e-mail"
-                        className="mb-3"
-                    >
-                        <Input
-                            id="email"
-                            register={register}
-                            errors={errors}
-                            required
-                        />
-                    </FloatingLabel>
-                    <InputGroup className="mb-3">
-                        <FloatingLabel label="Mot de passe">
-                            <Input
-                                id="password"
-                                type="password"
-                                register={register}
-                                errors={errors}
-                                required
-                            />
-                        </FloatingLabel>
-                        <InputGroup.Text id="basic-addon1">
+        <div className={`${isSignIn ? "sign active-sign" : "disabled-sign inactive-sign inactive-sign-2"} `}>
+            {
+                isSignIn && (
+                    <>
+                        <div className="sign-text">
+                            <h1 style={{ margin: "20px 0px" }}>Se Connecter</h1>
+                            <Form>
+                                <FloatingLabel
+                                    label="Adresse e-mail"
+                                    className="mb-3"
+                                >
+                                    <Input
+                                        id="email"
+                                        register={register}
+                                        errors={errors}
+                                        required
+                                    />
+                                </FloatingLabel>
+                                <InputGroup className="mb-3">
+                                    <FloatingLabel label="Mot de passe">
+                                        <Input
+                                            id="password"
+                                            type="password"
+                                            register={register}
+                                            errors={errors}
+                                            required
+                                        />
+                                    </FloatingLabel>
+                                    <InputGroup.Text id="basic-addon1">
+                                        <Image
+                                            onClick={showPassword}
+                                            className="password-eye"
+                                            src={view}
+                                            alt="password-eye"
+                                            style={{ width: "auto" }}
+                                        />
+                                    </InputGroup.Text>
+                                </InputGroup>
+                                <Form.Text className="errorzone" />
+                            </Form>
+                            <div className='intro-buttons'>
+                                <Button
+                                    className="btn-10color"
+                                    type="submit"
+                                    onClick={handleSubmit(onSubmit)}
+                                >
+                                    Se connecter
+                                </Button>
+                                <CustomButton
+                                    label="Continuer avec Google"
+                                    icon={google}
+                                    onClick={() => signIn('google')}
+                                />
+                            </div>
+                            <hr />
+                            <div className="intro-buttons">
+                                <Button
+                                    className="btn-30color"
+                                    onClick={() => state(!isSignIn)}
+                                >
+                                    Pas Encore Inscrit ? S&apos;Inscrire
+                                </Button>
+                                <Button
+                                    className="btn-30color"
+                                    onClick={() => {
+                                        window.location.href = "/";
+                                    }}
+                                >
+                                    Retour à la page d&apos;accueil
+                                </Button>
+                                <Button
+                                    className="btn-30color"
+                                    onClick={() => {
+                                        window.location.href = "/forgot-password";
+                                    }}
+                                >
+                                    J&apos;ai oublié mon mot de passe
+                                </Button>
+                            </div>
+                        </div>
+                        <div className="intro-photo">
                             <Image
-                                onClick={showPassword}
-                                className="password-eye"
-                                src={view}
-                                alt="password-eye"
-                                style={{ width: "auto" }}
+                                src={photo1}
+                                alt=""
                             />
-                        </InputGroup.Text>
-                    </InputGroup>
-                    <Form.Text className="errorzone" />
-                </Form>
-                <div className='intro-buttons'>
-                    <Button
-                        className="btn-10color"
-                        type="submit"
-                        onClick={handleSubmit(onSubmit)}
-                    >
-                        Se connecter
-                    </Button>
-                    <CustomButton
-                        label="Continuer avec Google"
-                        icon={google}
-                        onClick={() => signIn('google')}
-                    />
-                </div>
-                <hr />
-                <div className="intro-buttons">
-                    <Button
-                        className="btn-30color"
-                        onClick={() => state(!isSignIn)}
-                    >
-                        Pas Encore Inscrit ? S&apos;Inscrire
-                    </Button>
-                    <Button
-                        className="btn-30color"
-                        onClick={() => {
-                            window.location.href = "/";
-                        }}
-                    >
-                        Retour à la page d&apos;accueil
-                    </Button>
-                    <Button
-                        className="btn-30color"
-                        onClick={() => {
-                            window.location.href = "/forgot-password";
-                        }}
-                    >
-                        J&apos;ai oublié mon mot de passe
-                    </Button>
-                </div>
-            </Col>
-            /* <Col className="intro-photo" md="6" xl="6">
-                <Image
-                    src={photo1}
-                    alt=""
-                />
-            </Col>
-        </div> */
+                        </div>
+                    </>
+                )
+            }
+        </div>
     );
 }
 

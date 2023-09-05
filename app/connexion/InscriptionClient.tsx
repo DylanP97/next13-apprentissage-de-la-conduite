@@ -69,117 +69,123 @@ const SignUp: React.FC<SignUpProps> = ({
 
 
     return (
-        // <div className='intro'>
-        <Col className={`${isSignIn ? "disabled-sign" : ""} sign-text`}>
-            <h1 style={{ margin: "20px 0px" }}>S&apos;Inscrire</h1>
-            <Form style={{ height: '270px' }}>
-                <Row>
-                    <Form.Group as={Col} md="6">
-                        <FloatingLabel label="Prénom" className="mb-3">
-                            <Input
-                                id="firstName"
-                                register={register}
-                                errors={errors}
-                                required
+        <div className={`${isSignIn ? "disabled-sign inactive-sign inactive-sign-1" : "sign active-sign"}`}>
+            {
+                !isSignIn && (
+                    <>
+                        <div className="intro-photo">
+                            <Image
+                                src={photo1}
+                                alt={`photobg1`}
                             />
-                        </FloatingLabel>
-                    </Form.Group>
-                    <Form.Group as={Col} md="6">
-                        <FloatingLabel label="Nom" className="mb-3">
-                            <Input
-                                id="lastName"
-                                register={register}
-                                errors={errors}
-                                required
-                            />
-                        </FloatingLabel>
-                    </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="6">
-                        <FloatingLabel label="Adresse email">
-                            <Input
-                                id="email"
-                                register={register}
-                                errors={errors}
-                                required
-                            />
-                        </FloatingLabel>
-                        <Form.Text className="email error">
-                            {errorMessages.email && <span className="error-message">{errorMessages.email}</span>}
-                        </Form.Text>
-                    </Form.Group>
+                        </div>
+                        <div className="sign-text">
+                            <h1 style={{ margin: "20px 0px" }}>S&apos;Inscrire</h1>
+                            <Form>
+                                <Row>
+                                    <Form.Group as={Col} md="6">
+                                        <FloatingLabel label="Prénom" className="mb-3">
+                                            <Input
+                                                id="firstName"
+                                                register={register}
+                                                errors={errors}
+                                                required
+                                            />
+                                        </FloatingLabel>
+                                    </Form.Group>
+                                    <Form.Group as={Col} md="6">
+                                        <FloatingLabel label="Nom" className="mb-3">
+                                            <Input
+                                                id="lastName"
+                                                register={register}
+                                                errors={errors}
+                                                required
+                                            />
+                                        </FloatingLabel>
+                                    </Form.Group>
+                                </Row>
+                                <Row>
+                                    <Form.Group as={Col} md="6" className="mb-3">
+                                        <FloatingLabel label="Adresse email">
+                                            <Input
+                                                id="email"
+                                                register={register}
+                                                errors={errors}
+                                                required
+                                            />
+                                        </FloatingLabel>
+                                        <Form.Text className="email error">
+                                            {errorMessages.email && <span className="error-message">{errorMessages.email}</span>}
+                                        </Form.Text>
+                                    </Form.Group>
 
-                    <Form.Group as={Col} md="6">
-                        <InputGroup className="mb-3">
-                            <FloatingLabel label="Mot de passe">
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    register={register}
-                                    errors={errors}
-                                    required
+                                    <Form.Group as={Col} md="6">
+                                        <InputGroup className="mb-3">
+                                            <FloatingLabel label="Mot de passe">
+                                                <Input
+                                                    id="password"
+                                                    type="password"
+                                                    register={register}
+                                                    errors={errors}
+                                                    required
+                                                />
+                                            </FloatingLabel>
+                                            <InputGroup.Text id="basic-addon1">
+                                                <Image
+                                                    onClick={showPassword}
+                                                    className="password-eye"
+                                                    src={view}
+                                                    alt={`showingpassword`}
+                                                    style={{ width: "auto" }}
+                                                />
+                                            </InputGroup.Text>
+                                        </InputGroup>
+                                        <Form.Text className="email error">
+                                            {errorMessages.email && <span className="error-message">{errorMessages.password}</span>}
+                                        </Form.Text>
+                                    </Form.Group>
+                                    <Form.Text className="password error"></Form.Text>
+                                </Row>
+                                <Form.Group className="mb-3">
+                                    <Form.Check
+                                        type="checkbox"
+                                        id="terms"
+                                        label="J'accepte les condition générales"
+                                    />
+                                    <Form.Text className="terms error"></Form.Text>
+                                </Form.Group>
+                                <Form.Text className="errorzone" />
+                            </Form>
+                            <div className="intro-buttons">
+                                <Button
+                                    className="btn-10color"
+                                    type="submit"
+                                    onClick={handleSubmit(onSubmit)}
+                                    id="checkout_btn"
+                                >
+                                    Envoyé ma demande d&apos;inscription
+                                </Button>
+                                <CustomButton
+                                    label="Continuer avec Google"
+                                    icon={googleIcon}
+                                    onClick={() => signIn('google')}
                                 />
-                            </FloatingLabel>
-                            <InputGroup.Text id="basic-addon1">
-                                <Image
-                                    onClick={showPassword}
-                                    className="password-eye"
-                                    src={view}
-                                    alt={`showingpassword`}
-                                    style={{ width: "auto" }}
-                                />
-                            </InputGroup.Text>
-                        </InputGroup>
-                        <Form.Text className="email error">
-                            {errorMessages.email && <span className="error-message">{errorMessages.password}</span>}
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Text className="password error"></Form.Text>
-                </Row>
-                <Form.Group className="mb-3">
-                    <Form.Check
-                        type="checkbox"
-                        id="terms"
-                        label="J'accepte les condition générales"
-                    />
-                    <Form.Text className="terms error"></Form.Text>
-                </Form.Group>
-                <Form.Text className="errorzone" />
-            </Form>
-            <div className="intro-buttons">
-                <Button
-                    className="btn-10color"
-                    type="submit"
-                    onClick={handleSubmit(onSubmit)}
-                    id="checkout_btn"
-                >
-                    Envoyé ma demande d&apos;inscription
-                </Button>
-                <CustomButton
-                    label="Continuer avec Google"
-                    icon={googleIcon}
-                    onClick={() => signIn('google')}
-                />
-            </div>
-            <hr />
-            <div className="intro-buttons">
-                <Button className="btn-30color" onClick={() => { state(!isSignIn) }}>
-                    Vous avez déjà un compte ? Connectez-vous !
-                </Button>
-                <Button className="btn-30color" onClick={() => { window.location.href = "/" }}>
-                    Retour à l&apos;accueil
-                </Button>
-            </div>
-            <br />
-        </Col>
-        /* <Col className="intro-photo" md="6" xl="6">
-            <Image
-                src={photo1}
-                alt={`photobg1`}
-            />
-        </Col> */
-        // </div>
+                            </div>
+                            <hr />
+                            <div className="intro-buttons">
+                                <Button className="btn-30color" onClick={() => { state(!isSignIn) }}>
+                                    Vous avez déjà un compte ? Connectez-vous !
+                                </Button>
+                                <Button className="btn-30color" onClick={() => { window.location.href = "/" }}>
+                                    Retour à l&apos;accueil
+                                </Button>
+                            </div>
+                            <br />
+                        </div>
+                    </>
+                )
+            }
+        </div >
     );
 }
 
