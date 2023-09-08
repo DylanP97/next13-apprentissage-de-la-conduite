@@ -43,6 +43,12 @@ const ElevesAdminClient: React.FC<ElevesAdminClientProps> = ({
   const handleDelete = async (userId: number | string) => {
     axios.delete(`/api/user/${userId}`)
       .then(() => {
+        const userIndex = usersData.findIndex((user: any) => user.id === userId);
+        if (userIndex !== -1) {
+          let updatedUsers = [...usersData];
+          const newUpdatedUsers = updatedUsers.filter((_, index) => index !== userIndex);
+          setUsersData(newUpdatedUsers);
+        }
         toast.success("L'utilisateur vient d'être supprimé.")
       })
       .catch((error) => {

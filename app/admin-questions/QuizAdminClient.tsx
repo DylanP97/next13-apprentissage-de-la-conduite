@@ -37,6 +37,12 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
   const DeleteQuestion = async (questionId: string | number) => {
     axios.delete(`/api/question/${questionId}`)
       .then(() => {
+        const questionIndex = questionsData.findIndex((question: any) => question.id === questionId);
+        if (questionIndex !== -1) {
+          let updatedQuestions = [...questionsData];
+          const newUpdatedQuestions = updatedQuestions.filter((_, index) => index !== questionIndex);
+          setQuestionsData(newUpdatedQuestions);
+        }
         toast.success("Cette question a été supprimer.");
       })
       .catch(() => {
