@@ -20,6 +20,7 @@ import { toast } from "react-hot-toast";
 import { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FieldValues } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
 interface SignUpProps {
     isSignIn: boolean,
@@ -28,9 +29,10 @@ interface SignUpProps {
 
 const SignUp: React.FC<SignUpProps> = ({
     isSignIn,
-    state
+    state,
 }) => {
     const [errorMessages, setErrorMessages] = useState({ email: "", password: "" })
+    const [typePasswordInput, setTypePasswordInput] = useState("password")
 
     const {
         register,
@@ -50,8 +52,12 @@ const SignUp: React.FC<SignUpProps> = ({
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         axios.post('/api/user/signup', data)
             .then(() => {
-                toast.success("Merci pour votre demande d'inscription !");
+                toast.success("Merci pour votre demande d'inscription, vous pouvez désormais vous connectez !");
+                setInterval((() => {
+                    state(!isSignIn)
+                }), 3000)
             })
+
             .catch((error) => {
                 if (error.response) {
                     const errorMessage = error.response.data;
@@ -87,6 +93,7 @@ const SignUp: React.FC<SignUpProps> = ({
                                         <FloatingLabel label="Prénom" className="mb-3">
                                             <Input
                                                 id="firstName"
+                                                type="text"
                                                 register={register}
                                                 errors={errors}
                                                 required
@@ -97,6 +104,7 @@ const SignUp: React.FC<SignUpProps> = ({
                                         <FloatingLabel label="Nom" className="mb-3">
                                             <Input
                                                 id="lastName"
+                                                type="text"
                                                 register={register}
                                                 errors={errors}
                                                 required
@@ -109,6 +117,7 @@ const SignUp: React.FC<SignUpProps> = ({
                                         <FloatingLabel label="Adresse email">
                                             <Input
                                                 id="email"
+                                                type="text"
                                                 register={register}
                                                 errors={errors}
                                                 required
@@ -124,7 +133,7 @@ const SignUp: React.FC<SignUpProps> = ({
                                             <FloatingLabel label="Mot de passe">
                                                 <Input
                                                     id="password"
-                                                    type="password"
+                                                    type={typePasswordInput}
                                                     register={register}
                                                     errors={errors}
                                                     required
@@ -132,7 +141,7 @@ const SignUp: React.FC<SignUpProps> = ({
                                             </FloatingLabel>
                                             <InputGroup.Text id="basic-addon1">
                                                 <Image
-                                                    onClick={showPassword}
+                                                    onClick={((e) => showPassword(e, typePasswordInput, setTypePasswordInput))}
                                                     className="password-eye"
                                                     src={view}
                                                     alt={`showingpassword`}

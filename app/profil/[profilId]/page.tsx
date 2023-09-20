@@ -12,17 +12,15 @@ export default async function ProfilePage() {
     }
 
     if (!currentUser.isAdmin) {
-        if (!currentUser?.isAccepted) {
-            if (!currentUser?.isSubscribed) {
-                redirect("/");
-            } else {
-                return (
-                    <ClientOnly>
-                        <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
-                        <ProfileClient currentUser={currentUser} />
-                    </ClientOnly>
-                )
-            }
+        if (!currentUser?.isAccepted || !currentUser?.isSubscribed) {
+            redirect("/");
+        } else {
+            return (
+                <ClientOnly>
+                    <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+                    <ProfileClient currentUser={currentUser} />
+                </ClientOnly>
+            )
         }
     } else {
         return (

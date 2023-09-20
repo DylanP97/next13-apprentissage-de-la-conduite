@@ -15,24 +15,22 @@ const QuizPage = async () => {
     }
 
     if (!currentUser.isAdmin) {
-        if (!currentUser?.isAccepted) {
-            if (!currentUser?.isSubscribed) {
-                redirect("/");
-            } else {
-                return (
-                    <ClientOnly>
-                        <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
-                        {
-                            publishedQuestions ? (
-                                <QuizClient publishedQuestions={publishedQuestions} />) : (
-                                <h1>Il n&apos;y a aucune question</h1>
-                            )
-                        }
+        if (!currentUser?.isAccepted || !currentUser?.isSubscribed) {
+            redirect("/");
+        } else {
+            return (
+                <ClientOnly>
+                    <NavBar isSubscribed={currentUser.isSubscribed} isAdmin={currentUser.isAdmin} userId={currentUser.id} />
+                    {
+                        publishedQuestions ? (
+                            <QuizClient publishedQuestions={publishedQuestions} />) : (
+                            <h1>Il n&apos;y a aucune question</h1>
+                        )
+                    }
 
-                        <Footer />
-                    </ClientOnly>
-                );
-            }
+                    <Footer />
+                </ClientOnly>
+            );
         }
     } else {
         return (

@@ -19,7 +19,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+          throw new Error("Votre email ou mot de passe n'est pas correct.");
         }
 
         const user = await prisma.user.findUnique({
@@ -28,8 +28,12 @@ export const authOptions: AuthOptions = {
           },
         });
 
-        if (!user || !user?.hashedPassword) {
-          throw new Error("Invalid credentials");
+        if (!user) {
+          throw new Error("L'utilisateur n'a pas été trouvé");
+        }
+
+        if (!user?.hashedPassword) {
+          throw new Error("L'utilisateur n'a pas été trouvé");
         }
 
         const isCorrectPassword = await bcrypt.compare(
@@ -38,7 +42,7 @@ export const authOptions: AuthOptions = {
         );
 
         if (!isCorrectPassword) {
-          throw new Error("Invalid credentials");
+          throw new Error("Le mot de passe n'est pas correct");
         }
 
         return user;
@@ -46,7 +50,6 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/",
     signOut: "/",
   },
   debug: process.env.NODE_ENV === "development",
