@@ -5,7 +5,7 @@ export const transporter = nodemailer.createTransport({
   auth: {
     user: `${process.env.GMAIL_USER}`,
     pass: `${process.env.GMAIL_PASSWORD}`,
-  },  
+  },
 });
 
 export const newSignUpRequest = (
@@ -16,7 +16,9 @@ export const newSignUpRequest = (
   return {
     from: `${email}`,
     to: `${process.env.GMAIL_USER}`,
-    subject: `Nouvelle demande d'inscription de ${firstName} ${lastName && lastName}`,
+    subject: `Nouvelle demande d'inscription de ${firstName} ${
+      lastName && lastName
+    }`,
     html: `<div>
                 <h3>Un utilisateur a fait une demande d'inscription :</h3>
                 <div style="padding: 20px">

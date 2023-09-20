@@ -13,8 +13,7 @@ const ContactPage = async () => {
   }
 
   if (!currentUser.isAdmin) {
-    if (!currentUser?.isAccepted) {
-      if (!currentUser?.isSubscribed) {
+      if (!currentUser?.isSubscribed || !currentUser?.isAccepted) {
         redirect("/");
       } else {
         return (
@@ -25,7 +24,6 @@ const ContactPage = async () => {
           </ClientOnly>
         );
       }
-    }
   } else {
     return (
       <ClientOnly>

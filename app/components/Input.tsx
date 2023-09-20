@@ -12,15 +12,17 @@ interface InputProps {
   formatPrice?: boolean;
   required?: boolean;
   register: UseFormRegister<FieldValues>,
-  errors: FieldErrors
+  errors: FieldErrors,
+  defaultValue?: any,
 }
 
 const Input: React.FC<InputProps> = ({
   id,
-  type = "text", 
+  type, 
   disabled, 
   register,
   required,
+  defaultValue
 }) => {
   return (
       <Form.Control
@@ -29,6 +31,7 @@ const Input: React.FC<InputProps> = ({
         {...register(id, { required })}
         placeholder="current"
         type={type}
+        defaultValue={defaultValue}
       />
    );
 }

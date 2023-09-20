@@ -1,7 +1,7 @@
 
 'use client'
 
-import { Col, Form, InputGroup, FloatingLabel, Button } from "react-bootstrap";
+import { Form, InputGroup, FloatingLabel, Button } from "react-bootstrap";
 import CustomButton from "../components/Button";
 import Input from "../components/Input";
 import photo1 from "@/public/images/categoriespermis.jpg";
@@ -17,6 +17,7 @@ import { toast } from "react-hot-toast";
 import { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FieldValues } from 'react-hook-form';
+import { useState } from "react";
 
 interface SignInProps {
     isSignIn: boolean,
@@ -25,9 +26,10 @@ interface SignInProps {
 
 const SignIn: React.FC<SignInProps> = ({
     isSignIn,
-    state
+    state,
 }) => {
     const router = useRouter()
+    const [typePasswordInput, setTypePasswordInput] = useState("password")
 
     const {
         register,
@@ -35,12 +37,7 @@ const SignIn: React.FC<SignInProps> = ({
         formState: {
             errors,
         },
-    } = useForm<FieldValues>({
-        defaultValues: {
-            email: '',
-            password: ''
-        },
-    });
+    } = useForm<FieldValues>();
 
     const onSubmit: SubmitHandler<FieldValues> =
         (data) => {
@@ -49,7 +46,6 @@ const SignIn: React.FC<SignInProps> = ({
                 redirect: false,
             })
                 .then((callback) => {
-                    console.log(callback)
                     if (callback?.ok) {
                         toast.success('En route !');
                         router.refresh();
@@ -76,6 +72,7 @@ const SignIn: React.FC<SignInProps> = ({
                                 >
                                     <Input
                                         id="email"
+                                        type="text"
                                         register={register}
                                         errors={errors}
                                         required
@@ -84,8 +81,8 @@ const SignIn: React.FC<SignInProps> = ({
                                 <InputGroup className="mb-3">
                                     <FloatingLabel label="Mot de passe">
                                         <Input
-                                            id="password"
-                                            type="password"
+                                            id="paffwqsdsrd"
+                                            type={typePasswordInput}
                                             register={register}
                                             errors={errors}
                                             required
@@ -93,7 +90,7 @@ const SignIn: React.FC<SignInProps> = ({
                                     </FloatingLabel>
                                     <InputGroup.Text id="basic-addon1">
                                         <Image
-                                            onClick={showPassword}
+                                            onClick={((e) => showPassword(e, typePasswordInput, setTypePasswordInput))}
                                             className="password-eye"
                                             src={view}
                                             alt="password-eye"

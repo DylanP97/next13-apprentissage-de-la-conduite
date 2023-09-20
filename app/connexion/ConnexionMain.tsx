@@ -6,6 +6,7 @@ import SignIn from './ConnexionClient'
 
 const ConnexionMain = () => {
     const [isSignIn, setIsSignIn] = useState(true);
+    // const [emailData, setEmailData] = useState('');
 
     return (
         <div className={`intro sign`}>

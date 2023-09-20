@@ -56,7 +56,7 @@ export const TOOLBAR_OPTIONS = [
 ];
 
 
-export const showPassword = (e: any) => {
+export const showPassword = (e: any, typePasswordInput: string, setTypePasswordInput: any) => {
   var eyeIcon = e.target;
 
   var eyeParent = eyeIcon.parentElement;
@@ -64,11 +64,11 @@ export const showPassword = (e: any) => {
   var floatingDiv = inputGroup.firstChild;
   var passwordInput = floatingDiv.firstChild;
 
-  if (passwordInput.type === "text") {
-    passwordInput.setAttribute("type", "password");
-    eyeIcon.srcset = hidden.src;
-  } else {
-    passwordInput.setAttribute("type", "text");
+  if (typePasswordInput === "text") {
+    setTypePasswordInput("password");
     eyeIcon.srcset = view.src;
+  } else if (typePasswordInput === "password") {
+    setTypePasswordInput("text");
+    eyeIcon.srcset = hidden.src;
   }
 };
