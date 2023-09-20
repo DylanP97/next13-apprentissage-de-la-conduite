@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb";
 import validator from "validator";
-import { transporter, newSignUpRequest, signUpRequestReceived} from "@/app/libs/transporter"
 
 const { ObjectId } = require("mongodb");
 
@@ -10,6 +9,9 @@ interface Errors {
   email?: string;
   password?: string;
 }
+
+const postmark = require("postmark");
+const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
 
 export async function POST(request: Request) {
   try {
@@ -43,13 +45,21 @@ export async function POST(request: Request) {
       },
     });
 
-    await transporter.sendMail(newSignUpRequest(email, firstName, lastName), function (error: any) {
-      if (error) return NextResponse.error();
+    await postmarkApp.sendEmail({
+      From: process.env.POSTMARK_EMAIL,
+      To: email,
+      Subject: `Bonjour ${firstName}! Votre demande d'inscription a bien été reçue`,
+      TextBody: `Votre demande d'inscription a bien été reçue. Nous reviendrons très rapidement vers vous pour valider votre inscription.`,
+      MessageStream: "outbound",
     });
-    
-    await transporter.sendMail(signUpRequestReceived(email, firstName), function (error: any) {
-      if (error) return NextResponse.error();
-    });  
+
+    await postmarkApp.sendEmail({
+      From: process.env.POSTMARK_EMAIL,
+      To: process.env.POSTMARK_EMAIL,
+      Subject: `Un nouvel utilisateur a fait une demande d'inscription`,
+      TextBody: `Vérifiez ses informations : ${email} ; ${firstName} ${lastName}`,
+      MessageStream: "outbound",
+    });
 
     return NextResponse.json({ message : 'Signup route success'});
   } catch (error) {

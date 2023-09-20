@@ -1,14 +1,13 @@
 import prisma from "@/app/libs/prismadb";
-import {
-  transporter,
-  passwordSuccesfullyChanged,
-} from "@/app/libs/transporter";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
 interface IParams {
   token?: string;
 }
+
+const postmark = require("postmark");
+const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
 
 export async function POST(request: Request, { params }: { params: IParams }) {
   try {
@@ -38,8 +37,12 @@ export async function POST(request: Request, { params }: { params: IParams }) {
       return null;
     }
 
-    await transporter.sendMail(passwordSuccesfullyChanged(email), (error: any, info: any) => {
-      if (error) throw new Error();
+    await postmarkApp.sendEmail({
+      From: process.env.POSTMARK_EMAIL,
+      To: email,
+      Subject: `Votre mot de passe a été changé avec succès.`,
+      TextBody: `Votre mot de passe a été modifié avec succès. En cas d'erreur n'hésitez pas à nous contacter ou à recommencer la procédure de changement de mot de passe.`,
+      MessageStream: "outbound",
     });
 
     return NextResponse.json({
