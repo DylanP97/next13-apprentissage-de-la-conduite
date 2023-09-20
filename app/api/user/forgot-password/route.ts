@@ -1,8 +1,9 @@
 import prisma from "@/app/libs/prismadb";
 const crypto = require("crypto");
-
-import { transporter, resetPasswordLink } from "@/app/libs/transporter";
 import { NextResponse } from "next/server";
+
+const postmark = require("postmark");
+const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
 
 export async function POST(request: Request) {
   try {
@@ -26,8 +27,12 @@ export async function POST(request: Request) {
       return null;
     }
 
-    await transporter.sendMail(resetPasswordLink(email, token), (error: any) => {
-      if (error) throw new Error();
+    await postmarkApp.sendEmail({
+      From: process.env.POSTMARK_EMAIL,
+      To: email,
+      Subject: `Lien de réinitialisation de votre mot de passe.`,
+      TextBody: `Vous recevez ceci parce que vous (ou quelqu'un d'autre) avez demandé la réinitialisation du mot de passe de votre compte. Si vous ne l'avez pas demandé, veuillez ignorer cet e-mail et votre mot de passe restera inchangé. Veuillez cliquer sur le lien suivant ou le coller dans votre navigateur pour terminer le processus : ${process.env.BASE_URL}reset/${token}`,
+      MessageStream: "outbound",
     });
 
     return NextResponse.json({

@@ -1,11 +1,14 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
-import { signUpRequestAccepted, transporter } from "@/app/libs/transporter";
 import { NextResponse } from "next/server";
 
 interface IParams {
   userId?: string;
 }
+
+const postmark = require("postmark");
+const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
@@ -25,13 +28,17 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     }
 
     if (data.isAccepted) {
-      const mail = signUpRequestAccepted(data.email, data.firstName);
-
-      await transporter.sendMail(mail, function (error: any) {
-        if (error) {
-          console.log(error);
-        }
+      const postmarkResponse = await postmarkApp.sendEmail({
+        From: process.env.POSTMARK_EMAIL,
+        To: data.email,
+        Subject: `Votre demande d'inscription a été validé`,
+        TextBody: `Bonjour ${data.firstName} Vous pouvez désormais sélectionné votre abonnement : ${process.env.BASE_URL}`,
+        MessageStream: "outbound",
       });
+  
+      if (!postmarkResponse.ErrorCode) {
+        return NextResponse.json({ message : "hii" });
+      }
     }
 
     return NextResponse.json({
