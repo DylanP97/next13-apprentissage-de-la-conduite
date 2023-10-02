@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import HomePage from '../HomePage';
+import getBlogsMock from '@/app/__mocks__/apicalls/getBlogsMock';
 
 const mockCurrentUser = {
     createdAt: "dsdsd",
@@ -14,70 +15,7 @@ const mockCurrentUser = {
     subscriptionPlan: 5,
 }
 
-const mockBlogs = {
-    blogs: [
-        {
-            createdAt: "dsdsd",
-            updatedAt: "dsdsd",
-            id: "dsdsd3345345",
-            title: "Thisiesisdfd",
-            content: "dsdsd",
-            author: {
-                createdAt: "dsdsd",
-                updatedAt: "dsdsd",
-                emailVerified: false,
-                id: "dsdsd",
-                firstName: "dsdsd",
-                lastName: "dsdsd",
-                name: "dsdsd",
-                email: "dsdsd",
-                hashedPassword: "<PASSWORD>",
-                subscriptionPlan: 5,
-            },
-        },
-        {
-            createdAt: "dsdsd",
-            updatedAt: "dsdsd",
-            id: "dsds32132123d",
-            title: "dsdsd",
-            content: "dsdsd",
-            author: {
-                createdAt: "dsdsd",
-                updatedAt: "dsdsd",
-                emailVerified: false,
-                id: "aadsqdsq",
-                firstName: "dsdsd",
-                lastName: "dsdsd",
-                name: "dsdsd",
-                email: "dsdsd",
-                hashedPassword: "<PASSWORD>",
-                subscriptionPlan: 5,
-            },
-        },
-        {
-            createdAt: "dsdsd",
-            updatedAt: "dsdsd",
-            id: "d876873sdsd",
-            title: "sdcdscs",
-            content: "dsdsd",
-            author: {
-                createdAt: "dsdsd",
-                updatedAt: "dsdsd",
-                emailVerified: false,
-                id: "dsdsd",
-                firstName: "dsdsd",
-                lastName: "dsdsd",
-                name: "dsdsd",
-                email: "dsdsd",
-                hashedPassword: "<PASSWORD>",
-                subscriptionPlan: 5,
-            },
-        }
-    ],
-}
-
 describe('HomePage', () => {
-
     it("renders main container", () => {
         render(<HomePage currentUser={mockCurrentUser} blogs={[]} />); // ARRANGE
 
@@ -92,5 +30,15 @@ describe('HomePage', () => {
         const h1 = screen.getByText("Il n'y a pas d'articles");
 
         expect(h1).toBeInTheDocument();
+    });
+
+    it('should render a list with the correct number of blogs', async () => {
+        const mockBlogs = await getBlogsMock();
+
+        render(<HomePage currentUser={mockCurrentUser} blogs={mockBlogs} />);
+
+        const blogs = await screen.findAllByTestId('blog-item');
+
+        expect(blogs.length).toBe(3);
     });
 })

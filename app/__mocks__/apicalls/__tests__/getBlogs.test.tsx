@@ -1,6 +1,6 @@
 import { server } from '../../server';
 import { rest } from 'msw';
-import getBlogsMock from '../getBlogsmock';
+import getBlogsMock from '../getBlogsMock';
 
 describe('getting blogs from get blogs', () => {
     it('should return an array of blogs', async () => {
