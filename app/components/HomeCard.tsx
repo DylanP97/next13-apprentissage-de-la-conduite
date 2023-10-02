@@ -22,6 +22,7 @@ export const HomeCard = ({ blog }: HomeCardProps) => {
         <div
             onClick={() => router.push(`/article/${blog.id}`)}
             className="home-card"
+            data-testid="blog-item"
         >
             <article>
                 <div className='card-top'>
