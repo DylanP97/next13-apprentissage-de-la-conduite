@@ -7,8 +7,9 @@ import { NavDropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { memo } from 'react'; 
 
-function NavBar({ isSubscribed, isAdmin, userId }: { isSubscribed: any, isAdmin: any, userId: any }) {
+const NavBar = memo(function NavBar({ isSubscribed, isAdmin, userId }: { isSubscribed: boolean, isAdmin: boolean, userId: string }) {
 
     const router = useRouter();
 
@@ -54,6 +55,6 @@ function NavBar({ isSubscribed, isAdmin, userId }: { isSubscribed: any, isAdmin:
             </Container>
         </Navbar>
     )
-}
+});
 
 export default NavBar
