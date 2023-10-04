@@ -12,7 +12,7 @@ export default async function getCurrentUser() {
     const session = await getSession();
 
     if (!session?.user?.email) {
-      return null;
+      throw new Error('Invalid session');
     }
 
     const currentUser = await prisma.user.findUnique({
@@ -22,7 +22,7 @@ export default async function getCurrentUser() {
     });
 
     if (!currentUser) {
-      return null;
+      throw new Error('Invalid currentUser');
     }
 
     return {
