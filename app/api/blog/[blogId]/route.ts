@@ -25,7 +25,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!blog) {
-      return null;
+      throw new Error('Invalid Blog');
     }
 
     return NextResponse.json({
