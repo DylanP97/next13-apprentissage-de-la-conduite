@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     });
 
     if (!user) {
-      return null;
+      throw new Error('Invalid User');
     }
 
     await postmarkApp.sendEmail({
