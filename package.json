@@ -30,7 +30,7 @@
     "html-react-parser": "^4.2.0",
     "mdb-react-ui-kit": "^5.0.0",
     "micro": "^10.0.1",
-    "mongodb": "^5.8.0",
+    "mongodb": "^5.7.0",
     "next": "^13.4.10",
     "next-auth": "^4.22.3",
     "next-cloudinary": "^4.16.3",
