@@ -23,7 +23,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!question) {
-      return null;
+      throw new Error('Invalid Question');
     }
 
     return NextResponse.json({
