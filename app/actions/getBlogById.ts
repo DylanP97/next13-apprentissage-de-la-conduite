@@ -15,7 +15,7 @@ export default async function getBlogById(params: IParams) {
     });
 
     if (!blog) {
-      return null
+      throw new Error('Invalid Blog');
     }
 
     return {

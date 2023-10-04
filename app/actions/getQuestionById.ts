@@ -15,7 +15,7 @@ export default async function getQuestionById(params: IParams) {
     });
 
     if (!question) {
-      return null;
+      throw new Error('Invalid question');
     }
 
     return {
