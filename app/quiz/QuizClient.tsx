@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap';
-import AngleDoubleSmallRight from '@/public/icons/angle-double-small-right.png';
-import axios from 'axios';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import AngleDoubleSmallRight from "@/public/icons/angle-double-small-right.png";
+import axios from "axios";
+import Image from "next/image";
 
 interface QuizClientProps {
-  publishedQuestions: any
+  publishedQuestions: any;
 }
 
 const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
@@ -22,53 +22,53 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
   const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
   const [image, setImage] = useState("");
   const [questionHistory, setQuestionHistory] = useState<object[]>([]);
-  const [availableQuestions, setAvailableQuestions] = useState(publishedQuestions);
+  const [availableQuestions, setAvailableQuestions] =
+    useState(publishedQuestions);
   const [infoText, setInfoText] = useState("");
 
   const isMobile = window.innerWidth <= 768;
 
   function handleAnswerClick(answer: any, index: number) {
-    setIsAnswered(true)
+    setIsAnswered(true);
     if (isCorrect === undefined) {
-      let correctElement = document.getElementById(`answer${correctAnswer}`)
-      let elementId = `answer${index}`
-      let element = document.getElementById(elementId)
-      setUserAnswer(index)
+      let correctElement = document.getElementById(`answer${correctAnswer}`);
+      let elementId = `answer${index}`;
+      let element = document.getElementById(elementId);
+      setUserAnswer(index);
       if (index === correctAnswer) {
-        setInfoText("Bravo, c'est la bonne réponse!")
-        setIsCorrect(true)
-        element?.classList.add('correct-answer')
+        setInfoText("Bravo, c'est la bonne réponse!");
+        setIsCorrect(true);
+        element?.classList.add("correct-answer");
       } else {
-        setInfoText("C'est la mauvaise réponse!")
-        setIsCorrect(false)
-        element?.classList.add('wrong-answer')
+        setInfoText("C'est la mauvaise réponse!");
+        setIsCorrect(false);
+        element?.classList.add("wrong-answer");
       }
-      correctElement?.classList.add('correct-answer')
+      correctElement?.classList.add("correct-answer");
       const updatedQuestionHistory = questionHistory.map((q: any) => {
         if (q.question === question) {
           return {
             ...q,
             userAnswer: index,
-            isCorrect: correctAnswer === index ? true : false
+            isCorrect: correctAnswer === index ? true : false,
           };
         }
         return q;
       });
       setQuestionHistory(updatedQuestionHistory);
-    }
-    else {
-      setInfoText("Vous avez déjà répondu !")
+    } else {
+      setInfoText("Vous avez déjà répondu !");
     }
   }
 
   function handleNewQuestionClick() {
-    setIsAnswered(false)
-    setInfoText("")
+    setIsAnswered(false);
+    setInfoText("");
     if (isCorrect === undefined && quizStarted === true) {
-      setInfoText("Il faut que vous répondez à la question.")
+      setInfoText("Il faut que vous répondez à la question.");
       setTimeout(() => {
-        setInfoText("")
-      }, 2000)
+        setInfoText("");
+      }, 2000);
     } else {
       const previousAnswers = document.getElementsByClassName("response");
       for (let i = 0; i < previousAnswers.length; i++) {
@@ -76,17 +76,30 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
         previousAnswers[i].classList.remove("wrong-answer");
       }
       if (availableQuestions.length !== 0) {
-        let newQuestion: any = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
-        setAvailableQuestions(availableQuestions.filter(
-          (q: any) => q.question !== newQuestion.question
-        ));
+        let newQuestion: any =
+          availableQuestions[
+            Math.floor(Math.random() * availableQuestions.length)
+          ];
+        setAvailableQuestions(
+          availableQuestions.filter(
+            (q: any) => q.question !== newQuestion.question,
+          ),
+        );
         setQuestion(newQuestion.question);
         setAnswers(newQuestion.answers);
         setCorrectAnswer(newQuestion.correctAnswer);
         newQuestion.imageUrl ? setImage(newQuestion.imageUrl) : setImage("");
-        setQuestionHistory([...questionHistory, { question: newQuestion.question, answers: newQuestion.answers, correctAnswer: newQuestion.correctAnswer, imageUrl: newQuestion.imageUrl }]);
+        setQuestionHistory([
+          ...questionHistory,
+          {
+            question: newQuestion.question,
+            answers: newQuestion.answers,
+            correctAnswer: newQuestion.correctAnswer,
+            imageUrl: newQuestion.imageUrl,
+          },
+        ]);
       } else {
-        setSeeResults(true)
+        setSeeResults(true);
       }
       setIsCorrect(undefined);
     }
@@ -98,102 +111,145 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
   }
 
   return (
-    <div className='home-container'>
-      {
-        !quizStarted ? (
-          <>
-            <h1>Quiz</h1>
-            <p>Répondez à une série de questions pour vous préparez à l&apos;examen de la conduite.</p>
-            <hr />
-            <Button className="btn-10color" onClick={(() => handleStartQuizClick())}>Démarrer le Quiz</Button>
-          </>
-        ) : (
-          <section className='quiz-section'>
-            {
-              !seeResults ? (
-                <>
-                  <div className='quiz'>
-                    {image && <Image
-                      width={1000}
-                      height={1000}
-                      src={image} alt=""
-                      className='question-img'
-                    />}
-                    <p className='question'>{question && question}</p>
-                    <div className='responses'>
-                      {answers && answers.map((answer, index) => (
-                        <div key={index} className="response" id={'answer' + index} onClick={() => handleAnswerClick(answer, index)}>
-                          <p>{answer}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <div className='quiz-btn'>
-                      <p className='error-text'>{infoText}</p>
-                      <hr />
-                    </div>
-
-                    {
-                      isMobile ? (
-                        <div>
-                          <p style={{ fontWeight: "600" }}>Score : {questionHistory.filter((q: any) => q.isCorrect).length} sur {questionHistory.length}</p>
-                          <p>{publishedQuestions.length} questions</p>
-                        </div>
-                      ) : (
-                        !slideScore ? (
-                          <div className='slide-score' onClick={(() => setSlideScore(true))}>
-                            <Image className='slide-score-img' src={AngleDoubleSmallRight} alt="slide" style={{ width: "48px", height: "auto" }} />
-                          </div>
-                        ) : (
-                          <div className='slide-score active' onClick={(() => setSlideScore(false))}>
-                            <p style={{ fontWeight: "600" }}>Score : {questionHistory.filter((q: any) => q.isCorrect).length} sur {questionHistory.length}</p>
-                            <p>{publishedQuestions.length} questions</p>
-                          </div>
-                        )
-                      )
-                    }
-                    {
-                      isAnswered && <Button className="btn-10color" onClick={(() => handleNewQuestionClick())}>{availableQuestions.length === 0 ? "Voir mes scores" : "Question suivante"}</Button>
-                    }
-                  </div>
-                </>
-              ) : (
-                <div>
-                  <h3>Voici le résulats de vos réponses avec correction:</h3>
-                  <br />
-                  <p>Votre Score est de {questionHistory.filter((q: any) => q.isCorrect).length} sur {questionHistory.length}</p>
-                  <br />
-                  {
-                    questionHistory.map((q: any) => {
-
-                      return (
-                        <div key={q.question}>
-                          <hr />
-                          <h4>{q.question}</h4>
-                          <br />
-                          {
-                            q.imageUrl && <Image className='img-score-results' src={q.imageUrl} alt="" width={1000} height={1000} />
-                          }
-                          <p>{q.isCorrect ? "Bravo c'était la bonne réponse" : "Vous avez eu faux"}</p>
-                          <p>Vous aviez répondu : {q.answers[q.userAnswer]}</p>
-                          <p>La bonne réponse était : {q.answers[q.correctAnswer]}</p>
-                        </div>
-                      )
-                    })
-                  }
+    <div className="home-container">
+      {!quizStarted ? (
+        <>
+          <h1>Quiz</h1>
+          <p>
+            Répondez à une série de questions pour vous préparez à l&apos;examen
+            de la conduite.
+          </p>
+          <hr />
+          <Button
+            className="btn-10color"
+            onClick={() => handleStartQuizClick()}
+          >
+            Démarrer le Quiz
+          </Button>
+        </>
+      ) : (
+        <section className="quiz-section">
+          {!seeResults ? (
+            <>
+              <div className="quiz">
+                {image && (
+                  <Image
+                    width={1000}
+                    height={1000}
+                    src={image}
+                    alt=""
+                    className="question-img"
+                  />
+                )}
+                <p className="question">{question && question}</p>
+                <div className="responses">
+                  {answers &&
+                    answers.map((answer, index) => (
+                      <div
+                        data-testid={`answer-${index}`}
+                        key={index}
+                        className="response"
+                        id={"answer" + index}
+                        onClick={() => handleAnswerClick(answer, index)}
+                      >
+                        <p>{answer}</p>
+                      </div>
+                    ))}
                 </div>
-              )
-            }
-          </section>
-        )
-      }
+                <div className="quiz-btn">
+                  <p className="error-text">{infoText}</p>
+                  <hr />
+                </div>
+
+                {isMobile ? (
+                  <div>
+                    <p style={{ fontWeight: "600" }}>
+                      Score :{" "}
+                      {questionHistory.filter((q: any) => q.isCorrect).length}{" "}
+                      sur {questionHistory.length}
+                    </p>
+                    <p>{publishedQuestions.length} questions</p>
+                  </div>
+                ) : !slideScore ? (
+                  <div
+                    className="slide-score"
+                    data-testid="slide-score-inactive"
+                    onClick={() => setSlideScore(true)}
+                  >
+                    <Image
+                      className="slide-score-img"
+                      src={AngleDoubleSmallRight}
+                      alt="slide"
+                      style={{ width: "48px", height: "auto" }}
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="slide-score active"
+                    data-testid="slide-score-active"
+                    onClick={() => setSlideScore(false)}
+                  >
+                    <p style={{ fontWeight: "600" }}>
+                      Score :{" "}
+                      {questionHistory.filter((q: any) => q.isCorrect).length}{" "}
+                      sur {questionHistory.length}
+                    </p>
+                    <p>{publishedQuestions.length} questions</p>
+                  </div>
+                )}
+                {isAnswered && (
+                  <Button
+                    className="btn-10color"
+                    onClick={() => handleNewQuestionClick()}
+                  >
+                    {availableQuestions.length === 0
+                      ? "Voir mes scores"
+                      : "Question suivante"}
+                  </Button>
+                )}
+              </div>
+            </>
+          ) : (
+            <div>
+              <h3>Voici le résulats de vos réponses avec correction:</h3>
+              <br />
+              <p>
+                Votre Score est de{" "}
+                {questionHistory.filter((q: any) => q.isCorrect).length} sur{" "}
+                {questionHistory.length}
+              </p>
+              <br />
+              {questionHistory.map((q: any) => {
+                return (
+                  <div key={q.question}>
+                    <hr />
+                    <h4>{q.question}</h4>
+                    <br />
+                    {q.imageUrl && (
+                      <Image
+                        className="img-score-results"
+                        src={q.imageUrl}
+                        alt=""
+                        width={1000}
+                        height={1000}
+                      />
+                    )}
+                    <p>
+                      {q.isCorrect
+                        ? "Bravo c'était la bonne réponse"
+                        : "Vous avez eu faux"}
+                    </p>
+                    <p>Vous aviez répondu : {q.answers[q.userAnswer]}</p>
+                    <p>La bonne réponse était : {q.answers[q.correctAnswer]}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default QuizClient
-
-
-
-
-
-
+export default QuizClient;

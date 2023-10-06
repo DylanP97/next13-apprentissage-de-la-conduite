@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 import { Button } from "react-bootstrap";
-import { MDBModal, MDBModalBody } from 'mdb-react-ui-kit';
-import { dateParser, getSubscriptionLabel } from '@/app/libs/utils';
-import Tooltip from './Tooltip';
-import CardEditionStep from './CardEditionStep';
+import { MDBModal, MDBModalBody } from "mdb-react-ui-kit";
+import { dateParser, getSubscriptionLabel } from "@/app/libs/utils";
+import Tooltip from "./Tooltip";
+import CardEditionStep from "./CardEditionStep";
 import editWhite from "@/public/icons/file-edit-white.png";
 import eyeWhite from "@/public/icons/eye-white.png";
 import eyeCrossWhite from "@/public/icons/eye-crossed-out.png";
@@ -19,11 +19,11 @@ import blockUser from "@/public/icons/block-user.png";
 import checkUserWhite from "@/public/icons/check-user-white.png";
 
 interface BasicCardProps {
-  data?: any,
-  type: string,
-  toggleMethod?: any,
-  toggleMethod2?: any,
-  deleteMethod?: any,
+  data?: any;
+  type: string;
+  toggleMethod?: any;
+  toggleMethod2?: any;
+  deleteMethod?: any;
 }
 
 const BasicCard: React.FC<BasicCardProps> = ({
@@ -72,30 +72,78 @@ const BasicCard: React.FC<BasicCardProps> = ({
       {isMobile && (
         <>
           {!data.isAccepted && (
-            <Button onClick={() => toggleMethod && toggleMethod(data.id, data.isAccepted, data.email, data.firstName || data.name)}>
-              {data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'utilistateur"}
+            <Button
+              onClick={() =>
+                toggleMethod &&
+                toggleMethod(
+                  data.id,
+                  data.isAccepted,
+                  data.email,
+                  data.firstName || data.name
+                )
+              }
+            >
+              {data.isAccepted
+                ? "Désinscrire l'uitlisateur"
+                : "Valider l'utilistateur"}
             </Button>
           )}
-          <Button onClick={() => toggleMethod2 && toggleMethod2(data.id, data.isAdmin)}>
-            {data.isAdmin ? "Enlever rôle d'administrateur" : "Promouvoir administrateur"}
+          <Button
+            onClick={() =>
+              toggleMethod2 && toggleMethod2(data.id, data.isAdmin)
+            }
+          >
+            {data.isAdmin
+              ? "Enlever rôle d'administrateur"
+              : "Promouvoir administrateur"}
           </Button>
-          <Button onClick={() => deleteMethod && deleteMethod(data.id)}>Supprimer l&apos;utilisateur</Button>
+          <Button onClick={() => deleteMethod && deleteMethod(data.id)}>
+            Supprimer l&apos;utilisateur
+          </Button>
         </>
       )}
       <div className="blog-card-buttons">
         {!isMobile && !data.isAdmin && (
           <>
-            <Tooltip message={`${data.isAccepted ? "Désinscrire l'uitlisateur" : "Valider l'inscription de l'utilistateur"}`}>
-              <Image src={data.isAccepted ? blockUser : checkUserWhite} alt="accepted" className="icon" onClick={() => toggleMethod && toggleMethod(data.id, data.isAccepted)} 
-   />
+            <Tooltip
+              message={`${
+                data.isAccepted
+                  ? "Désinscrire l'uitlisateur"
+                  : "Valider l'inscription de l'utilistateur"
+              }`}
+            >
+              <Image
+                src={data.isAccepted ? blockUser : checkUserWhite}
+                alt="accepted"
+                className="icon"
+                onClick={() =>
+                  toggleMethod && toggleMethod(data.id, data.isAccepted)
+                }
+              />
             </Tooltip>
-            <Tooltip message={`${data.isAdmin ? "Enlever rôle d'administrateur" : "Promouvoir au rôle d'administrateur"}`}>
-              <Image src={data.isAdmin ? adminPrimary : adminWhite} alt="admin" className="icon" onClick={() => toggleMethod2 && toggleMethod2(data.id, data.isAdmin)} 
-   />
+            <Tooltip
+              message={`${
+                data.isAdmin
+                  ? "Enlever rôle d'administrateur"
+                  : "Promouvoir au rôle d'administrateur"
+              }`}
+            >
+              <Image
+                src={data.isAdmin ? adminPrimary : adminWhite}
+                alt="admin"
+                className="icon"
+                onClick={() =>
+                  toggleMethod2 && toggleMethod2(data.id, data.isAdmin)
+                }
+              />
             </Tooltip>
             <Tooltip message="Supprimer l'utilisateur">
-              <Image src={trashWhite} alt="trash" className="icon" onClick={() => deleteMethod && deleteMethod(data.id)} 
-   />
+              <Image
+                src={trashWhite}
+                alt="trash"
+                className="icon"
+                onClick={() => deleteMethod && deleteMethod(data.id)}
+              />
             </Tooltip>
           </>
         )}
@@ -104,11 +152,15 @@ const BasicCard: React.FC<BasicCardProps> = ({
   );
 
   const renderCreateQuestionOpenCard = () => (
-    <MDBModal tabIndex='-1' show={edition} setShow={setEdition}>
+    <MDBModal tabIndex="-1" show={edition} setShow={setEdition}>
       <MDBModalBody>
         <div className="blog-card-edition">
           <div className="question-edition">
-            <CardEditionStep isNewQuestion={true} cancelEdition={cancelEdition} saveResponse={saveResponse} />
+            <CardEditionStep
+              isNewQuestion={true}
+              cancelEdition={cancelEdition}
+              saveResponse={saveResponse}
+            />
           </div>
         </div>
       </MDBModalBody>
@@ -116,11 +168,17 @@ const BasicCard: React.FC<BasicCardProps> = ({
   );
 
   const renderQuestionOpenCard = () => (
-    <MDBModal tabIndex='-1' show={edition} setShow={setEdition}>
+    <MDBModal tabIndex="-1" show={edition} setShow={setEdition}>
       <MDBModalBody>
         <div className="blog-card-edition">
           <div className="question-edition">
-            <CardEditionStep isNewQuestion={false} cancelEdition={cancelEdition} data={data} id={data.id} saveResponse={saveResponse} />
+            <CardEditionStep
+              isNewQuestion={false}
+              cancelEdition={cancelEdition}
+              data={data}
+              id={data.id}
+              saveResponse={saveResponse}
+            />
           </div>
         </div>
       </MDBModalBody>
@@ -130,8 +188,12 @@ const BasicCard: React.FC<BasicCardProps> = ({
   const renderCreateQuestionCard = () => (
     <div className="blog-card new-question" onClick={handleNewQuestionClick}>
       <div className="question-edition">
-        <Image src={plusWhite} alt="" className="big-plus" style={{ width: "100px", height: "auto" }} 
-           />
+        <Image
+          src={plusWhite}
+          alt=""
+          className="big-plus"
+          style={{ width: "100px", height: "auto" }}
+        />
         <p>Ajouter une nouvelle question</p>
       </div>
     </div>
@@ -148,17 +210,35 @@ const BasicCard: React.FC<BasicCardProps> = ({
         ))}
         <br />
         <div className="blog-card-buttons">
-          <Tooltip message={`Visibilité (Actuellement : ${data.published ? "Visible" : "Invisible"})`}>
-            <Image src={data.published ? eyeWhite : eyeCrossWhite} alt="view" className="icon" onClick={() => toggleMethod && toggleMethod(data.id, data.published)} 
-   />
+          <Tooltip
+            message={`Visibilité (Actuellement : ${
+              data.published ? "Visible" : "Invisible"
+            })`}
+          >
+            <Image
+              src={data.published ? eyeWhite : eyeCrossWhite}
+              alt="view"
+              className="icon"
+              onClick={() =>
+                toggleMethod && toggleMethod(data.id, data.published)
+              }
+            />
           </Tooltip>
           <Tooltip message="Modifier la question">
-            <Image src={editWhite} alt="view" className="icon" onClick={() => setEdition(!edition)} 
-   />
+            <Image
+              src={editWhite}
+              alt="view"
+              className="icon"
+              onClick={() => setEdition(!edition)}
+            />
           </Tooltip>
           <Tooltip message="Supprimer la question">
-            <Image src={trashWhite} alt="trash" className="icon" onClick={() => deleteMethod && deleteMethod(data.id)} 
-   />
+            <Image
+              src={trashWhite}
+              alt="trash"
+              className="icon"
+              onClick={() => deleteMethod && deleteMethod(data.id)}
+            />
           </Tooltip>
         </div>
       </div>
@@ -182,33 +262,56 @@ const BasicCard: React.FC<BasicCardProps> = ({
         <br />
       </div>
       <div className="blog-card-buttons">
-        <Tooltip message={`Visibilité (Actuellement : ${data.published ? "Visible" : "Invisible"})`}>
-          <Image src={data.published ? eyeWhite : eyeCrossWhite} alt="view" className="icon" onClick={() => toggleMethod && toggleMethod(data.id, data.published)} 
-   />
+        <Tooltip
+          message={`Visibilité (Actuellement : ${
+            data.published ? "Visible" : "Invisible"
+          })`}
+        >
+          <Image
+            src={data.published ? eyeWhite : eyeCrossWhite}
+            alt="view"
+            className="icon"
+            onClick={() =>
+              toggleMethod && toggleMethod(data.id, data.published)
+            }
+          />
         </Tooltip>
         <Tooltip message="Voir l'article">
-          <Image src={linkWhite} alt="link" className="icon" onClick={() => window.location.assign(`/article/${data.id}`)} />
+          <Image
+            src={linkWhite}
+            alt="link"
+            className="icon"
+            onClick={() => window.location.assign(`/article/${data.id}`)}
+          />
         </Tooltip>
         <Tooltip message="Éditer l'article">
-          <Image src={editWhite} alt="view" className="icon" onClick={() => window.location.assign(`/admin-edition/${data.id}`)} 
-   />
+          <Image
+            src={editWhite}
+            alt="view"
+            className="icon"
+            onClick={() => window.location.assign(`/admin-edition/${data.id}`)}
+          />
         </Tooltip>
-        <Tooltip message="Supprimer" clicking={() => deleteMethod && deleteMethod(data.id)}>
-          <Image src={trashWhite} alt="trash" className="icon" 
-   />
+        <Tooltip
+          message="Supprimer"
+          clicking={() => deleteMethod && deleteMethod(data.id)}
+        >
+          <Image src={trashWhite} alt="trash" className="icon" />
         </Tooltip>
       </div>
     </div>
   );
 
   switch (type) {
-    case 'user':
+    case "user":
       return renderUserCard();
-    case 'createQuestion':
-      return edition ? renderCreateQuestionOpenCard() : renderQuestionOpenCard();
-    case 'question':
+    case "createQuestion":
+      return edition
+        ? renderCreateQuestionOpenCard()
+        : renderQuestionOpenCard();
+    case "question":
       return edition ? renderCreateQuestionCard() : renderQuestionCard();
-    case 'article':
+    case "article":
       return renderArticleCard();
     default:
       return null;

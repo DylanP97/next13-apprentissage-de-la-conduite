@@ -1,56 +1,53 @@
-
 nav {
-    border-bottom: 1px var(--30color) solid !important;
-    color: white !important;
+  border-bottom: 1px var(--30color) solid !important;
+  color: white !important;
 }
 .navbar-container {
-    margin: 0% 4% !important;
-    max-width: 3000px !important;
+  margin: 0% 4% !important;
+  max-width: 3000px !important;
 }
 
 .navbar-brand {
-    white-space: normal !important;
-    color: white !important;
+  white-space: normal !important;
+  color: white !important;
 }
 
 .nav-link {
-    color: white !important;
-    transition:
-        color 0.45s ease-in-out,
-        background-color 0.45s ease-in-out,
-        border-color 0.45s ease-in-out !important;
+  color: white !important;
+  transition: color 0.45s ease-in-out, background-color 0.45s ease-in-out,
+    border-color 0.45s ease-in-out !important;
 
-    &:hover {
-        color: var(--10color) !important;
-    }
+  &:hover {
+    color: var(--10color) !important;
+  }
 }
 
 .navbar a:hover {
-    color: var(--10color) !important;
+  color: var(--10color) !important;
 }
 
 .dropdown-menu {
-    background-color: var(--60color) !important;
-    margin: 0 !important;
-    
-    & a:hover {
+  background-color: var(--60color) !important;
+  margin: 0 !important;
+
+  & a:hover {
     @media (min-width: 768px) {
-            background-color: var(--10color) !important;
-            color: var(--60color) !important;
-        }        
+      background-color: var(--10color) !important;
+      color: var(--60color) !important;
     }
+  }
 }
 
 @media (max-width: 768px) {
-    .nav-dropdown {
-        text-align: center !important;
+  .nav-dropdown {
+    text-align: center !important;
 
-        & .dropdown-menu {
-            padding: 0% !important;
-        }
-
-        & a {
-            text-align: center !important;
-        }
+    & .dropdown-menu {
+      padding: 0% !important;
     }
+
+    & a {
+      text-align: center !important;
+    }
+  }
 }

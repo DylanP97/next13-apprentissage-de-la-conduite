@@ -4,7 +4,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 const postmark = require("postmark");
 const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
 
-export async function POST(request: Request, response: any) {
+export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
 
@@ -26,9 +26,8 @@ export async function POST(request: Request, response: any) {
     });
 
     if (!postmarkResponse.ErrorCode) {
-      return NextResponse.json({ message : "hii" });
+      return NextResponse.json({ message: "hii" });
     }
-
   } catch (error: any) {
     console.log(error);
   }
