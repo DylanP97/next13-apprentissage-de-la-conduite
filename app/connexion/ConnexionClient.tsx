@@ -71,7 +71,7 @@ const SignIn: React.FC<SignInProps> = ({
                                     className="mb-3"
                                 >
                                     <Input
-                                        id="email"
+                                        id="email"                                        
                                         type="text"
                                         register={register}
                                         errors={errors}
@@ -81,7 +81,7 @@ const SignIn: React.FC<SignInProps> = ({
                                 <InputGroup className="mb-3">
                                     <FloatingLabel label="Mot de passe">
                                         <Input
-                                            id="paffwqsdsrd"
+                                            id="password"
                                             type={typePasswordInput}
                                             register={register}
                                             errors={errors}

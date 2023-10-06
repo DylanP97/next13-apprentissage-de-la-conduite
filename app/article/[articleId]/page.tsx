@@ -4,6 +4,9 @@ import ClientOnly from "@/app/components/ClientOnly";
 import ArticleClient from "./ArticleClient";
 import { redirect } from "next/navigation";
 import NavBar from "@/app/components/NavBar";
+import Footer from "@/app/components/Footer";
+import getUserById from "@/app/actions/getUserById";
+import getCommentsByBlogId from "@/app/actions/getCommentsByBlogId";
 
 interface IParams {
     articleId?: string;
@@ -11,7 +14,9 @@ interface IParams {
 
 const ArticlePage = async ({ params }: { params: IParams }) => {
     const blog = await getBlogById(params);
+    const comments = await getCommentsByBlogId(params);
     const currentUser = await getCurrentUser();
+    const author = blog ? blog.posterId && await getUserById(blog.posterId) : null
     const isAdmin = currentUser?.isAdmin;
 
     if (!currentUser) {
@@ -33,9 +38,13 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
                                 <ArticleClient
                                     blog={blog}
                                     isAdmin={isAdmin}
+                                    author={author}
+                                    comments={comments}
+                                    currentUser={currentUser}
                                 />
                             )
                         }
+                        <Footer />
                     </ClientOnly>
                 );
             }
@@ -51,9 +60,13 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
                         <ArticleClient
                             blog={blog}
                             isAdmin={isAdmin}
+                            author={author}
+                            comments={comments}
+                            currentUser={currentUser}
                         />
                     )
                 }
+                <Footer />
             </ClientOnly>
         );
     }

@@ -14,8 +14,8 @@ export const authOptions: AuthOptions = {
     }),
     CredentialsProvider({
       credentials: {
-        email: { label: "email", type: "text" },
-        password: { label: "password", type: "password" },
+        email: { id: "email", type: "text" },
+        password: { id: "password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -50,7 +50,6 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signOut: "/",
   },
   debug: process.env.NODE_ENV === "development",
   session: {
