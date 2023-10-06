@@ -22,7 +22,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="fr-FR">
-      <body>
+      <body suppressHydrationWarning={true}>
         <ClientOnly>
           <ToasterProvider />
         </ClientOnly>

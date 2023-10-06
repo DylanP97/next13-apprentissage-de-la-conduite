@@ -32,6 +32,7 @@ const Input: React.FC<InputProps> = ({
       placeholder="current"
       type={type}
       defaultValue={defaultValue}
+      autoComplete="off"
     />
   );
 };

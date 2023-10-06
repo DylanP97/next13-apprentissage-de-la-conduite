@@ -51,7 +51,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
       <h2 className="plan-title">{label}</h2>
       <div className="plan-price">{priceLabel}/mois</div>
       <ul className="plan-features">
-        {features?.map((feature: string, index: any) => {
+        {features.map((feature: string, index: any) => {
           return <li key={index + "feature" + planId}>{feature}</li>;
         })}
       </ul>

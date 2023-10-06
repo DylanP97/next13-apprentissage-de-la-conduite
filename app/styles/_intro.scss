@@ -24,6 +24,7 @@
 }
 
 .disabled-sign {
+<<<<<<< HEAD
   position: relative;
   /* Add your other styles for the div here */
 
@@ -40,6 +41,21 @@
     pointer-events: none; /* Allow interactions with elements beneath */
     z-index: 5; /* Adjust the z-index to your needs */
   }
+=======
+    position: relative;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        pointer-events: none;
+        z-index: 5;
+    }
+>>>>>>> master
 }
 
 .intro-buttons {
@@ -145,6 +161,7 @@
 }
 
 @media (max-width: 1280px) {
+<<<<<<< HEAD
   .intro-text,
   .sign-text {
     width: 100% !important;
@@ -155,4 +172,12 @@
   // .sign-text {
   //     width: 100%;
   // }
+=======
+    .intro-text, .sign-text {
+        width: 100% !important;
+    }
+    .intro-photo {
+        display: none;
+    }
+>>>>>>> master
 }
