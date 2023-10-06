@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
 import { useEffect } from "react";
 
-
 interface ErrorStateProps {
-  error: Error
+  error: Error;
 }
 
 const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
@@ -12,11 +11,11 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
     console.error(error);
   }, [error]);
 
-  return ( 
+  return (
     <div>
-        <h1>Il y a eu une erreur!</h1>
+      <h1>Il y a eu une erreur!</h1>
     </div>
-   );
-}
- 
+  );
+};
+
 export default ErrorState;

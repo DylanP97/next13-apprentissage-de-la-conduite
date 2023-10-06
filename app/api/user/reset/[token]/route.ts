@@ -28,13 +28,13 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     });
 
     if (!user) {
-      throw new Error('Invalid User');
+      return null;
     }
 
     const email = user.email;
 
     if (!email) {
-      throw new Error('Invalid Email');
+      return null;
     }
 
     await postmarkApp.sendEmail({

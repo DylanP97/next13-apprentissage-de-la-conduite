@@ -1,16 +1,17 @@
-'use client'
+"use client";
 
 import { User } from "@prisma/client";
 
 interface HomeGreetingProps {
-    currentUser: User,
+  currentUser: User;
 }
 
 const HomeGreetings: React.FC<HomeGreetingProps> = ({ currentUser }) => {
-
-    return (
-        <p>Bonjour {currentUser.firstName ? currentUser.firstName : currentUser.name}</p>
-    )
-}
+  return (
+    <p>
+      Bonjour {currentUser.firstName ? currentUser.firstName : currentUser.name}
+    </p>
+  );
+};
 
 export default HomeGreetings;

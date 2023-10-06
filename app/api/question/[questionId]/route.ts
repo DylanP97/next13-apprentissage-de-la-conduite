@@ -23,7 +23,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!question) {
-      throw new Error('Invalid Question');
+      return null;
     }
 
     return NextResponse.json({
@@ -38,7 +38,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
 export async function DELETE(
   request: Request,
-  { params }: { params: IParams }
+  { params }: { params: IParams },
 ) {
   const currentUser = await getCurrentUser();
 
@@ -48,14 +48,14 @@ export async function DELETE(
 
   const { questionId } = params;
 
-  if (!questionId || typeof questionId !== 'string') {
-    throw new Error('Invalid ID');
+  if (!questionId || typeof questionId !== "string") {
+    throw new Error("Invalid ID");
   }
 
   const question = await prisma.question.deleteMany({
     where: {
-      id: questionId
-    }
+      id: questionId,
+    },
   });
 
   return NextResponse.json(question);

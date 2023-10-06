@@ -55,8 +55,11 @@ export const TOOLBAR_OPTIONS = [
   ["clean"],
 ];
 
-
-export const showPassword = (e: any, typePasswordInput: string, setTypePasswordInput: any) => {
+export const showPassword = (
+  e: any,
+  typePasswordInput: string,
+  setTypePasswordInput: (value: string) => void,
+) => {
   var eyeIcon = e.target;
 
   var eyeParent = eyeIcon.parentElement;

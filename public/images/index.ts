@@ -11,6 +11,19 @@ import caryellow from "./caryellow.png";
 import man from "./man.png";
 import carcrash from "./carcrash.png";
 
-const images = { autoroute, carcrash, categoriespermis, conduite, pietons, retroviseur, routes, zone30, illustration, car, caryellow, man }
+const images = {
+  autoroute,
+  carcrash,
+  categoriespermis,
+  conduite,
+  pietons,
+  retroviseur,
+  routes,
+  zone30,
+  illustration,
+  car,
+  caryellow,
+  man,
+};
 
-export default images
+export default images;

@@ -9,7 +9,6 @@ interface IParams {
 const postmark = require("postmark");
 const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
 
-
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
     const { userId } = params;
@@ -24,7 +23,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!user) {
-      throw new Error('Invalid User');
+      return null;
     }
 
     if (data.isAccepted) {
@@ -35,9 +34,9 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         TextBody: `Bonjour ${data.firstName} Vous pouvez désormais sélectionné votre abonnement : ${process.env.BASE_URL}`,
         MessageStream: "outbound",
       });
-  
+
       if (!postmarkResponse.ErrorCode) {
-        return NextResponse.json({ message : "hii" });
+        return NextResponse.json({ message: "hii" });
       }
     }
 
@@ -52,7 +51,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
 export async function DELETE(
   request: Request,
-  { params }: { params: IParams }
+  { params }: { params: IParams },
 ) {
   const currentUser = await getCurrentUser();
 
@@ -72,17 +71,19 @@ export async function DELETE(
     },
   });
 
-  const account = await prisma.account.findMany({
-    where: {
-      userId: userId,
-    }
-  }).then((account: any) => {
-    prisma.account.delete({
+  const account = await prisma.account
+    .findMany({
       where: {
-        id: account.id,
-      }
+        userId: userId,
+      },
     })
-  });
+    .then((account: any) => {
+      prisma.account.delete({
+        where: {
+          id: account.id,
+        },
+      });
+    });
 
-  return NextResponse.json({user, account});
+  return NextResponse.json({ user, account });
 }
