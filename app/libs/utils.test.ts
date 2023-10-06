@@ -5,6 +5,7 @@ import {
   getSubscriptionLabel,
   showPassword,
   TOOLBAR_OPTIONS,
+  formatRelativeDate,
 } from "./utils";
 
 describe("@dateParser", () => {
@@ -184,5 +185,79 @@ describe("@showPassword", () => {
 describe("@TOOLBAR_OPTIONS", () => {
   it("should return correct options", () => {
     expect(TOOLBAR_OPTIONS).toEqual(TOOLBAR_OPTIONS);
+  });
+});
+
+describe("@formatRelativeDate", () => {
+  it("should return a formatted string for years", () => {
+    const currentDate = new Date();
+    const date = new Date(currentDate);
+    date.setFullYear(currentDate.getFullYear() - 2);
+    expect(formatRelativeDate(date.toISOString())).toBe("Il y a 2 ans");
+  });
+
+  it("should return a formatted string for year", () => {
+    const currentDate = new Date();
+    const date = new Date(currentDate);
+    date.setFullYear(currentDate.getFullYear() - 1);
+    expect(formatRelativeDate(date.toISOString())).toBe("Il y a 1 an");
+  });
+
+  it("should return a formatted string for months", () => {
+    const currentDate = new Date();
+    const date = new Date(currentDate);
+    date.setMonth(currentDate.getMonth() - 2);
+    expect(formatRelativeDate(date.toISOString())).toBe("Il y a 2 mois");
+  });
+
+  it("should return a formatted string for month", () => {
+    const currentDate = new Date();
+    const date = new Date(currentDate);
+    date.setMonth(currentDate.getMonth() - 1);
+    expect(formatRelativeDate(date.toISOString())).toBe("Il y a 1 mois");
+  });
+
+  it("should return a formatted string for days", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 200000000);
+    expect(formatRelativeDate(updated.toISOString())).toBe("Il y a 2 jours");
+  });
+
+  it("should return a formatted string for day", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 100000000);
+    expect(formatRelativeDate(updated.toISOString())).toBe("Il y a 1 jour");
+  });
+
+  it("should return a formatted string for hours", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 20000000);
+    expect(formatRelativeDate(updated.toISOString())).toBe("Il y a 5 heures");
+  });
+
+  it("should return a formatted string for hour", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 3600000);
+    expect(formatRelativeDate(updated.toISOString())).toBe("Il y a 1 heure");
+  });
+
+  it("should return a formatted string for minutes", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 2000000);
+    expect(formatRelativeDate(updated.toISOString())).toBe("Il y a 33 minutes");
+  });
+
+  it("should return a formatted string for minute", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 100000);
+    expect(formatRelativeDate(updated.toISOString())).toBe("Il y a 1 minute");
+  });
+
+  it("should return a formatted string for seconds", () => {
+    const currentDate = new Date();
+    const updated = new Date(currentDate.getTime() - 20000);
+    expect(formatRelativeDate(updated.toISOString())).toBe(
+      "Il y a quelques secondes"
+    );
   });
 });

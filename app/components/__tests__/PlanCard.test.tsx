@@ -17,13 +17,7 @@ describe("@PlanCard", () => {
   });
   it("should render @PlanCard component correctly", () => {
     render(
-      <PlanCard
-        label=""
-        priceLabel=""
-        planId={0}
-        features={undefined}
-        userId=""
-      />,
+      <PlanCard label="" priceLabel="" planId={0} features={[]} userId="" />
     );
 
     expect(screen.getByText("S'abonner")).toBeInTheDocument();
@@ -37,9 +31,9 @@ describe("@PlanCard", () => {
           label="test label"
           priceLabel=""
           planId={0}
-          features={undefined}
+          features={[]}
           userId=""
-        />,
+        />
       );
       expect(screen.getByText("test label")).toBeInTheDocument();
     });
@@ -52,9 +46,9 @@ describe("@PlanCard", () => {
           label=""
           priceLabel="test priceLabel"
           planId={0}
-          features={undefined}
+          features={[]}
           userId=""
-        />,
+        />
       );
       expect(screen.getByText("test priceLabel/mois")).toBeInTheDocument();
     });
@@ -63,13 +57,7 @@ describe("@PlanCard", () => {
   describe("@planId", () => {
     it("should render component with @planId and fail handleClick", () => {
       render(
-        <PlanCard
-          label=""
-          priceLabel=""
-          planId={0}
-          features={undefined}
-          userId=""
-        />,
+        <PlanCard label="" priceLabel="" planId={0} features={[]} userId="" />
       );
 
       fireEvent.click(screen.getByRole("button"));
@@ -79,20 +67,14 @@ describe("@PlanCard", () => {
 
     it("should render component with @planId and handleClick", () => {
       render(
-        <PlanCard
-          label=""
-          priceLabel=""
-          planId={12}
-          features={undefined}
-          userId=""
-        />,
+        <PlanCard label="" priceLabel="" planId={12} features={[]} userId="" />
       );
 
       fireEvent.click(screen.getByRole("button"));
       mockAxios.mockResponse({ data: { message: "testMessage" } });
       expect(mockAxios.post).toHaveBeenCalledWith(
         "/api/stripe",
-        '{"items":[{"id":12,"quantity":1}],"userId":""}',
+        '{"items":[{"id":12,"quantity":1}],"userId":""}'
       );
       expect(mockRouterPush).toBeCalled();
     });
@@ -101,26 +83,14 @@ describe("@PlanCard", () => {
   describe("@features", () => {
     it("should render component with @features", () => {
       render(
-        <PlanCard
-          label=""
-          priceLabel=""
-          planId={0}
-          features={undefined}
-          userId=""
-        />,
+        <PlanCard label="" priceLabel="" planId={0} features={[]} userId="" />
       );
       expect(screen.getByRole("list")).toBeEmptyDOMElement();
     });
 
     it("should render component with @features", () => {
       render(
-        <PlanCard
-          label=""
-          priceLabel=""
-          planId={0}
-          features={null}
-          userId=""
-        />,
+        <PlanCard label="" priceLabel="" planId={0} features={[]} userId="" />
       );
       expect(screen.getByRole("list")).toBeEmptyDOMElement();
     });
@@ -133,7 +103,7 @@ describe("@PlanCard", () => {
           planId={0}
           features={["a", "b"]}
           userId=""
-        />,
+        />
       );
       expect(screen.getByRole("list")).not.toBeEmptyDOMElement();
       expect(screen.getAllByRole("listitem")).toHaveLength(2);
@@ -147,16 +117,16 @@ describe("@PlanCard", () => {
           label=""
           priceLabel=""
           planId={10}
-          features={undefined}
+          features={[]}
           userId="test userId"
-        />,
+        />
       );
 
       fireEvent.click(screen.getByRole("button"));
       mockAxios.mockResponse({ data: { message: "testMessage" } });
       expect(mockAxios.post).toHaveBeenCalledWith(
         "/api/stripe",
-        '{"items":[{"id":10,"quantity":1}],"userId":"test userId"}',
+        '{"items":[{"id":10,"quantity":1}],"userId":"test userId"}'
       );
       expect(mockRouterPush).toBeCalled();
     });

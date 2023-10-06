@@ -23,7 +23,7 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
       .then((response) => {
         const updatedQuestion = response.data.data;
         const questionIndex = questionsData.findIndex(
-          (question: any) => question.id === updatedQuestion.id,
+          (question: any) => question.id === updatedQuestion.id
         );
         if (questionIndex !== -1) {
           const updatedQuestions = [...questionsData];
@@ -33,7 +33,7 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
         toast.success(
           !status
             ? "La question est désormais dans le quiz."
-            : "La question n'est désormais plus dans le quiz",
+            : "La question n'est désormais plus dans le quiz"
         );
       })
       .catch(() => {
@@ -46,12 +46,12 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
       .delete(`/api/question/${questionId}`)
       .then(() => {
         const questionIndex = questionsData.findIndex(
-          (question: any) => question.id === questionId,
+          (question: any) => question.id === questionId
         );
         if (questionIndex !== -1) {
           let updatedQuestions = [...questionsData];
           const newUpdatedQuestions = updatedQuestions.filter(
-            (_, index) => index !== questionIndex,
+            (_, index) => index !== questionIndex
           );
           setQuestionsData(newUpdatedQuestions);
         }
@@ -61,6 +61,8 @@ const QuizAdminClient: React.FC<QuizAdminClientProps> = ({ questions }) => {
         toast.error("Une erreur s'est produite dans la requête.");
       });
   };
+
+  console.log(questionsData);
 
   return (
     <div className="home-container">

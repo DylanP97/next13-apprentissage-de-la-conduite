@@ -27,6 +27,8 @@ describe("@getUserById", () => {
       email: null,
       firstName: null,
       lastName: null,
+      image: null,
+      name: null,
     });
   });
 
@@ -35,6 +37,8 @@ describe("@getUserById", () => {
       email: "test@email.com",
       firstName: "test first name",
       lastName: "test last name",
+      image: "test image",
+      name: "test name",
     });
 
     const result = await getUserById("1");
@@ -43,12 +47,14 @@ describe("@getUserById", () => {
       email: "test@email.com",
       firstName: "test first name",
       lastName: "test last name",
+      image: "test image",
+      name: "test name",
     });
   });
 
   it("should handle exception", async () => {
     (prisma.user.findUnique as jest.Mock).mockRejectedValue(
-      new Error("Test error"),
+      new Error("Test error")
     );
 
     await expect(getUserById("123")).rejects.toThrowError("Test error");
