@@ -62,7 +62,7 @@ export const handlers = [
             subscriptionPlan: 5,
           },
         },
-      ])
+      ]),
     );
   }),
 ];

@@ -55,8 +55,11 @@ export const TOOLBAR_OPTIONS = [
   ["clean"],
 ];
 
-
-export const showPassword = (e: any, typePasswordInput: string, setTypePasswordInput: any) => {
+export const showPassword = (
+  e: any,
+  typePasswordInput: string,
+  setTypePasswordInput: (value: string) => void
+) => {
   var eyeIcon = e.target;
 
   var eyeParent = eyeIcon.parentElement;
@@ -73,7 +76,6 @@ export const showPassword = (e: any, typePasswordInput: string, setTypePasswordI
   }
 };
 
-
 // Cette fonction prend une date au format ISO 8601 (2023-08-14T05:21:11.076Z) et la formate en français.
 export const formatRelativeDate = (isoDate: string): string => {
   const currentDate = new Date();
@@ -89,15 +91,15 @@ export const formatRelativeDate = (isoDate: string): string => {
   const years = Math.floor(months / 12);
 
   if (years > 0) {
-    return `Il y a ${years} ${years === 1 ? 'an' : 'ans'}`;
+    return `Il y a ${years} ${years === 1 ? "an" : "ans"}`;
   } else if (months > 0) {
-    return `Il y a ${months} ${months === 1 ? 'mois' : 'mois'}`;
+    return `Il y a ${months} ${months === 1 ? "mois" : "mois"}`;
   } else if (days > 0) {
-    return `Il y a ${days} ${days === 1 ? 'jour' : 'jours'}`;
+    return `Il y a ${days} ${days === 1 ? "jour" : "jours"}`;
   } else if (hours > 0) {
-    return `Il y a ${hours} ${hours === 1 ? 'heure' : 'heures'}`;
+    return `Il y a ${hours} ${hours === 1 ? "heure" : "heures"}`;
   } else if (minutes > 0) {
-    return `Il y a ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+    return `Il y a ${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
   } else {
     return `Il y a quelques secondes`;
   }

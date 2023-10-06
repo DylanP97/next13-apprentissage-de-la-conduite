@@ -1,7 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 import { buffer } from "micro";
 import { NextResponse } from "next/server";
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
 
 export async function POST(req: any, res: any) {
   const signature = req.headers["stripe-signature"];
@@ -9,7 +9,7 @@ export async function POST(req: any, res: any) {
   const reqBuffer = await buffer(req);
 
   const rawBody: any = await new Promise((resolve) => {
-    bodyParser.raw({ type: 'application/json' })(req, res, () => {
+    bodyParser.raw({ type: "application/json" })(req, res, () => {
       resolve(req.body);
     });
   });
@@ -31,8 +31,6 @@ export async function POST(req: any, res: any) {
   console.log({ event });
   return NextResponse.json({ received: true, status: 200 });
 }
-
-
 
 // export async function POST(req: any, res: any) {
 //   // Use the raw mode of the body-parser module to get the raw request body

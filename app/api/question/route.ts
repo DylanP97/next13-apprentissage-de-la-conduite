@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   await prisma.question.create({
     data: {
       ...data,
-      published: true
+      published: true,
     },
   });
 

@@ -5,15 +5,16 @@ import { redirect } from "next/navigation";
 import ConnexionMain from "./ConnexionMain";
 
 export default async function ConnexionPage() {
-    const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
-    if (!currentUser) return (
-        <ClientOnly>
-            <ConnexionMain />
-        </ClientOnly>
-    )
+  if (!currentUser)
+    return (
+      <ClientOnly>
+        <ConnexionMain />
+      </ClientOnly>
+    );
 
-    if (currentUser) {
-        redirect("/");
-    }
+  if (currentUser) {
+    redirect("/");
+  }
 }

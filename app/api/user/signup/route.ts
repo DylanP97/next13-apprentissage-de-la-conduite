@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       MessageStream: "outbound",
     });
 
-    return NextResponse.json({ message : 'Signup route success'});
+    return NextResponse.json({ message: "Signup route success" });
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });

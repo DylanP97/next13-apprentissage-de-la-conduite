@@ -1,55 +1,55 @@
 .tags {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 2%;
-    gap: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 2%;
+  gap: 0.5rem;
 }
 
 .badge-tag {
-    padding: 1% !important;
-    cursor: pointer;
-    font-weight: 600;
-    border-radius: 10px;
+  padding: 1% !important;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 10px;
 }
 
 .badge-tag.active-tag {
-    background: linear-gradient(to left, var(--10color), var(--10biscolor));;
-    color: var(--60color);
+  background: linear-gradient(to left, var(--10color), var(--10biscolor));
+  color: var(--60color);
 }
 .badge-tag.not-active {
-    background-color: var(--30color);
-    color: var(--60color);
+  background-color: var(--30color);
+  color: var(--60color);
 
-    @media (min-width: 768px) {
-        &:hover {
-            background: linear-gradient(to left, var(--10color), var(--10biscolor));;
-            color: var(--60color);
-        }
+  @media (min-width: 768px) {
+    &:hover {
+      background: linear-gradient(to left, var(--10color), var(--10biscolor));
+      color: var(--60color);
     }
+  }
 }
 
 .new-tag {
-    background-color: var(--30color);
-    color: var(--60color);
-    border-radius: 10px;
-    padding: 0% 1%;
-    border: 0px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  background-color: var(--30color);
+  color: var(--60color);
+  border-radius: 10px;
+  padding: 0% 1%;
+  border: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    & input {
-        border: 0px;
-        outline: 0px;
-    }
+  & input {
+    border: 0px;
+    outline: 0px;
+  }
 }
 
 .new-tag-btn {
-    border-radius: 10px;
-    padding: 0%;
-    border: 0px;
-    cursor: pointer;
-    object-fit: contain;
+  border-radius: 10px;
+  padding: 0%;
+  border: 0px;
+  cursor: pointer;
+  object-fit: contain;
 }

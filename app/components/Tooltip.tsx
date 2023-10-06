@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 interface TooltipProps {
   message: string;
@@ -20,7 +20,13 @@ const Tooltip: React.FC<TooltipProps> = ({ message, children, clicking }) => {
   };
 
   return (
-    <div className="tooltip-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={clicking}>
+    <div
+      data-testid="tooltip"
+      className="tooltip-container"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={clicking}
+    >
       {children}
       {isHovered && <div className="tooltip">{message}</div>}
     </div>

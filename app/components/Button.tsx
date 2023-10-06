@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 
@@ -9,14 +9,10 @@ interface ButtonProps {
   icon?: any;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  label,
-  onClick,
-  disabled,
-  icon,
-}) => {
+const Button: React.FC<ButtonProps> = ({ label, onClick, disabled, icon }) => {
   return (
     <button
+      data-testid="button"
       className="btn-primary btn-10color"
       disabled={disabled}
       onClick={onClick}
@@ -27,11 +23,12 @@ const Button: React.FC<ButtonProps> = ({
           alt="icon"
           width={24}
           className="social-login-icon"
+          data-testid="button-icon"
         />
       )}
       {label}
     </button>
   );
-}
+};
 
 export default Button;
