@@ -84,7 +84,7 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({
                 {
                   method: "POST",
                   body: formData,
-                },
+                }
               )
                 .then((response) => response.json())
                 .then((result) => {
@@ -161,15 +161,6 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({
             Visibilité de votre article :{" "}
             {published ? "Article Publié" : "Non visible"}
           </Form.Label>
-          <Button
-            style={{ maxWidth: "350px", textAlign: "left" }}
-            className="btn-30color"
-            onClick={() => setPublished(!published)}
-          >
-            {published
-              ? "Cliquez pour le rendre invisible aux utilisateurs"
-              : "Cliquez pour le rendre disponible aux utilisateurs."}
-          </Button>
         </div>
         <br />
         <p className="savezone">
@@ -183,6 +174,16 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({
             }}
           >
             Sauvegarder
+          </Button>
+          <Button
+            onClick={() => {
+              setPublished(!published);
+            }}
+            className="btn-30color"
+          >
+            {published
+              ? "Cliquez pour le rendre invisible aux utilisateurs"
+              : "Cliquez pour le rendre disponible aux utilisateurs."}
           </Button>
           <Button
             className="btn-30color"

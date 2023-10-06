@@ -34,6 +34,20 @@ model Blog {
   published Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Comment Comment[]
+}
+
+model Comment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  commenterId String   @db.ObjectId
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  blogId      String   @db.ObjectId
+
+  blog      Blog @relation(fields: [blogId], references: [id])
+  commenter User @relation(fields: [commenterId], references: [id])
 }
 
 model User {
@@ -55,6 +69,7 @@ model User {
   updatedAt            DateTime  @updatedAt
 
   accounts Account[]
+  Comment  Comment[]
 }
 
 model Account {

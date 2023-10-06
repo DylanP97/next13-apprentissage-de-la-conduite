@@ -20,7 +20,7 @@ import { useState } from "react";
 
 interface SignInProps {
   isSignIn: boolean;
-  state: (enabled: boolean) => void;
+  state: any;
 }
 
 const SignIn: React.FC<SignInProps> = ({ isSignIn, state }) => {
@@ -75,7 +75,7 @@ const SignIn: React.FC<SignInProps> = ({ isSignIn, state }) => {
               <InputGroup className="mb-3">
                 <FloatingLabel label="Mot de passe">
                   <Input
-                    id="paffwqsdsrd"
+                    id="password"
                     type={typePasswordInput}
                     register={register}
                     errors={errors}
