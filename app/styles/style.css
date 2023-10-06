@@ -490,6 +490,7 @@ ff .article-table .blog-card:hover .icon {
   min-height: 100vh;
   color: white;
   background-color: var(--60color);
+  overflow: hidden;
 }
 
 .sign {
@@ -508,8 +509,6 @@ ff .article-table .blog-card:hover .icon {
 }
 .disabled-sign {
   position: relative;
-  /* Add your other styles for the div here */
-  /* Create a pseudo-element to cover the entire div */
 }
 .disabled-sign::after {
   content: "";
@@ -518,11 +517,11 @@ ff .article-table .blog-card:hover .icon {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px); /* Apply the blur effect */
-  pointer-events: none; /* Allow interactions with elements beneath */
-  z-index: 5; /* Adjust the z-index to your needs */
+          backdrop-filter: blur(5px);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .intro-buttons {
@@ -654,23 +653,23 @@ ff .article-table .blog-card:hover .icon {
   transform: translateX(0%);
   background-color: var(--60color);
   color: var(--30color);
-  padding: 5px 10px; /* Adjust the padding to your desired size */
+  padding: 5px 10px;
   border-radius: 4px;
-  white-space: nowrap; /* Prevent the text from wrapping */
+  white-space: nowrap;
   transition: opacity 0.2s, visibility 0.2s;
   z-index: 2;
-  white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+  white-space: nowrap;
 }
 
 .tooltip::before {
   content: "";
   position: absolute;
-  bottom: 100%; /* Position the triangle above the tooltip */
-  left: 10%; /* Position the triangle in the middle */
-  transform: translateX(-50%); /* Center the triangle horizontally */
+  bottom: 100%;
+  left: 10%;
+  transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent var(--60color) transparent; /* Set the border color to match the tooltip background */
+  border-color: transparent transparent var(--60color) transparent;
   cursor: pointer;
 }
 
@@ -680,7 +679,7 @@ ff .article-table .blog-card:hover .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+  white-space: nowrap;
   cursor: pointer;
 }
 

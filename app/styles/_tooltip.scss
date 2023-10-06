@@ -20,23 +20,23 @@
   transform: translateX(-0%);
   background-color: var(--60color);
   color: var(--30color);
-  padding: 5px 10px; /* Adjust the padding to your desired size */
+  padding: 5px 10px;
   border-radius: 4px;
-  white-space: nowrap; /* Prevent the text from wrapping */
+  white-space: nowrap;
   transition: opacity 0.2s, visibility 0.2s;
   z-index: 2;
-  white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+  white-space: nowrap;
 }
 
 .tooltip::before {
   content: "";
   position: absolute;
-  bottom: 100%; /* Position the triangle above the tooltip */
-  left: 10%; /* Position the triangle in the middle */
-  transform: translateX(-50%); /* Center the triangle horizontally */
+  bottom: 100%;
+  left: 10%;
+  transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent var(--60color) transparent; /* Set the border color to match the tooltip background */
+  border-color: transparent transparent var(--60color) transparent;
   cursor: pointer;
 }
 
@@ -46,7 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
+  white-space: nowrap;
   cursor: pointer;
 }
 

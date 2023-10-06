@@ -47,9 +47,6 @@ const PlanCard: React.FC<PlanCardProps> = ({
             })
     }
 
-    console.log(
-    )
-
     return (
         <div className="plan">
             <h2 className="plan-title">{label}</h2>

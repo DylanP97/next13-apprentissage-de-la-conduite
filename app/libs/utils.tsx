@@ -72,3 +72,36 @@ export const showPassword = (e: any, typePasswordInput: string, setTypePasswordI
     eyeIcon.srcset = hidden.src;
   }
 };
+
+
+// Cette fonction prend une date au format ISO 8601 (2023-08-14T05:21:11.076Z) et la formate en français.
+export const formatRelativeDate = (isoDate: string): string => {
+  const currentDate = new Date();
+  const commentDate = new Date(isoDate);
+  const timeDifference = currentDate.getTime() - commentDate.getTime();
+
+  // Calculer les écarts en secondes, minutes, heures, jours, mois, années
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  if (years > 0) {
+    return `Il y a ${years} ${years === 1 ? 'an' : 'ans'}`;
+  } else if (months > 0) {
+    return `Il y a ${months} ${months === 1 ? 'mois' : 'mois'}`;
+  } else if (days > 0) {
+    return `Il y a ${days} ${days === 1 ? 'jour' : 'jours'}`;
+  } else if (hours > 0) {
+    return `Il y a ${hours} ${hours === 1 ? 'heure' : 'heures'}`;
+  } else if (minutes > 0) {
+    return `Il y a ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+  } else {
+    return `Il y a quelques secondes`;
+  }
+};
+
+// Utilisation dans votre composant Comment
+// Remplacez {createdAt} par {formatRelativeDate(createdAt)}

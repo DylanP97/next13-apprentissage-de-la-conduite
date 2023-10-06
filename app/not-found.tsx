@@ -10,6 +10,7 @@ const Custom404 = () => {
       <h1>Erreur 404: Désolé mais cette page n&apos;existe pas !</h1>
       <br />
       <Image src={carcrash} alt=""
+  
       />
       <br />
       <p>Veuillez vérifiez que l&apos;url de la page que vous souhaitez atteindre est correcte</p>

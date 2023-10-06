@@ -140,7 +140,6 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                 <br />
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <Form.Label>Visibilité de votre article : {published ? "Article Publié" : "Non visible"}</Form.Label>
-                    <Button style={{ maxWidth : "350px", textAlign : "left"}} className="btn-30color" onClick={(() => setPublished(!published))}>{published ? 'Cliquez pour le rendre invisible aux utilisateurs' : 'Cliquez pour le rendre disponible aux utilisateurs.'}</Button>
                 </div>
                 <br />
                 <p className="savezone">N&apos;oubliez pas de sauvegarder vos modifications.</p>
@@ -152,6 +151,11 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({ blogs, blog
                         }}
                     >
                         Sauvegarder
+                    </Button>
+                    <Button onClick={() => {
+                        setPublished(!published)
+                    }} className="btn-30color">
+                        {published ? 'Cliquez pour le rendre invisible aux utilisateurs' : 'Cliquez pour le rendre disponible aux utilisateurs.'}
                     </Button>
                     <Button
                         className="btn-30color"

@@ -17,6 +17,8 @@ export default async function getUserById(
     return {
       firstName: user.firstName || null,
       lastName: user.lastName || null,
+      name: user.name || null,
+      image: user.image || null,
       email: user.email || null,
     };
   } catch (error: any) {

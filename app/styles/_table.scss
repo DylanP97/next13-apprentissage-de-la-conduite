@@ -68,7 +68,6 @@
                 &:focus {
                     border: 0 !important;
                     border-bottom: solid 3px var(--10color) !important;
-                    // box-shadow: 8px 12px 12px 0px var(--10color) !important;
                     outline: none !important;
                 }
             }
@@ -207,7 +206,6 @@
             background-color: var(--10color);
             color: var(--60color);
             outline: var(--10color) 0px solid;
-            // transform: scale(1.1);
             transition: 300ms ease-in-out;
             ff & .icon {
                 filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(110%);
