@@ -1,44 +1,66 @@
-import { render, screen } from '@testing-library/react';
-import HomePage from '../HomePage';
-import getBlogsMock from '@/app/__mocks__/apicalls/getBlogsMock';
+import { fireEvent, render, screen } from "@testing-library/react";
+import HomePage from "../HomePage";
+import { User } from "@prisma/client";
 
-const mockCurrentUser = {
-    createdAt: "dsdsd",
-    updatedAt: "dsdsd",
-    emailVerified: false,
-    id: "dsdsd",
-    firstName: "dsdsd",
-    lastName: "dsdsd",
-    name: "dsdsd",
-    email: "dsdsd",
-    hashedPassword: "dsdsd",
-    subscriptionPlan: 5,
-}
+jest.mock("next/navigation", () => ({
+  useRouter() {
+    return {
+      push: jest.fn(),
+    };
+  },
+}));
 
-describe('HomePage', () => {
-    it("renders main container", () => {
-        render(<HomePage currentUser={mockCurrentUser} blogs={[]} />); // ARRANGE
+const user: Partial<User> = {
+  name: "testName",
+};
 
-        const homepage = screen.queryByRole('main'); // ACT
+const homePageBlogGridId = "HomePage-blog-grid";
 
-        expect(homepage).toBeInTheDocument(); // ASSERT
+describe("@HomePage", () => {
+  it("should render @HomePage component correctly", () => {
+    render(<HomePage currentUser={user as User} blogs={undefined} />);
+    expect(screen.getByText(`Bonjour ${user.name}`)).toBeInTheDocument();
+  });
+
+  describe("@blogs", () => {
+    it("should render component with @blogs=null", () => {
+      render(<HomePage currentUser={user as User} blogs={null} />);
+      expect(screen.queryByTestId(homePageBlogGridId)).not.toBeInTheDocument();
     });
 
-    it("should render 'Il n'y a pas d'articles' when array is empty", () => {
-        render(<HomePage currentUser={mockCurrentUser} blogs={[]} />);
-
-        const h1 = screen.getByText("Il n'y a pas d'articles");
-
-        expect(h1).toBeInTheDocument();
+    it("should render component with @blogs=null", () => {
+      render(<HomePage currentUser={user as User} blogs={null} />);
+      expect(screen.queryByTestId(homePageBlogGridId)).not.toBeInTheDocument();
     });
 
-    it('should render a list with the correct number of blogs', async () => {
-        const mockBlogs = await getBlogsMock();
-
-        render(<HomePage currentUser={mockCurrentUser} blogs={mockBlogs} />);
-
-        const blogs = await screen.findAllByTestId('blog-item');
-
-        expect(blogs.length).toBe(3);
+    it("should render component with @blogs=[]", () => {
+      render(<HomePage currentUser={user as User} blogs={[]} />);
+      expect(screen.getByText("Il n'y a pas d'articles")).toBeInTheDocument();
     });
-})
+    it("should render component with @blogs", () => {
+      const mockBlogs = [
+        {
+          title: "test",
+        },
+        {
+          title: "test2",
+          tags: ["c", "d"],
+        },
+        {
+          title: "test3",
+          tags: ["e", "f"],
+        },
+      ];
+
+      render(<HomePage currentUser={user as User} blogs={mockBlogs} />);
+
+      const addTags = screen.getAllByTestId("TagsEditor-addTag");
+      expect(addTags).toHaveLength(4);
+      expect(screen.getByText("test")).toBeInTheDocument();
+      expect(screen.getByText("test2")).toBeInTheDocument();
+      expect(screen.getByText("test3")).toBeInTheDocument();
+
+      fireEvent.click(addTags[0]);
+    });
+  });
+});

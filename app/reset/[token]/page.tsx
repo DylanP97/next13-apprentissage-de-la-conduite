@@ -4,15 +4,16 @@ import ClientOnly from "../../components/ClientOnly";
 import { redirect } from "next/navigation";
 
 export default async function ResetPasswordPage() {
-    const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
-    if (!currentUser) return (
-        <ClientOnly>
-            <ResetPasswordClient />
-        </ClientOnly>
-    )
+  if (!currentUser)
+    return (
+      <ClientOnly>
+        <ResetPasswordClient />
+      </ClientOnly>
+    );
 
-    if (currentUser) {
-        redirect("/");
-    }
+  if (currentUser) {
+    redirect("/");
+  }
 }

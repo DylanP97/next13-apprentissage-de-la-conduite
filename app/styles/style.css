@@ -171,7 +171,7 @@ footer a:hover {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .home-card article .card-bottom {
   display: flex;
@@ -213,31 +213,31 @@ footer a:hover {
   }
 }
 @media screen and (min-width: 1280px) {
-  .home-card:nth-child(7n+1) {
+  .home-card:nth-child(7n + 1) {
     grid-column: auto/span 3;
     grid-row: auto/span 1;
     aspect-ratio: 4/1;
   }
-  .home-card:nth-child(7n+1) article {
+  .home-card:nth-child(7n + 1) article {
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
-  .home-card:nth-child(7n+1) article .card-top {
+  .home-card:nth-child(7n + 1) article .card-top {
     width: 60%;
     height: 100%;
   }
-  .home-card:nth-child(7n+1) article .card-top img {
+  .home-card:nth-child(7n + 1) article .card-top img {
     -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
-  .home-card:nth-child(7n+1) article .card-bottom {
+  .home-card:nth-child(7n + 1) article .card-bottom {
     width: 40%;
     height: 100%;
     padding: 4%;
     position: relative;
   }
-  .home-card:nth-child(7n+1) article .card-bottom h2 {
+  .home-card:nth-child(7n + 1) article .card-bottom h2 {
     font-size: 1.4rem;
     font-weight: 600;
     margin: 0;
@@ -245,7 +245,7 @@ footer a:hover {
     text-overflow: ellipsis;
     display: -webkit-box;
   }
-  .home-card:nth-child(7n+1) article:hover {
+  .home-card:nth-child(7n + 1) article:hover {
     background-color: var(--30color);
     color: var(--60color);
   }
@@ -303,7 +303,7 @@ footer a:hover {
 .article-table .blog-card-edition .question-edition .selected {
   background-color: green !important;
 }
-.article-table .blog-card-edition .question-edition input[type=text] {
+.article-table .blog-card-edition .question-edition input[type="text"] {
   padding: 15px 10px;
   border: 0px;
   background-color: var(--60color);
@@ -311,7 +311,7 @@ footer a:hover {
   border: 0;
   border-bottom: solid 3px var(--30color);
 }
-.article-table .blog-card-edition .question-edition input[type=text]:focus {
+.article-table .blog-card-edition .question-edition input[type="text"]:focus {
   border: 0 !important;
   border-bottom: solid 3px var(--10color) !important;
   outline: none !important;
@@ -370,9 +370,12 @@ footer a:hover {
   max-height: 250px;
   aspect-ratio: 16/9;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
-.article-table .blog-card-edition .question-edition .current-question-img:hover {
+.article-table
+  .blog-card-edition
+  .question-edition
+  .current-question-img:hover {
   cursor: pointer;
 }
 .article-table .blog-card-edition .question-edition button {
@@ -426,7 +429,7 @@ footer a:hover {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 15px;
 }
 .article-table .blog-card:hover {
@@ -436,7 +439,8 @@ footer a:hover {
   transition: 300ms ease-in-out;
 }
 ff .article-table .blog-card:hover .icon {
-  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(110%);
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%)
+    contrast(110%);
 }
 .article-table .blog-card .tooltip-container:hover .icon {
   filter: grayscale(100%);
@@ -520,7 +524,7 @@ ff .article-table .blog-card:hover .icon {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
   -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px); /* Apply the blur effect */
+  backdrop-filter: blur(5px); /* Apply the blur effect */
   pointer-events: none; /* Allow interactions with elements beneath */
   z-index: 5; /* Adjust the z-index to your needs */
 }
@@ -546,7 +550,7 @@ ff .article-table .blog-card:hover .icon {
   left: 7%;
   height: 25%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   z-index: 5;
 }
 
@@ -597,7 +601,7 @@ ff .article-table .blog-card:hover .icon {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 0px !important;
 }
 
@@ -621,11 +625,14 @@ ff .article-table .blog-card:hover .icon {
 .active-sign {
   opacity: 1;
   transform: translateX(0px);
-  transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
+  transition:
+    opacity 1s ease-in-out,
+    transform 0.5s ease-in-out;
 }
 
 @media (max-width: 1280px) {
-  .intro-text, .sign-text {
+  .intro-text,
+  .sign-text {
     width: 100% !important;
   }
   .intro-photo {
@@ -657,7 +664,9 @@ ff .article-table .blog-card:hover .icon {
   padding: 5px 10px; /* Adjust the padding to your desired size */
   border-radius: 4px;
   white-space: nowrap; /* Prevent the text from wrapping */
-  transition: opacity 0.2s, visibility 0.2s;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
   z-index: 2;
   white-space: nowrap; /* Prevent the text from wrapping within the tooltip */
 }
@@ -714,10 +723,18 @@ ff .article-table .blog-card:hover .icon {
   border-radius: 2px 2px 1px 1px;
   box-sizing: border-box;
   transform: rotate(45deg) translate(24px, -10px);
-  background-image: linear-gradient(var(--30color) 20px, transparent 0), linear-gradient(var(--30color) 30px, transparent 0), linear-gradient(var(--30color) 30px, transparent 0);
-  background-size: 10px 12px, 1px 30px, 1px 30px;
+  background-image: linear-gradient(var(--30color) 20px, transparent 0),
+    linear-gradient(var(--30color) 30px, transparent 0),
+    linear-gradient(var(--30color) 30px, transparent 0);
+  background-size:
+    10px 12px,
+    1px 30px,
+    1px 30px;
   background-repeat: no-repeat;
-  background-position: center, 12px 0px, 3px 0px;
+  background-position:
+    center,
+    12px 0px,
+    3px 0px;
 }
 
 .loader::after {
@@ -729,7 +746,19 @@ ff .article-table .blog-card:hover .icon {
   top: 47px;
   border-radius: 50%;
   color: var(--30color);
-  box-shadow: -4px 7px 2px, -7px 16px 3px 1px, -11px 24px 4px 1px, -6px 24px 4px 1px, -14px 35px 6px 2px, -5px 36px 8px 2px, -5px 45px 8px 2px, -14px 49px 8px 2px, 6px 60px 11px 1px, -11px 66px 11px 1px, 11px 75px 13px, -1px 82px 15px;
+  box-shadow:
+    -4px 7px 2px,
+    -7px 16px 3px 1px,
+    -11px 24px 4px 1px,
+    -6px 24px 4px 1px,
+    -14px 35px 6px 2px,
+    -5px 36px 8px 2px,
+    -5px 45px 8px 2px,
+    -14px 49px 8px 2px,
+    6px 60px 11px 1px,
+    -11px 66px 11px 1px,
+    11px 75px 13px,
+    -1px 82px 15px;
 }
 
 @keyframes rotate {
@@ -754,7 +783,10 @@ nav {
 
 .nav-link {
   color: white !important;
-  transition: color 0.45s ease-in-out, background-color 0.45s ease-in-out, border-color 0.45s ease-in-out !important;
+  transition:
+    color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out,
+    border-color 0.45s ease-in-out !important;
 }
 .nav-link:hover {
   color: var(--10color) !important;
@@ -799,7 +831,7 @@ nav {
   max-width: 60%;
   height: 100%;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .create-blog {
@@ -816,10 +848,12 @@ nav {
   font-size: 1rem;
   line-height: 2rem !important;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   border-radius: 0.375rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   box-shadow: 0px 0px 5px 1px var(--30color);
 }
 
@@ -937,7 +971,7 @@ nav {
   margin: 0 auto;
   margin-bottom: 20px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .quiz-btn {
@@ -1018,7 +1052,7 @@ nav {
   margin: 0 auto;
   margin-bottom: 20px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .slide-score.active {
@@ -1086,7 +1120,7 @@ nav {
   background-color: var(--30color) !important;
   color: var(--60color) !important;
   -webkit-text-decoration: dashed !important;
-          text-decoration: dashed !important;
+  text-decoration: dashed !important;
   margin: 0 auto;
   padding: 10px 20px !important;
   border: none !important;
@@ -1162,7 +1196,7 @@ nav {
   border: 0px;
   cursor: pointer;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .blog-content {
@@ -1185,7 +1219,7 @@ nav {
   margin-left: auto;
   margin-right: auto;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .article {
@@ -1207,4 +1241,4 @@ nav {
   .footer-wrap {
     padding-bottom: 10rem;
   }
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */

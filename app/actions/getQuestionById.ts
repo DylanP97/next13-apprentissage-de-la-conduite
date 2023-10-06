@@ -7,7 +7,7 @@ interface IParams {
 export default async function getQuestionById(params: IParams) {
   try {
     const { questionId } = params;
-    
+
     const question = await prisma.question.findUnique({
       where: {
         id: questionId,
@@ -15,7 +15,7 @@ export default async function getQuestionById(params: IParams) {
     });
 
     if (!question) {
-      throw new Error('Invalid question');
+      throw new Error("Invalid question");
     }
 
     return {

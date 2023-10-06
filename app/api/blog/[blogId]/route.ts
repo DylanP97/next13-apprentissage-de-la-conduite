@@ -25,7 +25,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!blog) {
-      throw new Error('Invalid Blog');
+      return null;
     }
 
     return NextResponse.json({
@@ -40,7 +40,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
 export async function DELETE(
   request: Request,
-  { params }: { params: IParams }
+  { params }: { params: IParams },
 ) {
   const currentUser = await getCurrentUser();
 
@@ -50,14 +50,14 @@ export async function DELETE(
 
   const { blogId } = params;
 
-  if (!blogId || typeof blogId !== 'string') {
-    throw new Error('Invalid ID');
+  if (!blogId || typeof blogId !== "string") {
+    throw new Error("Invalid ID");
   }
 
   const blog = await prisma.blog.deleteMany({
     where: {
-      id: blogId
-    }
+      id: blogId,
+    },
   });
 
   return NextResponse.json(blog);
