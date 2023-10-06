@@ -4,12 +4,7 @@ import { Button } from 'react-bootstrap';
 import photo1 from '@/public/images/conduite.jpeg'
 import Image from 'next/image';
 
-import Link from 'next/link';
-import { useState } from 'react';
-import CanvasContainer from './CanvasContainer';
-
 function Intro() {
-
     return (
         <div className='intro sign'>
             <div className='intro-text'>
@@ -17,11 +12,13 @@ function Intro() {
                 <p>Apprentissage de la Conduite et de la Sécurité Routière est une plateforme novatrice dédiée à accompagner les élèves dans leur parcours d&apos;apprentissage de la conduite automobile.</p>
                 <br />
                 <div className='intro-buttons'>
-                    <Link className='btn btn-10color' href="/connexion">Inscription / Connexion</Link>
+                    <Button className='btn-10color' href="/connexion" type="submit">Inscription / Connexion</Button>
                 </div>
             </div>
             <div className='intro-photo'>
-                <CanvasContainer />
+                <Image
+                    src={photo1} alt=''
+                />
             </div>
         </div>
     )
