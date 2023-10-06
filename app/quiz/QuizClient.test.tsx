@@ -7,8 +7,8 @@ describe("@QuizClient", () => {
     expect(screen.getByText("Quiz")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Répondez à une série de questions pour vous préparez à l'examen de la conduite.",
-      ),
+        "Répondez à une série de questions pour vous préparez à l'examen de la conduite."
+      )
     ).toBeInTheDocument();
     expect(screen.getByText("Démarrer le Quiz")).toBeInTheDocument();
   });
@@ -19,8 +19,8 @@ describe("@QuizClient", () => {
       expect(screen.getByText("Quiz")).toBeInTheDocument();
       expect(
         screen.getByText(
-          "Répondez à une série de questions pour vous préparez à l'examen de la conduite.",
-        ),
+          "Répondez à une série de questions pour vous préparez à l'examen de la conduite."
+        )
       ).toBeInTheDocument();
       expect(screen.getByText("Démarrer le Quiz")).toBeInTheDocument();
     });
@@ -34,7 +34,7 @@ describe("@QuizClient", () => {
             question: "question 1",
           },
         ]}
-      />,
+      />
     );
 
     fireEvent.click(screen.getByText("Démarrer le Quiz"));
@@ -52,7 +52,7 @@ describe("@QuizClient", () => {
             question: "question 1",
           },
         ]}
-      />,
+      />
     );
 
     fireEvent.click(screen.getByText("Démarrer le Quiz"));
@@ -71,13 +71,13 @@ describe("@QuizClient", () => {
             correctAnswer: 0,
           },
         ]}
-      />,
+      />
     );
 
     fireEvent.click(screen.getByText("Démarrer le Quiz"));
     fireEvent.click(screen.getByTestId("answer-0"));
     expect(
-      screen.getByText("Bravo, c'est la bonne réponse!"),
+      screen.getByText("Bravo, c'est la bonne réponse!")
     ).toBeInTheDocument();
     expect(screen.getByText("Score : 1 sur 1")).toBeInTheDocument();
   });
@@ -93,7 +93,7 @@ describe("@QuizClient", () => {
             correctAnswer: 1,
           },
         ]}
-      />,
+      />
     );
 
     fireEvent.click(screen.getByText("Démarrer le Quiz"));
@@ -118,7 +118,7 @@ describe("@QuizClient", () => {
             correctAnswer: 0,
           },
         ]}
-      />,
+      />
     );
 
     fireEvent.click(screen.getByText("Démarrer le Quiz"));
@@ -128,7 +128,7 @@ describe("@QuizClient", () => {
 
     fireEvent.click(screen.getByText("Voir mes scores"));
     expect(
-      screen.getByText("Voici le résulats de vos réponses avec correction:"),
+      screen.getByText("Voici le résulats de vos réponses avec correction:")
     ).toBeInTheDocument();
   });
 
@@ -148,7 +148,7 @@ describe("@QuizClient", () => {
             correctAnswer: 0,
           },
         ]}
-      />,
+      />
     );
 
     fireEvent.click(screen.getByText("Démarrer le Quiz"));

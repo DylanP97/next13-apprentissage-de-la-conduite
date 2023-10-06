@@ -5,6 +5,7 @@ import {
   getSubscriptionLabel,
   showPassword,
   TOOLBAR_OPTIONS,
+  formatRelativeDate,
 } from "./utils";
 
 describe("@dateParser", () => {
@@ -184,5 +185,43 @@ describe("@showPassword", () => {
 describe("@TOOLBAR_OPTIONS", () => {
   it("should return correct options", () => {
     expect(TOOLBAR_OPTIONS).toEqual(TOOLBAR_OPTIONS);
+  });
+});
+
+describe("@formatRelativeDate", () => {
+  it("should return a formatted string for years", () => {
+    const isoDate = "2018-08-14T05:21:11.076Z";
+    expect(formatRelativeDate(isoDate)).toBe("Il y a 5 ans");
+  });
+
+  it("should return a formatted string for months", () => {
+    const isoDate = "2023-03-14T05:21:11.076Z";
+    expect(formatRelativeDate(isoDate)).toBe("Il y a 6 mois");
+  });
+
+  it("should return a formatted string for days", () => {
+    const isoDate = "2023-10-03T05:21:11.076Z";
+    expect(formatRelativeDate(isoDate)).toBe("Il y a 3 jours");
+  });
+
+  it("should return a formatted string for hours", () => {
+    const isoDate = "2023-10-06T05:21:11.076Z";
+    expect(formatRelativeDate(isoDate)).toBe("Il y a 13 heures");
+  });
+
+  it("should return a formatted string for minutes", () => {
+    const currentDate = new Date();
+    const date20SecondsAgo = new Date(currentDate.getTime() - 2000000);
+    expect(formatRelativeDate(date20SecondsAgo.toISOString())).toBe(
+      "Il y a 33 minutes"
+    );
+  });
+
+  it("should return a formatted string for seconds", () => {
+    const currentDate = new Date();
+    const date20SecondsAgo = new Date(currentDate.getTime() - 20000);
+    expect(formatRelativeDate(date20SecondsAgo.toISOString())).toBe(
+      "Il y a quelques secondes"
+    );
   });
 });

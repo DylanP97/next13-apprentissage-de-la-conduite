@@ -6,8 +6,8 @@ describe("@Footer", () => {
     render(<Footer />);
     expect(
       screen.getByText(
-        "Si vous avez des suggestions d'articles n'hésitez pas à me contacter.",
-      ),
+        "Copyright - apprentissagedelaconduite.fr - 2023 - Si vous avez des suggestions d'articles n'hésitez pas à me contacter."
+      )
     ).toBeInTheDocument();
   });
 });

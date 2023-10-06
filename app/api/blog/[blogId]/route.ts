@@ -25,7 +25,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!blog) {
-      return null;
+      throw new Error("Invalid ID");
     }
 
     return NextResponse.json({
@@ -40,7 +40,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
 export async function DELETE(
   request: Request,
-  { params }: { params: IParams },
+  { params }: { params: IParams }
 ) {
   const currentUser = await getCurrentUser();
 

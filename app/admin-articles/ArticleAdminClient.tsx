@@ -38,7 +38,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
       .then((response) => {
         const updatedBlog = response.data.data;
         const blogIndex = blogsData.findIndex(
-          (blog: any) => blog.id === updatedBlog.id,
+          (blog: any) => blog.id === updatedBlog.id
         );
         if (blogIndex !== -1) {
           const updatedBlogs = [...blogsData];
@@ -48,7 +48,7 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
         toast.success(
           !status
             ? "Le blog est désormais visible."
-            : "Le blog est désormais invisible.",
+            : "Le blog est désormais invisible."
         );
       })
       .catch((error) => {
@@ -62,12 +62,12 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
       .delete(`/api/blog/${blogId}`)
       .then(() => {
         const blogIndex = blogsData.findIndex(
-          (blog: any) => blog.id === blogId,
+          (blog: any) => blog.id === blogId
         );
         if (blogIndex !== -1) {
           let updatedBlogs = [...blogsData];
           const newUpdatedBlogs = updatedBlogs.filter(
-            (_, index) => index !== blogIndex,
+            (_, index) => index !== blogIndex
           );
           setBlogsData(newUpdatedBlogs);
         }
