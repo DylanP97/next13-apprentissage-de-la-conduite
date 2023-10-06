@@ -23,7 +23,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     });
 
     if (!user) {
-      return null;
+      throw new Error("Invalid User");
     }
 
     if (data.isAccepted) {
@@ -51,7 +51,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
 
 export async function DELETE(
   request: Request,
-  { params }: { params: IParams },
+  { params }: { params: IParams }
 ) {
   const currentUser = await getCurrentUser();
 
