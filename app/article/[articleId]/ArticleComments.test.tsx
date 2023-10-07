@@ -10,6 +10,7 @@ describe("@ArticleComments", () => {
         commentsList={[]}
         currentUser={{
           id: 1,
+          image: carImage.src,
         }}
       />
     );
@@ -22,11 +23,13 @@ describe("@ArticleComments", () => {
       <ArticleComments
         commentsList={[
           {
+            id: 1,
             commenter: {
               image: carImage.src,
             },
           },
           {
+            id: 2,
             commenter: {
               image: carImage.src,
             },
@@ -34,6 +37,7 @@ describe("@ArticleComments", () => {
         ]}
         currentUser={{
           id: 1,
+          image: carImage.src,
         }}
       />
     );

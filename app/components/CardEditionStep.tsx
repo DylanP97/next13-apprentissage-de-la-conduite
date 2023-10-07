@@ -71,7 +71,6 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
   ]);
 
   const handleEditionStep = (direction: string) => {
-    console.log(editionStep);
     if (direction === "previous") {
       if (editionStep === "answers") {
         setEditionStep("question");

@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
 import WriteComment from "./WriteComment";
-import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface ArticleCommentsProps {
   commentsList: any;
