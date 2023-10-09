@@ -4,6 +4,7 @@ import ArticleAdminClient from "./ArticleAdminClient";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { redirect } from "next/navigation";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const ArticleAdminPage = async () => {
   const blogs = await getBlogs();
@@ -29,6 +30,7 @@ const ArticleAdminPage = async () => {
       ) : (
         <h1>Il n&apos;y a pas d&apos;article pour le moment!</h1>
       )}
+      <Footer />
     </ClientOnly>
   );
 };

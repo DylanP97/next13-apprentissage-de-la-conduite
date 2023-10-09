@@ -17,6 +17,7 @@ import adminPrimary from "@/public/icons/close-white.png";
 import adminWhite from "@/public/icons/admin-white.png";
 import blockUser from "@/public/icons/block-user.png";
 import checkUserWhite from "@/public/icons/check-user-white.png";
+import { useTheme } from "../providers/ThemeProvider";
 
 interface BasicCardProps {
   data?: any;
@@ -25,6 +26,7 @@ interface BasicCardProps {
   toggleMethod2?: any;
   deleteMethod?: any;
 }
+
 
 const BasicCard: React.FC<BasicCardProps> = ({
   type,
@@ -47,6 +49,8 @@ const BasicCard: React.FC<BasicCardProps> = ({
   const cancelEdition = () => {
     setEdition(false);
   };
+
+  const theme = useTheme();
 
   const renderUserCard = () => (
     <div className="blog-card">

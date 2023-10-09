@@ -33,7 +33,7 @@
   justify-content: center;
   position: sticky;
   top: 0;
-  color: white;
+  color: var(--30color);
   background-color: var(--60color);
   z-index: 1;
   margin: 0;
@@ -41,15 +41,15 @@
 }
 
 .ql-stroke {
-  stroke: white !important;
+  stroke: var(--30color) !important;
 }
 
 .ql-fill {
-  fill: white !important;
+  fill: var(--30color) !important;
 }
 
 .ql-picker-label {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .ql-picker-options {
@@ -57,7 +57,7 @@
 }
 
 .ql-snow .ql-picker {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 @page {
@@ -102,7 +102,7 @@
 }
 
 .savezone {
-  color: white;
+  color: var(--30color);
   margin-bottom: 0.5rem !important;
   font-style: italic;
 }

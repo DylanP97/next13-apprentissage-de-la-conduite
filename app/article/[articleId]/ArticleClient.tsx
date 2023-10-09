@@ -76,8 +76,12 @@ const ArticleClient: React.FC<ArticleClientProps> = ({
             );
           })}
         </div>
-        <ArticleAuthor author={author} />
-        <ArticleComments currentUser={currentUser} commentsList={comments} />
+        {
+          author && <ArticleAuthor author={author} />
+        }
+        {
+          comments && <ArticleComments currentUser={currentUser} commentsList={comments} />
+        }
       </div>
     </div>
   );

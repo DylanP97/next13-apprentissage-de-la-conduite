@@ -70,7 +70,7 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
               {infoMessage}
             </p>
             <hr />
-            <a style={{ color: "white" }} href="/">
+            <a href="/">
               Revenir à la page d&apos;accueil
             </a>
           </div>
