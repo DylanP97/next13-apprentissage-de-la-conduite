@@ -20,7 +20,6 @@ import { toast } from "react-hot-toast";
 import { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
-import { useRouter } from "next/navigation";
 
 interface SignUpProps {
   isSignIn: boolean;

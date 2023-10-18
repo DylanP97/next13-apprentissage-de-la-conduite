@@ -3,6 +3,7 @@ import ProfileClient from "./ProfileClient";
 import ClientOnly from "../../components/ClientOnly";
 import { redirect } from "next/navigation";
 import NavBar from "@/app/components/NavBar";
+import Footer from "@/app/components/Footer";
 
 export default async function ProfilePage() {
   const currentUser = await getCurrentUser();
@@ -23,6 +24,7 @@ export default async function ProfilePage() {
             userId={currentUser.id}
           />
           <ProfileClient currentUser={currentUser} />
+          <Footer />
         </ClientOnly>
       );
     }
@@ -35,6 +37,7 @@ export default async function ProfilePage() {
           userId={currentUser.id}
         />
         <ProfileClient currentUser={currentUser} />
+        <Footer />
       </ClientOnly>
     );
   }

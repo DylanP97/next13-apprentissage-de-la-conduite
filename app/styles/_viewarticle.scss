@@ -34,8 +34,15 @@
     margin: 0% !important;
     width: 100% !important;
   }
+}
 
-  .footer-wrap {
-    padding-bottom: 10rem;
+.write-comment-submit {
+  cursor: pointer;
+  padding: 0% 20px !important;
+
+  &:hover {
+    background-color: var(--60color);
+    color: var(--30color);
+    text-decoration: underline;
   }
 }

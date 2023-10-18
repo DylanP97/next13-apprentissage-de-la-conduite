@@ -8,15 +8,25 @@ import { dateParser, getSubscriptionLabel } from "@/app/libs/utils";
 import Tooltip from "./Tooltip";
 import CardEditionStep from "./CardEditionStep";
 import editWhite from "@/public/icons/file-edit-white.png";
+import editBlack from "@/public/icons/file-edit-black.png";
 import eyeWhite from "@/public/icons/eye-white.png";
-import eyeCrossWhite from "@/public/icons/eye-crossed-out.png";
+import eyeBlack from "@/public/icons/eye-black.png";
+import eyeCrossBlack from "@/public/icons/eye-crossed-out-black.png";
+import eyeCrossWhite from "@/public/icons/eye-crossed-out-white.png";
 import linkWhite from "@/public/icons/external-link.png";
+import linkBlack from "@/public/icons/external-link-black.png";
 import trashWhite from "@/public/icons/trash-white.png";
+import trashBlack from "@/public/icons/trash-black.png";
 import plusWhite from "@/public/icons/plus-white.png";
-import adminPrimary from "@/public/icons/close-white.png";
+import plusBlack from "@/public/icons/plus-black.png";
+import closeWhite from "@/public/icons/close-white.png";
+import closeBlack from "@/public/icons/close-black.png";
 import adminWhite from "@/public/icons/admin-white.png";
-import blockUser from "@/public/icons/block-user.png";
+import adminBlack from "@/public/icons/admin-black.png";
+import blockUserWhite from "@/public/icons/block-user-white.png";
+import blockUserBlack from "@/public/icons/block-user-black.png";
 import checkUserWhite from "@/public/icons/check-user-white.png";
+import checkUserBlack from "@/public/icons/check-user-black.png";
 import { useTheme } from "../providers/ThemeProvider";
 
 interface BasicCardProps {
@@ -110,14 +120,13 @@ const BasicCard: React.FC<BasicCardProps> = ({
         {!isMobile && !data.isAdmin && (
           <>
             <Tooltip
-              message={`${
-                data.isAccepted
+              message={`${data.isAccepted
                   ? "Désinscrire l'uitlisateur"
                   : "Valider l'inscription de l'utilistateur"
-              }`}
+                }`}
             >
               <Image
-                src={data.isAccepted ? blockUser : checkUserWhite}
+                src={data.isAccepted ? theme.isDarkMode ? blockUserWhite : blockUserBlack : theme.isDarkMode ? checkUserWhite : checkUserBlack}
                 alt="accepted"
                 className="icon"
                 onClick={() =>
@@ -126,14 +135,13 @@ const BasicCard: React.FC<BasicCardProps> = ({
               />
             </Tooltip>
             <Tooltip
-              message={`${
-                data.isAdmin
+              message={`${data.isAdmin
                   ? "Enlever rôle d'administrateur"
                   : "Promouvoir au rôle d'administrateur"
-              }`}
+                }`}
             >
               <Image
-                src={data.isAdmin ? adminPrimary : adminWhite}
+                src={data.isAdmin ? theme.isDarkMode ? closeWhite : closeBlack : theme.isDarkMode ? adminWhite : adminBlack}
                 alt="admin"
                 className="icon"
                 onClick={() =>
@@ -143,7 +151,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
             </Tooltip>
             <Tooltip message="Supprimer l'utilisateur">
               <Image
-                src={trashWhite}
+                src={theme.isDarkMode ? trashWhite : trashBlack}
                 alt="trash"
                 className="icon"
                 onClick={() => deleteMethod && deleteMethod(data.id)}
@@ -180,7 +188,6 @@ const BasicCard: React.FC<BasicCardProps> = ({
               isNewQuestion={false}
               cancelEdition={cancelEdition}
               data={data}
-              id={data.id}
               saveResponse={saveResponse}
             />
           </div>
@@ -193,7 +200,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
     <div className="blog-card new-question" onClick={handleNewQuestionClick}>
       <div className="question-edition">
         <Image
-          src={plusWhite}
+          src={theme.isDarkMode ? plusWhite : plusBlack}
           alt=""
           className="big-plus"
           style={{ width: "100px", height: "auto" }}
@@ -215,12 +222,11 @@ const BasicCard: React.FC<BasicCardProps> = ({
         <br />
         <div className="blog-card-buttons">
           <Tooltip
-            message={`Visibilité (Actuellement : ${
-              data.published ? "Visible" : "Invisible"
-            })`}
+            message={`Visibilité (Actuellement : ${data.published ? "Visible" : "Invisible"
+              })`}
           >
             <Image
-              src={data.published ? eyeWhite : eyeCrossWhite}
+              src={data.published ? theme.isDarkMode ? eyeWhite : eyeBlack : theme.isDarkMode ? eyeCrossWhite : eyeCrossBlack}
               alt="view"
               className="icon"
               onClick={() =>
@@ -230,7 +236,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
           </Tooltip>
           <Tooltip message="Modifier la question">
             <Image
-              src={editWhite}
+              src={theme.isDarkMode ? editWhite : editBlack}
               alt="view"
               className="icon"
               onClick={() => setEdition(!edition)}
@@ -238,7 +244,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
           </Tooltip>
           <Tooltip message="Supprimer la question">
             <Image
-              src={trashWhite}
+              src={theme.isDarkMode ? trashWhite : trashBlack}
               alt="trash"
               className="icon"
               onClick={() => deleteMethod && deleteMethod(data.id)}
@@ -267,12 +273,11 @@ const BasicCard: React.FC<BasicCardProps> = ({
       </div>
       <div className="blog-card-buttons">
         <Tooltip
-          message={`Visibilité (Actuellement : ${
-            data.published ? "Visible" : "Invisible"
-          })`}
+          message={`Visibilité (Actuellement : ${data.published ? "Visible" : "Invisible"
+            })`}
         >
           <Image
-            src={data.published ? eyeWhite : eyeCrossWhite}
+            src={data.published ? theme.isDarkMode ? eyeWhite : eyeBlack : theme.isDarkMode ? eyeCrossWhite : eyeCrossBlack}
             alt="view"
             className="icon"
             onClick={() =>
@@ -282,7 +287,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
         </Tooltip>
         <Tooltip message="Voir l'article">
           <Image
-            src={linkWhite}
+            src={theme.isDarkMode ? linkWhite : linkBlack}
             alt="link"
             className="icon"
             onClick={() => window.location.assign(`/article/${data.id}`)}
@@ -290,7 +295,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
         </Tooltip>
         <Tooltip message="Éditer l'article">
           <Image
-            src={editWhite}
+            src={theme.isDarkMode ? editWhite : editBlack}
             alt="view"
             className="icon"
             onClick={() => window.location.assign(`/admin-edition/${data.id}`)}
@@ -300,7 +305,7 @@ const BasicCard: React.FC<BasicCardProps> = ({
           message="Supprimer"
           clicking={() => deleteMethod && deleteMethod(data.id)}
         >
-          <Image src={trashWhite} alt="trash" className="icon" />
+          <Image src={theme.isDarkMode ? trashWhite : trashBlack} alt="trash" className="icon" />
         </Tooltip>
       </div>
     </div>
@@ -312,9 +317,9 @@ const BasicCard: React.FC<BasicCardProps> = ({
     case "createQuestion":
       return edition
         ? renderCreateQuestionOpenCard()
-        : renderQuestionOpenCard();
+        : renderCreateQuestionCard();
     case "question":
-      return edition ? renderCreateQuestionCard() : renderQuestionCard();
+      return edition ? renderQuestionOpenCard() : renderQuestionCard();
     case "article":
       return renderArticleCard();
     default:

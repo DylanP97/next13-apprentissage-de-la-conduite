@@ -8,11 +8,27 @@ const ThemeToggler = () => {
 
   return (
     <div className="theme-toggler" onClick={toggleTheme}>
-      <FontAwesomeIcon
-        icon={isDarkMode ? faSun : faMoon}
-        className={isDarkMode ? 'light-mode' : 'dark-mode'}
-        size="xl"
-      />
+      {
+        isDarkMode ? (
+          <>
+            <p>{!isDarkMode ? 'Mode nuit' : 'Mode jour'}</p>
+            <FontAwesomeIcon
+              icon={isDarkMode ? faSun : faMoon}
+              className={isDarkMode ? 'light-mode' : 'dark-mode'}
+              size="xl"
+            />
+          </>) : (
+          <>
+            <FontAwesomeIcon
+              icon={isDarkMode ? faSun : faMoon}
+              className={isDarkMode ? 'light-mode' : 'dark-mode'}
+              size="xl"
+            />
+            <p>{!isDarkMode ? 'Mode nuit' : 'Mode jour'}</p>
+          </>
+        )
+
+      }
     </div>
   );
 };

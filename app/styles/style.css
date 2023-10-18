@@ -3,7 +3,7 @@
   --60color: #0e0d29;
   --30color: #ffffff;
   --10color: #91e5f6;
-  --10biscolor: #3893a6;
+  --10biscolor: #51d2ec;
 }
 
 * {
@@ -25,8 +25,14 @@ body {
   color: var(--30color) !important;
 }
 
+h1 {
+  font-weight: bolder !important;
+  color: var(--30color) !important;
+}
+
 p {
   margin: 0px !important;
+  color: var(--30color) !important;
 }
 
 button,
@@ -83,22 +89,6 @@ td button {
   color: var(--30color) !important;
 }
 
-.theme-toggler {
-  cursor: pointer;
-  padding: 5px;
-  border: var(--30color) 1px solid;
-  border-radius: 10px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  aspect-ratio: 1/1;
-}
-.theme-toggler:hover {
-  background-color: var(--10color);
-  border: var(--60color);
-}
-
 footer {
   width: 100%;
   position: absolute;
@@ -113,6 +103,7 @@ footer {
   background-color: var(--60color);
   color: var(--30color);
   border-top: 2px solid var(--30color);
+  gap: 1rem;
 }
 footer a {
   color: black;
@@ -124,6 +115,38 @@ footer a:hover {
 
 .footer-wrap {
   padding-bottom: 10rem;
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
+  .footer-wrap {
+    padding-bottom: 20rem;
+  }
+}
+.theme-toggler {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: var(--30color) 2px solid;
+}
+.theme-toggler p {
+  text-wrap: nowrap;
+  color: var(--30color);
+}
+.theme-toggler:hover {
+  border: var(--10color) 2px solid;
+  color: var(--10color) !important;
+}
+.theme-toggler:hover p {
+  color: var(--10color) !important;
 }
 
 .home-container {
@@ -219,8 +242,14 @@ footer a:hover {
 .home-card article:hover {
   background-color: var(--30color);
 }
-.home-card article:hover .card-bottom {
-  color: var(--60color);
+.home-card article:hover h2 {
+  color: var(--60color) !important;
+  z-index: 20;
+  font-style: italic;
+}
+.home-card article:hover p {
+  color: var(--60color) !important;
+  z-index: 20;
 }
 
 @media screen and (max-width: 1280px) {
@@ -263,7 +292,15 @@ footer a:hover {
   }
   .home-card:nth-child(7n+1) article:hover {
     background-color: var(--30color);
-    color: var(--60color);
+  }
+  .home-card:nth-child(7n+1) article:hover h2 {
+    color: var(--60color) !important;
+    z-index: 20;
+    font-style: italic;
+  }
+  .home-card:nth-child(7n+1) article:hover p {
+    color: var(--60color) !important;
+    z-index: 20;
   }
 }
 .article-table {
@@ -504,7 +541,7 @@ ff .article-table .blog-card:hover .icon {
 .intro {
   height: 100%;
   min-height: 100vh;
-  color: white;
+  color: var(--30color);
   background-color: var(--60color);
   overflow: hidden;
 }
@@ -577,11 +614,11 @@ ff .article-table .blog-card:hover .icon {
 }
 
 .form-floating {
-  color: #000000 !important;
+  color: var(--30color) !important;
 }
 
 .form-check-label {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .btn-group {
@@ -1132,7 +1169,7 @@ nav {
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
-  padding: 2%;
+  padding: 1% 2%;
   gap: 0.5rem;
 }
 
@@ -1224,7 +1261,13 @@ nav {
     margin: 0% !important;
     width: 100% !important;
   }
-  .footer-wrap {
-    padding-bottom: 10rem;
-  }
+}
+.write-comment-submit {
+  cursor: pointer;
+  padding: 0% 20px !important;
+}
+.write-comment-submit:hover {
+  background-color: var(--60color);
+  color: var(--30color);
+  text-decoration: underline;
 }/*# sourceMappingURL=style.css.map */

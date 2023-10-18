@@ -11,6 +11,7 @@ footer {
   background-color: var(--60color);
   color: var(--30color);
   border-top: 2px solid var(--30color);
+  gap: 1rem;
 
   & a {
     color: black;
@@ -24,4 +25,40 @@ footer {
 
 .footer-wrap {
   padding-bottom: 10rem;
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
+
+  .footer-wrap {
+    padding-bottom: 20rem;
+  }  
+}
+
+.theme-toggler {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+  border: var(--30color) 2px solid;
+
+  & p {
+    text-wrap: nowrap;
+    color: var(--30color);
+  }
+
+  &:hover {
+    border: var(--10color) 2px solid;
+    color: var(--10color) !important;
+
+    & p {
+      color: var(--10color) !important;
+    }
+  }
 }

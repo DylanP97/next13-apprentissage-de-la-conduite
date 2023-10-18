@@ -10,7 +10,7 @@ export default async function getCommentsByBlogId(params: IParams) {
 
     const comments = await prisma.comment.findMany({
         where: {
-            content: 'Great blog post!'
+            blogId: articleId,
         },
         include: {
           commenter: true,

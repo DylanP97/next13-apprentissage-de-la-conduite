@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ArticleAuthor from "./ArticleAuthor";
 import ArticleComments from "./ArticleComments";
+import { useEffect, useState } from "react";
 
 var QuillDeltaToHtmlConverter =
   require("quill-delta-to-html").QuillDeltaToHtmlConverter;
@@ -30,6 +31,11 @@ const ArticleClient: React.FC<ArticleClientProps> = ({
   var cfg = {};
   var converter = new QuillDeltaToHtmlConverter(blog?.data?.ops, cfg);
   var html = converter.convert();
+  const [commentsData, setCommentsData] = useState(comments);
+
+  useEffect(() => {
+    setCommentsData(comments);
+  }, [comments]);
 
   return (
     <div className="article home-container">
@@ -80,7 +86,7 @@ const ArticleClient: React.FC<ArticleClientProps> = ({
           author && <ArticleAuthor author={author} />
         }
         {
-          comments && <ArticleComments currentUser={currentUser} commentsList={comments} />
+          <ArticleComments currentUser={currentUser} commentsList={commentsData} />
         }
       </div>
     </div>

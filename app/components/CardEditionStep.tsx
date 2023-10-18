@@ -88,28 +88,28 @@ const CardEditionStep: React.FC<CardEditionStepProps> = ({
 
   const handleSaveResponse = () => {
     if (!questionError && !answersError) {
-      const data = {
+      const payload = {
         question: question && question,
         answers: answers && answers,
         correctAnswer: correctAnswer && correctAnswer,
         imageUrl: file && file,
       };
 
-      const createNew = (data: any) => {
-        axios.post(`/api/question`, { data }).then(() => {
+      const createNew = (payload: any) => {
+        axios.post(`/api/question`, { payload }).then(() => {
           saveResponse && saveResponse();
           toast.success("Question créé.");
         });
       };
 
-      const updateOne = (data: any) => {
-        axios.put(`/api/question/${id}`, { data }).then(() => {
+      const updateOne = (payload: any) => {
+        axios.put(`/api/question/${data.id}`, { payload }).then(() => {
           saveResponse && saveResponse();
           toast.success("Question sauvegardé.");
         });
       };
 
-      isNewQuestion ? createNew(data) : updateOne(data);
+      isNewQuestion ? createNew(payload) : updateOne(payload);
     } else {
       toast.error("Veuillez remplir tous les champs");
     }
