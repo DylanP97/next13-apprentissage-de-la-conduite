@@ -107,10 +107,10 @@ const ResetPasswordClient = () => {
           </InputGroup>
           <br />
           <div className="intro-buttons">
-            <button className="btn btn-10color" type="submit">
+            <button className="btn-primary btn-10color" type="submit">
               Valider mon nouveau mot de passe
             </button>
-            <button className="btn btn-30color" onClick={() => router.push("/")}>
+            <button className="btn-primary btn-30color" onClick={() => router.push("/")}>
               Annuler et retourner à l&apos;accueil
             </button>
           </div>

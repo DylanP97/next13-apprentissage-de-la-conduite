@@ -41,11 +41,11 @@ const ForgotPasswordClient = () => {
           </FloatingLabel>
           <br />
           <div className="intro-buttons">
-            <button className="btn btn-10color" type="submit">
+            <button className="btn-primary btn-10color" type="submit">
               Envoyer un e-mail de réinitialisation du mot de passe
             </button>
             <button
-              className="btn btn-30color"
+              className="btn-primary btn-30color"
               onClick={() => {
                 window.location.href = "/";
               }}
