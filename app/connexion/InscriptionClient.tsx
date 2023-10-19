@@ -90,7 +90,7 @@ const SignUp: React.FC<SignUpProps> = ({ isSignIn, state }) => {
             <h1 style={{ margin: "20px 0px" }}>S&apos;Inscrire</h1>
             <Form>
               <Row>
-                <Form.Group as={Col} md="6">
+                <Form.Group>
                   <FloatingLabel label="Prénom" className="mb-3">
                     <Input
                       id="firstName"
@@ -101,7 +101,7 @@ const SignUp: React.FC<SignUpProps> = ({ isSignIn, state }) => {
                     />
                   </FloatingLabel>
                 </Form.Group>
-                <Form.Group as={Col} md="6">
+                <Form.Group>
                   <FloatingLabel label="Nom" className="mb-3">
                     <Input
                       id="lastName"
@@ -114,7 +114,7 @@ const SignUp: React.FC<SignUpProps> = ({ isSignIn, state }) => {
                 </Form.Group>
               </Row>
               <Row>
-                <Form.Group as={Col} md="6" className="mb-3">
+                <Form.Group className="mb-3">
                   <FloatingLabel label="Adresse email">
                     <Input
                       id="email"
@@ -133,7 +133,7 @@ const SignUp: React.FC<SignUpProps> = ({ isSignIn, state }) => {
                   </Form.Text>
                 </Form.Group>
 
-                <Form.Group as={Col} md="6">
+                <Form.Group>
                   <InputGroup className="mb-3">
                     <FloatingLabel label="Mot de passe">
                       <Input
