@@ -4,7 +4,7 @@
   --60color: #0e0d29;
   --30color: #ffffff;
   --10color: #91e5f6;
-  --10biscolor: #3893a6;
+  --10biscolor: #51d2ec;
 }
 
 * {
@@ -23,11 +23,17 @@ body {
   position: relative;
   margin: 0;
   min-height: 100vh;
-  color: white !important;
+  color: var(--30color) !important;
+}
+
+h1 {
+  font-weight: bolder !important;
+  color: var(--30color) !important;
 }
 
 p {
   margin: 0px !important;
+  color: var(--30color) !important;
 }
 
 button,
@@ -77,9 +83,10 @@ td button {
 
 .error,
 .errorzone {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .form-label {
-  color: white !important;
+  color: var(--30color) !important;
 }
+

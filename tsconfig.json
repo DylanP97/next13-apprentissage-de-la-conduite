@@ -30,6 +30,6 @@
     "**/*.jsx",
     ".next/types/**/*.ts",
     "next.config.js"
-  ],
+, "app/context/useTheme.js"  ],
   "exclude": ["node_modules"]
 }

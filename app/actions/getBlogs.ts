@@ -18,7 +18,6 @@ export default async function getBlogs() {
 
     return safeBlogs;
   } catch (error: any) {
-    console.log(error);
     throw new Error(error);
   }
 }

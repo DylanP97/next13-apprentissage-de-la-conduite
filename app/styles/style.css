@@ -3,7 +3,7 @@
   --60color: #0e0d29;
   --30color: #ffffff;
   --10color: #91e5f6;
-  --10biscolor: #3893a6;
+  --10biscolor: #51d2ec;
 }
 
 * {
@@ -22,11 +22,17 @@ body {
   position: relative;
   margin: 0;
   min-height: 100vh;
-  color: white !important;
+  color: var(--30color) !important;
+}
+
+h1 {
+  font-weight: bolder !important;
+  color: var(--30color) !important;
 }
 
 p {
   margin: 0px !important;
+  color: var(--30color) !important;
 }
 
 button,
@@ -76,11 +82,11 @@ td button {
 
 .error,
 .errorzone {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .form-label {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 footer {
@@ -90,13 +96,14 @@ footer {
   height: -moz-max-content;
   height: max-content;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 40px 10%;
-  flex-direction: column;
+  flex-direction: row;
   background-color: var(--60color);
   color: var(--30color);
   border-top: 2px solid var(--30color);
+  gap: 1rem;
 }
 footer a {
   color: black;
@@ -108,6 +115,38 @@ footer a:hover {
 
 .footer-wrap {
   padding-bottom: 10rem;
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
+  .footer-wrap {
+    padding-bottom: 20rem;
+  }
+}
+.theme-toggler {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: var(--30color) 2px solid;
+}
+.theme-toggler p {
+  text-wrap: nowrap;
+  color: var(--30color);
+}
+.theme-toggler:hover {
+  border: var(--10color) 2px solid;
+  color: var(--10color) !important;
+}
+.theme-toggler:hover p {
+  color: var(--10color) !important;
 }
 
 .home-container {
@@ -203,8 +242,14 @@ footer a:hover {
 .home-card article:hover {
   background-color: var(--30color);
 }
-.home-card article:hover .card-bottom {
-  color: var(--60color);
+.home-card article:hover h2 {
+  color: var(--60color) !important;
+  z-index: 20;
+  font-style: italic;
+}
+.home-card article:hover p {
+  color: var(--60color) !important;
+  z-index: 20;
 }
 
 @media screen and (max-width: 1280px) {
@@ -247,7 +292,15 @@ footer a:hover {
   }
   .home-card:nth-child(7n+1) article:hover {
     background-color: var(--30color);
-    color: var(--60color);
+  }
+  .home-card:nth-child(7n+1) article:hover h2 {
+    color: var(--60color) !important;
+    z-index: 20;
+    font-style: italic;
+  }
+  .home-card:nth-child(7n+1) article:hover p {
+    color: var(--60color) !important;
+    z-index: 20;
   }
 }
 .article-table {
@@ -488,7 +541,7 @@ ff .article-table .blog-card:hover .icon {
 .intro {
   height: 100%;
   min-height: 100vh;
-  color: white;
+  color: var(--30color);
   background-color: var(--60color);
   overflow: hidden;
 }
@@ -509,6 +562,8 @@ ff .article-table .blog-card:hover .icon {
 }
 .disabled-sign {
   position: relative;
+  /* Add your other styles for the div here */
+  /* Create a pseudo-element to cover the entire div */
 }
 .disabled-sign::after {
   content: "";
@@ -517,11 +572,11 @@ ff .article-table .blog-card:hover .icon {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
   -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  pointer-events: none;
-  z-index: 5;
+          backdrop-filter: blur(5px); /* Apply the blur effect */
+  pointer-events: none; /* Allow interactions with elements beneath */
+  z-index: 5; /* Adjust the z-index to your needs */
 }
 
 .intro-buttons {
@@ -559,11 +614,11 @@ ff .article-table .blog-card:hover .icon {
 }
 
 .form-floating {
-  color: #000000 !important;
+  color: var(--30color) !important;
 }
 
 .form-check-label {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .btn-group {
@@ -624,7 +679,8 @@ ff .article-table .blog-card:hover .icon {
 }
 
 @media (max-width: 1280px) {
-  .intro-text, .sign-text {
+  .intro-text,
+  .sign-text {
     width: 100% !important;
   }
   .intro-photo {
@@ -738,7 +794,7 @@ ff .article-table .blog-card:hover .icon {
 }
 nav {
   border-bottom: 1px var(--30color) solid !important;
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .navbar-container {
@@ -748,11 +804,11 @@ nav {
 
 .navbar-brand {
   white-space: normal !important;
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .nav-link {
-  color: white !important;
+  color: var(--30color) !important;
   transition: color 0.45s ease-in-out, background-color 0.45s ease-in-out, border-color 0.45s ease-in-out !important;
 }
 .nav-link:hover {
@@ -838,7 +894,7 @@ nav {
   justify-content: center;
   position: sticky;
   top: 0;
-  color: white;
+  color: var(--30color);
   background-color: var(--60color);
   z-index: 1;
   margin: 0;
@@ -846,15 +902,15 @@ nav {
 }
 
 .ql-stroke {
-  stroke: white !important;
+  stroke: var(--30color) !important;
 }
 
 .ql-fill {
-  fill: white !important;
+  fill: var(--30color) !important;
 }
 
 .ql-picker-label {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 .ql-picker-options {
@@ -862,7 +918,7 @@ nav {
 }
 
 .ql-snow .ql-picker {
-  color: white !important;
+  color: var(--30color) !important;
 }
 
 @page {
@@ -903,7 +959,7 @@ nav {
 }
 
 .savezone {
-  color: white;
+  color: var(--30color);
   margin-bottom: 0.5rem !important;
   font-style: italic;
 }
@@ -1113,7 +1169,7 @@ nav {
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
-  padding: 2%;
+  padding: 1% 2%;
   gap: 0.5rem;
 }
 
@@ -1153,6 +1209,8 @@ nav {
 .new-tag input {
   border: 0px;
   outline: 0px;
+  background-color: var(--30color);
+  color: var(--60color);
 }
 
 .new-tag-btn {
@@ -1203,7 +1261,13 @@ nav {
     margin: 0% !important;
     width: 100% !important;
   }
-  .footer-wrap {
-    padding-bottom: 10rem;
-  }
+}
+.write-comment-submit {
+  cursor: pointer;
+  padding: 0% 20px !important;
+}
+.write-comment-submit:hover {
+  background-color: var(--60color);
+  color: var(--30color);
+  text-decoration: underline;
 }/*# sourceMappingURL=style.css.map */

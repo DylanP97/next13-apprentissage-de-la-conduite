@@ -3,7 +3,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
-  padding: 2%;
+  padding: 1% 2%;
   gap: 0.5rem;
 }
 
@@ -43,6 +43,8 @@
   & input {
     border: 0px;
     outline: 0px;
+    background-color: var(--30color);
+    color: var(--60color);
   }
 }
 

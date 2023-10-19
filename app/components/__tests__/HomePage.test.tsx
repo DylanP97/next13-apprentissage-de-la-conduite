@@ -40,13 +40,16 @@ describe("@HomePage", () => {
     it("should render component with @blogs", () => {
       const mockBlogs = [
         {
+          id: 1,
           title: "test",
         },
         {
+          id: 2,
           title: "test2",
           tags: ["c", "d"],
         },
         {
+          id: 3,
           title: "test3",
           tags: ["e", "f"],
         },

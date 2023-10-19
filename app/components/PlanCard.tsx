@@ -41,7 +41,6 @@ const PlanCard: React.FC<PlanCardProps> = ({
         toast.success("En route !");
       })
       .catch((e) => {
-        console.error(e.error);
         toast.error(e.error);
       });
   };

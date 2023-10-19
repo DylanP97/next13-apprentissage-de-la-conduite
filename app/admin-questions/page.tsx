@@ -4,6 +4,7 @@ import QuizAdminClient from "./QuizAdminClient";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { redirect } from "next/navigation";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const QuizAdminPage = async () => {
   const questions = await getQuestions();
@@ -29,6 +30,7 @@ const QuizAdminPage = async () => {
       ) : (
         <h1>Il n&apos;y a pas de questions pour le moment!</h1>
       )}
+      <Footer />
     </ClientOnly>
   );
 };

@@ -21,6 +21,8 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
     : null;
   const isAdmin = currentUser?.isAdmin;
 
+  console.log(comments)
+
   if (!currentUser) {
     redirect("/");
   }
@@ -103,8 +105,13 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
             une erreur !
           </h1>
         ) : (
-          <ArticleClient blog={blog} isAdmin={isAdmin} />
+          <ArticleClient blog={blog}
+            isAdmin={isAdmin}
+            author={author}
+            comments={comments}
+            currentUser={currentUser} />
         )}
+        <Footer />
       </ClientOnly>
     );
   }

@@ -8,6 +8,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { memo } from "react";
+import { useTheme } from "@/app/providers/ThemeProvider"
+import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
+import NavbarOffcanvas from "react-bootstrap/esm/NavbarOffcanvas";
+import ThemeToggler from "./ThemeToggler";
 
 const NavBar = memo(function NavBar({
   isSubscribed,
@@ -26,8 +30,10 @@ const NavBar = memo(function NavBar({
     });
   };
 
+  const theme = useTheme();
+
   return (
-    <Navbar className="navbar navbar-dark" expand="lg">
+    <Navbar className={`${theme.isDarkMode ? 'navbar-dark' : ''} navbar`} expand="lg">
       <Container className="navbar-container">
         <Navbar.Brand href="/">
           Apprentissage de la Conduite et de la Sécurité Routière

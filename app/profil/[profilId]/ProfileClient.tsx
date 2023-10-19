@@ -43,7 +43,6 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
       })
       .catch((error) => {
         toast.error("Il y a eu une erreur.");
-        console.log(error.message);
       });
   };
 

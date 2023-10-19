@@ -52,7 +52,6 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
         );
       })
       .catch((error) => {
-        console.log(error);
         toast.error("Une erreur s'est produite dans la requête.");
       });
   };

@@ -96,8 +96,15 @@
     &:hover {
       background-color: var(--30color);
 
-      & .card-bottom {
-        color: var(--60color);
+      & h2 {
+        color: var(--60color) !important;
+        z-index: 20;
+        font-style: italic;
+      }
+
+      & p {
+        color: var(--60color) !important;
+        z-index: 20;
       }
     }
   }
@@ -147,7 +154,17 @@
 
       &:hover {
         background-color: var(--30color);
-        color: var(--60color);
+
+        & h2 {
+          color: var(--60color) !important;
+          z-index: 20;
+          font-style: italic;
+        }
+
+        & p {
+          color: var(--60color) !important;
+          z-index: 20;
+        }
       }
     }
   }
