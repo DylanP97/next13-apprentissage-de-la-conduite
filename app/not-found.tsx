@@ -3,6 +3,7 @@
 import { Button } from "react-bootstrap";
 import carcrash from "@/public/images/carcrash.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Custom404 = () => {
   return (
@@ -16,13 +17,12 @@ const Custom404 = () => {
         est correcte
       </p>
       <br />
-      <Button
-        onClick={() => {
-          window.location.href = "/";
-        }}
+      <Link
+      className="btn btn-10color"
+        href="/"
       >
         Retourner à l&apos;accueil
-      </Button>
+      </Link>
     </div>
   );
 };
