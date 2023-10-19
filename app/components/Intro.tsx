@@ -23,9 +23,11 @@ function Intro() {
         </p>
         <br />
         <div className="intro-buttons">
-          <Link className="btn btn-10color" href="/connexion">
+          <button className="btn-primary btn-10color" onClick={() => {
+              window.location.assign(`/connexion`);
+            }}>
             Inscription / Connexion
-          </Link>
+          </button>
         </div>
       </div>
       <div className="intro-photo">

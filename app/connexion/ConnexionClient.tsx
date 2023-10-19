@@ -98,7 +98,7 @@ const SignIn: React.FC<SignInProps> = ({ isSignIn, state }) => {
             </Form>
             <div className="intro-buttons">
               <button
-                className="btn btn-10color"
+                className="btn-primary btn-10color"
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
               >
@@ -112,11 +112,11 @@ const SignIn: React.FC<SignInProps> = ({ isSignIn, state }) => {
             </div>
             <hr />
             <div className="intro-buttons">
-              <button className="btn btn-30color" onClick={() => state(!isSignIn)}>
+              <button className="btn-primary btn-30color" onClick={() => state(!isSignIn)}>
                 Pas Encore Inscrit ? S&apos;Inscrire
               </button>
               <button
-                className="btn btn-30color"
+                className="btn-primary btn-30color"
                 onClick={() => {
                   window.location.href = "/";
                 }}
@@ -124,7 +124,7 @@ const SignIn: React.FC<SignInProps> = ({ isSignIn, state }) => {
                 Retour à la page d&apos;accueil
               </button>
               <button
-                className="btn btn-30color"
+                className="btn-primary btn-30color"
                 onClick={() => {
                   window.location.href = "/forgot-password";
                 }}
