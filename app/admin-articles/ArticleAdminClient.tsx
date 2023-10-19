@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 interface ArticleAdminClientProps {
   blogs: any;
@@ -92,14 +93,14 @@ const ArticleAdminClient: React.FC<ArticleAdminClientProps> = ({ blogs }) => {
         {blogsData?.filter((blog: any) => blog.published).length || 0}
       </p>
       <br />
-      <Button
-        className="btn-10color"
+      <button
+        className="btn btn-10color"
         onClick={() => {
           handleNewArticle();
         }}
       >
         Écrire un nouveau article
-      </Button>
+      </button>
       {blogs && (
         <>
           <hr />

@@ -120,12 +120,12 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
             de la conduite.
           </p>
           <hr />
-          <Button
-            className="btn-10color"
+          <button
+            className="btn btn-10color"
             onClick={() => handleStartQuizClick()}
           >
             Démarrer le Quiz
-          </Button>
+          </button>
         </>
       ) : (
         <section className="quiz-section">
@@ -198,14 +198,14 @@ const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
                   </div>
                 )}
                 {isAnswered && (
-                  <Button
-                    className="btn-10color"
+                  <button
+                    className="btn btn-10color"
                     onClick={() => handleNewQuestionClick()}
                   >
                     {availableQuestions.length === 0
                       ? "Voir mes scores"
                       : "Question suivante"}
-                  </Button>
+                  </button>
                 )}
               </div>
             </>

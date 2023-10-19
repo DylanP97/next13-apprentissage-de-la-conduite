@@ -64,12 +64,12 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
               : null}
           </p>
           <br />
-          <Button
-            className="btn-30color"
+          <button
+            className="btn btn-30color"
             onClick={() => cancelSubscription(currentUser?.id)}
           >
             Suspendre mon abonnement
-          </Button>
+          </button>
           <br />
         </div>
       ) : (
@@ -79,12 +79,12 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
         </p>
       )}
       <hr />
-      <Button
+      <button
         onClick={() => handleDelete(currentUser?.id)}
-        className="btn-30color"
+        className="btn btn-30color"
       >
         Supprimer mon compte
-      </Button>
+      </button>
     </section>
   );
 };

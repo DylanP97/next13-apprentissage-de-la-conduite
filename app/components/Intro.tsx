@@ -7,6 +7,7 @@ import { Model } from "./Pols_gtr";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import Link from "next/link";
 
 function Intro() {
   return (
@@ -22,9 +23,9 @@ function Intro() {
         </p>
         <br />
         <div className="intro-buttons">
-          <Button className="btn-10color" href="/connexion" type="submit">
+          <Link className="btn btn-10color" href="/connexion">
             Inscription / Connexion
-          </Button>
+          </Link>
         </div>
       </div>
       <div className="intro-photo">

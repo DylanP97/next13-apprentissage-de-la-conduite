@@ -181,14 +181,14 @@ const SignUp: React.FC<SignUpProps> = ({ isSignIn, state }) => {
               <Form.Text className="errorzone" />
             </Form>
             <div className="intro-buttons">
-              <Button
-                className="btn-10color"
+              <button
+                className="btn btn-10color"
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
                 id="checkout_btn"
               >
                 Envoyé ma demande d&apos;inscription
-              </Button>
+              </button>
               <CustomButton
                 label="Continuer avec Google"
                 icon={googleIcon}
@@ -197,22 +197,22 @@ const SignUp: React.FC<SignUpProps> = ({ isSignIn, state }) => {
             </div>
             <hr />
             <div className="intro-buttons">
-              <Button
-                className="btn-30color"
+              <button
+                className="btn btn-30color"
                 onClick={() => {
                   state(!isSignIn);
                 }}
               >
                 Vous avez déjà un compte ? Connectez-vous !
-              </Button>
-              <Button
-                className="btn-30color"
+              </button>
+              <button
+                className="btn btn-30color"
                 onClick={() => {
                   window.location.href = "/";
                 }}
               >
                 Retour à l&apos;accueil
-              </Button>
+              </button>
             </div>
             <br />
           </div>

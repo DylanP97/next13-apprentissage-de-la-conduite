@@ -167,40 +167,40 @@ const EditionArticleClient: React.FC<EditionArticleClientProps> = ({
           N&apos;oubliez pas de sauvegarder vos modifications.
         </p>
         <div>
-          <Button
-            className="btn-10color"
+          <button
+            className="btn btn-10color"
             onClick={() => {
               saveBlog();
             }}
           >
             Sauvegarder
-          </Button>
-          <Button
+          </button>
+          <button
             onClick={() => {
               setPublished(!published);
             }}
-            className="btn-30color"
+            className="btn btn-30color"
           >
             {published
               ? "Cliquez pour le rendre invisible aux utilisateurs"
               : "Cliquez pour le rendre disponible aux utilisateurs."}
-          </Button>
-          <Button
-            className="btn-30color"
+          </button>
+          <button
+            className="btn btn-30color"
             onClick={() => {
               window.location.assign(`/article/${blog.id}`);
             }}
           >
             Voir l&apos;article
-          </Button>
-          <Button
-            className="btn-60color"
+          </button>
+          <button
+            className="btn btn-30color"
             onClick={() => {
               window.location.assign(`/admin-articles`);
             }}
           >
             Retour à la gestion des articles
-          </Button>
+          </button>
         </div>
         <br />
         <label style={{ display: "none" }} htmlFor="html"></label>

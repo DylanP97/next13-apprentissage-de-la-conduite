@@ -41,17 +41,17 @@ const ForgotPasswordClient = () => {
           </FloatingLabel>
           <br />
           <div className="intro-buttons">
-            <Button className="btn-10color" type="submit">
+            <button className="btn btn-10color" type="submit">
               Envoyer un e-mail de réinitialisation du mot de passe
-            </Button>
-            <Button
-              className="btn-30color"
+            </button>
+            <button
+              className="btn btn-30color"
               onClick={() => {
                 window.location.href = "/";
               }}
             >
               Retourner à l&apos;accueil
-            </Button>
+            </button>
           </div>
           <Form.Text className="notifzone" />
         </Form>

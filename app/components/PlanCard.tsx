@@ -55,14 +55,14 @@ const PlanCard: React.FC<PlanCardProps> = ({
         })}
       </ul>
       <br />
-      <Button
+      <button
         onClick={() => {
           handleClick(planId);
         }}
-        className="plan-btn"
+        className="btn plan-btn"
       >
         S&apos;abonner{" "}
-      </Button>
+      </button>
     </div>
   );
 };

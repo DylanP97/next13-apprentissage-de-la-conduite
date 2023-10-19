@@ -57,15 +57,14 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
               />
             </Form.Group>
             <Form.Text className="errorzone" />
-            <Button
+            <button
               onClick={handleSend}
-              className="btn-10color"
-              variant="primary"
+              className="btn btn-10color"
               type="submit"
               id="checkout_btn"
             >
               Envoyé ma demande de contact
-            </Button>
+            </button>
             <p style={{ paddingTop: "10px", minHeight: "50px" }}>
               {infoMessage}
             </p>

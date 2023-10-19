@@ -85,8 +85,9 @@ const BasicCard: React.FC<BasicCardProps> = ({
       <br />
       {isMobile && (
         <>
-          {!data.isAccepted && (
-            <Button
+          {!data.isAccepted && !data.isAdmin && (
+            <button
+              className="btn btn-30color"
               onClick={() =>
                 toggleMethod &&
                 toggleMethod(
@@ -100,9 +101,10 @@ const BasicCard: React.FC<BasicCardProps> = ({
               {data.isAccepted
                 ? "Désinscrire l'uitlisateur"
                 : "Valider l'utilistateur"}
-            </Button>
+            </button>
           )}
-          <Button
+          <button
+            className="btn btn-30color"
             onClick={() =>
               toggleMethod2 && toggleMethod2(data.id, data.isAdmin)
             }
@@ -110,10 +112,10 @@ const BasicCard: React.FC<BasicCardProps> = ({
             {data.isAdmin
               ? "Enlever rôle d'administrateur"
               : "Promouvoir administrateur"}
-          </Button>
-          <Button onClick={() => deleteMethod && deleteMethod(data.id)}>
+          </button>
+          <button className="btn btn-30color" onClick={() => deleteMethod && deleteMethod(data.id)}>
             Supprimer l&apos;utilisateur
-          </Button>
+          </button>
         </>
       )}
       <div className="blog-card-buttons">
@@ -121,8 +123,8 @@ const BasicCard: React.FC<BasicCardProps> = ({
           <>
             <Tooltip
               message={`${data.isAccepted
-                  ? "Désinscrire l'uitlisateur"
-                  : "Valider l'inscription de l'utilistateur"
+                ? "Désinscrire l'uitlisateur"
+                : "Valider l'inscription de l'utilistateur"
                 }`}
             >
               <Image
@@ -136,8 +138,8 @@ const BasicCard: React.FC<BasicCardProps> = ({
             </Tooltip>
             <Tooltip
               message={`${data.isAdmin
-                  ? "Enlever rôle d'administrateur"
-                  : "Promouvoir au rôle d'administrateur"
+                ? "Enlever rôle d'administrateur"
+                : "Promouvoir au rôle d'administrateur"
                 }`}
             >
               <Image
