@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import PlanCard from "./PlanCard";
 
 const Subscription = ({ currentUser }: { currentUser: any }) => {
@@ -10,15 +10,13 @@ const Subscription = ({ currentUser }: { currentUser: any }) => {
   });
 
   return (
-    <Col className="sign-text" md="12" xl="12">
-      <p style={{ fontSize: "26px", fontWeight: "600" }}>
-        Votre compte a bien été validé.
-      </p>
-      <p style={{ fontSize: "26px", fontWeight: "600" }}>
-        Choisissez un forfait, pour accèder au contenu du blog.
-      </p>
-      <p>Sélectionner l&apos;abonnement de votre choix ci-dessous.</p>
-      <hr />
+    <Col md="12" xl="12">
+      <div style={{ padding: "3%" }}>
+        <p style={{ fontSize: "24px", fontWeight: "600" }}>
+          Choisissez un forfait, pour accèder au contenu du blog.
+        </p>
+        <p>Sélectionner l&apos;abonnement de votre choix ci-dessous.</p>
+      </div>
       <section className="plans">
         <PlanCard
           label="Abonnement 1 Mois"
@@ -46,17 +44,6 @@ const Subscription = ({ currentUser }: { currentUser: any }) => {
           label="Abonnement 6 Mois"
           priceLabel={"39.99€"}
           planId={3}
-          features={[
-            "Accès illimité aux articles et vidéos",
-            "Conseils personnalisés de nos experts",
-            "Support prioritaire",
-          ]}
-          userId={currentUser.id}
-        />
-        <PlanCard
-          label="test"
-          priceLabel={"0€"}
-          planId={4}
           features={[
             "Accès illimité aux articles et vidéos",
             "Conseils personnalisés de nos experts",

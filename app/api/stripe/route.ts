@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 import subscriptionPlans from "@/app/libs/subscriptionPlans";
-import handleEvent from "./handleEvent";
+import prisma from "@/app/libs/prismadb";
 
 export async function POST(request: Request) {
   try {
@@ -29,17 +29,19 @@ export async function POST(request: Request) {
       },
     });
 
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        isSubscribed: true,
+        subscriptionPlan: items[0].id,
+      },
+    });
+
     return NextResponse.json({ message: session.url, status: 200 });
   } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({ message: error.message, status: 500 });
   }
 }
-
-// stripe.on('payment_pages.submit_payment.success', () => {
-//   handleEvent(session, session.metadata.plan_id)
-// })
-
-// stripe.on('submit_payment.success', () => {
-//   handleEvent(session, session.metadata.plan_id)
-// })

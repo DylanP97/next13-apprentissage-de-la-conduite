@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Button } from "react-bootstrap";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -46,9 +45,12 @@ const PlanCard: React.FC<PlanCardProps> = ({
   };
 
   return (
-    <div className="plan">
+    <div className="plan" onClick={() => {
+      handleClick(planId);
+    }}>
       <h2 className="plan-title">{label}</h2>
-      <div className="plan-price">{priceLabel}/mois</div>
+      <div className="plan-price">{priceLabel}
+        <span style={{ fontWeight: "lighter", fontSize: "10px" }}> /mois</span></div>
       <ul className="plan-features">
         {features.map((feature: string, index: any) => {
           return <li key={index + "feature" + planId}>{feature}</li>;
