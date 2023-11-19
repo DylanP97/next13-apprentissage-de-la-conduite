@@ -1,12 +1,18 @@
 nav {
+  padding: 0% !important;
   border-bottom: 1px var(--30color) solid !important;
   color: var(--30color) !important;
 }
 .navbar-container {
-  margin: 0% 4% !important;
+  padding: 0% !important;
+  margin: 0% 10% !important;
   max-width: 3000px !important;
 }
-
+@media only screen and (max-width: 1280px) {
+  .navbar-container {
+    margin: 0% 4% !important;
+  }
+}
 .navbar-brand {
   white-space: normal !important;
   color: var(--30color) !important;
@@ -14,7 +20,9 @@ nav {
 
 .nav-link {
   color: var(--30color) !important;
-  transition: color 0.45s ease-in-out, background-color 0.45s ease-in-out,
+  transition:
+    color 0.45s ease-in-out,
+    background-color 0.45s ease-in-out,
     border-color 0.45s ease-in-out !important;
 
   &:hover {

@@ -13,8 +13,8 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--60color', isDarkMode ? '#030213' : '#FFFFFF');
-    root.style.setProperty('--30color', isDarkMode ? '#FFFFFF' : '#030213');
+    root.style.setProperty('--60color', isDarkMode ? '#000014' : '#FFFFFF');
+    root.style.setProperty('--30color', isDarkMode ? '#FFFFFF' : '#000014');
     root.style.setProperty('--10color', isDarkMode ? '#91e5f6' : '#6ab9cc');
     root.style.setProperty('--10biscolor', isDarkMode ? '#118ba3' : '#118ba3');
   }, [isDarkMode]);

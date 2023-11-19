@@ -28,6 +28,7 @@ body {
 h1 {
   font-weight: bolder !important;
   color: var(--30color) !important;
+  font-size: 2rem;
 }
 
 p {
@@ -150,7 +151,7 @@ footer a:hover {
 }
 
 .home-container {
-  margin: 20px 4%;
+  margin: 40px 10%;
 }
 
 .home-grid {
@@ -161,6 +162,9 @@ footer a:hover {
 }
 
 @media only screen and (max-width: 1280px) {
+  .home-container {
+    margin: 20px 4%;
+  }
   .home-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -796,15 +800,22 @@ ff .article-table .blog-card:hover .icon {
   }
 }
 nav {
+  padding: 0% !important;
   border-bottom: 1px var(--30color) solid !important;
   color: var(--30color) !important;
 }
 
 .navbar-container {
-  margin: 0% 4% !important;
+  padding: 0% !important;
+  margin: 0% 10% !important;
   max-width: 3000px !important;
 }
 
+@media only screen and (max-width: 1280px) {
+  .navbar-container {
+    margin: 0% 4% !important;
+  }
+}
 .navbar-brand {
   white-space: normal !important;
   color: var(--30color) !important;
