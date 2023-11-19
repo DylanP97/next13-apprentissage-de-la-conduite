@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
+import Link from "next/link";
+import { FloatingLabel } from "react-bootstrap";
 
 interface ContactClientProps {
   currentUser: any;
@@ -45,16 +47,17 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
           <h1>Contact</h1>
           <div>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="message">Message</Form.Label>
-              <Form.Control
-                id="message"
-                as="textarea"
-                rows={3}
-                onInput={(e: any) => {
-                  e.preventDefault();
-                  console.log(e.target.value);
-                }}
-              />
+              <FloatingLabel label="Le Contenu de Votre Demande" className="mb-3">
+                <Form.Control
+                  id="message"
+                  as="textarea"
+                  rows={3}
+                  onInput={(e: any) => {
+                    e.preventDefault();
+                    setMessage(e.target.value);
+                  }}
+                />
+              </FloatingLabel>
             </Form.Group>
             <Form.Text className="errorzone" />
             <button
@@ -65,13 +68,13 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
             >
               Envoyé ma demande de contact
             </button>
+            <Link className="btn btn-30color" href="/">
+              Revenir à la page d&apos;accueil
+            </Link>
+            <hr />
             <p style={{ paddingTop: "10px", minHeight: "50px" }}>
               {infoMessage}
             </p>
-            <hr />
-            <a href="/">
-              Revenir à la page d&apos;accueil
-            </a>
           </div>
         </Col>
       </Row>

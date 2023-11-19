@@ -16,10 +16,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
   return (
     <main className="home-container">
       <HomeGreeting currentUser={currentUser} />
-      <br />
-      Filtrer par sujets :
       <TagsEditor blogs={blogs} tags={selectedTags} state={setSelectedTags} />
-      <hr />
       {blogs && (
         <div className="home-grid" data-testid="HomePage-blog-grid">
           {blogs?.length === 0 ? (

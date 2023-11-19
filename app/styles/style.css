@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
-  --60color: #0e0d29;
+  --60color: #030213;
   --30color: #ffffff;
   --10color: #91e5f6;
-  --10biscolor: #51d2ec;
+  --10biscolor: #118ba3;
 }
 
 * {
@@ -150,14 +150,14 @@ footer a:hover {
 }
 
 .home-container {
-  margin: 30px 4%;
+  margin: 20px 4%;
 }
 
 .home-grid {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 @media only screen and (max-width: 1280px) {
@@ -179,7 +179,7 @@ footer a:hover {
   position: relative;
   text-decoration: none;
   border: 2px var(--30color) solid;
-  aspect-ratio: 1/1;
+  aspect-ratio: 10/8;
 }
 .home-card article {
   height: 100%;
@@ -224,14 +224,17 @@ footer a:hover {
   position: relative;
 }
 .home-card article .card-bottom h2 {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
 }
 .home-card article .card-bottom .card-tags {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -261,7 +264,7 @@ footer a:hover {
   .home-card:nth-child(7n+1) {
     grid-column: auto/span 3;
     grid-row: auto/span 1;
-    aspect-ratio: 4/1;
+    aspect-ratio: 9/2;
   }
   .home-card:nth-child(7n+1) article {
     display: flex;
@@ -283,7 +286,7 @@ footer a:hover {
     position: relative;
   }
   .home-card:nth-child(7n+1) article .card-bottom h2 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin: 0;
     overflow: hidden;
@@ -1191,14 +1194,15 @@ nav {
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
-  padding: 1% 2%;
+  padding: 0.5rem 0%;
   gap: 0.5rem;
 }
 
 .badge-tag {
-  padding: 1% !important;
+  padding: 0.5rem 0.8rem !important;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.9rem;
   border-radius: 10px;
 }
 

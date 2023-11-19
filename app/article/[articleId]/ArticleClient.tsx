@@ -1,7 +1,6 @@
 "use client";
 
 import parse from "html-react-parser";
-import { Button } from "react-bootstrap";
 import illustration from "@/public/images/illustration.jpg";
 import Image from "next/image";
 import Link from "next/link";

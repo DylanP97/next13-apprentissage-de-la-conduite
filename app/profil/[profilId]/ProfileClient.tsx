@@ -51,25 +51,15 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
       <h1>
         {currentUser?.firstName ? currentUser?.firstName : currentUser?.name}
       </h1>
-      <br />
-      <p>Votre adresse email : {currentUser?.email}</p>
+      <p>{currentUser?.email}</p>
       {!currentUser?.isAdmin ? (
         <div>
-          <h2>Votre abonnement</h2>
-          <br />
           <p>
             {currentUser?.isSubscribed
               ? "Forfait actuel : " +
-                getSubscriptionLabel(currentUser?.subscriptionPlan)
+              getSubscriptionLabel(currentUser?.subscriptionPlan)
               : null}
           </p>
-          <br />
-          <button
-            className="btn btn-30color"
-            onClick={() => cancelSubscription(currentUser?.id)}
-          >
-            Suspendre mon abonnement
-          </button>
           <br />
         </div>
       ) : (
@@ -79,12 +69,21 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ currentUser }) => {
         </p>
       )}
       <hr />
-      <button
-        onClick={() => handleDelete(currentUser?.id)}
-        className="btn btn-30color"
-      >
-        Supprimer mon compte
-      </button>
+      <div style={{ display: "flex" }}>
+        <button
+          className="btn btn-30color"
+          onClick={() => cancelSubscription(currentUser?.id)}
+        >
+          Suspendre mon abonnement
+        </button>
+        <br />
+        <button
+          onClick={() => handleDelete(currentUser?.id)}
+          className="btn btn-30color"
+        >
+          Supprimer mon compte
+        </button>
+      </div>
     </section>
   );
 };

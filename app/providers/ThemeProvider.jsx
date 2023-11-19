@@ -13,10 +13,10 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--60color', isDarkMode ? '#0e0d29' : '#fafaff');
-    root.style.setProperty('--30color', isDarkMode ? '#ffffff' : '#112222');
+    root.style.setProperty('--60color', isDarkMode ? '#030213' : '#FFFFFF');
+    root.style.setProperty('--30color', isDarkMode ? '#FFFFFF' : '#030213');
     root.style.setProperty('--10color', isDarkMode ? '#91e5f6' : '#6ab9cc');
-    root.style.setProperty('--10biscolor', isDarkMode ? '#51d2ec' : '#49bbd6');
+    root.style.setProperty('--10biscolor', isDarkMode ? '#118ba3' : '#118ba3');
   }, [isDarkMode]);
 
   return (
