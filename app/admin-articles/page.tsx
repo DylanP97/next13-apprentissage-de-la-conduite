@@ -20,11 +20,7 @@ const ArticleAdminPage = async () => {
 
   return (
     <ClientOnly>
-      <NavBar
-        isSubscribed={currentUser.isSubscribed}
-        isAdmin={currentUser.isAdmin}
-        userId={currentUser.id}
-      />
+      <NavBar currentUser={currentUser} />
       {blogs ? (
         <ArticleAdminClient blogs={blogs} />
       ) : (
