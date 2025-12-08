@@ -7,6 +7,13 @@ export async function POST(request: Request) {
   const body = await request.json();
   let { data } = body;
 
+  if (!data?.commenterId) {
+    return NextResponse.json(
+      { message: "Authentication required to comment" },
+      { status: 401 },
+    );
+  }
+
   const commentId = new ObjectId().toHexString();
 
   await prisma.comment.create({

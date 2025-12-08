@@ -1,3 +1,4 @@
+import "./styles/tailwind.css";
 import "./styles/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from "next";
@@ -7,7 +8,7 @@ import ThemeProvider from '@/app/providers/ThemeProvider';
 
 export const metadata: Metadata = {
   title: "Apprentissage de la Conduite et de la Sécurité Routière",
-  description: "Blog d'apprentissage à l'examen de conduite Alexandre Boitel",
+  description: "Blog d'apprentissage à l'examen de conduite",
   icons: {
     icon: "./favicon.ico",
   },

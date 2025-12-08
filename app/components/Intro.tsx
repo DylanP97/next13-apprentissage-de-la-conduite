@@ -4,6 +4,7 @@ import photo1 from "@/public/images/conduite.jpeg";
 import Image from "next/image";
 
 function Intro() {
+
   return (
     <div className="intro sign">
       <div className="intro-text">

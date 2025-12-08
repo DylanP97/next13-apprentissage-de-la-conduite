@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import ClientOnly from "../components/ClientOnly";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
@@ -10,49 +9,18 @@ const QuizPage = async () => {
   const currentUser = await getCurrentUser();
   const publishedQuestions = await getPublishedQuestions();
 
-  if (!currentUser) {
-    redirect("/");
-  }
+  return (
+    <ClientOnly>
+      <NavBar currentUser={currentUser} />
+      {publishedQuestions ? (
+        <QuizClient publishedQuestions={publishedQuestions} />
+      ) : (
+        <h1>Il n&apos;y a aucune question</h1>
+      )}
 
-  if (!currentUser.isAdmin) {
-    if (!currentUser?.isAccepted || !currentUser?.isSubscribed) {
-      redirect("/");
-    } else {
-      return (
-        <ClientOnly>
-          <NavBar
-            isSubscribed={currentUser.isSubscribed}
-            isAdmin={currentUser.isAdmin}
-            userId={currentUser.id}
-          />
-          {publishedQuestions ? (
-            <QuizClient publishedQuestions={publishedQuestions} />
-          ) : (
-            <h1>Il n&apos;y a aucune question</h1>
-          )}
-
-          <Footer />
-        </ClientOnly>
-      );
-    }
-  } else {
-    return (
-      <ClientOnly>
-        <NavBar
-          isSubscribed={currentUser.isSubscribed}
-          isAdmin={currentUser.isAdmin}
-          userId={currentUser.id}
-        />
-        {publishedQuestions ? (
-          <QuizClient publishedQuestions={publishedQuestions} />
-        ) : (
-          <h1>Il n&apos;y a aucune question</h1>
-        )}
-
-        <Footer />
-      </ClientOnly>
-    );
-  }
+      <Footer />
+    </ClientOnly>
+  );
 };
 
 export default QuizPage;

@@ -14,33 +14,25 @@ jest.mock("next/navigation", () => ({
 
 jest.mock("next-auth/react");
 
-const subscriberNavBarLinks = {
-  Accueil: "/",
-  Profil: "/profil/",
-  Quiz: "/quiz",
-  Contact: "/contact",
-};
-
 describe("@NavBar", () => {
-  const baseNavBarText = [
-    "Apprentissage de la Conduite et de la Sécurité Routière",
-    "Se déconnecter",
-  ];
+  const baseNavBarText = ["Apprentissage de la Conduite"];
 
   it("should render @NavBar component correctly", () => {
-    render(<NavBar isSubscribed={false} isAdmin={false} userId="" />);
+    render(<NavBar currentUser={null} />);
 
     baseNavBarText.forEach((text: string) => {
       expect(screen.getByText(text)).toBeInTheDocument();
     });
-    expect(() => screen.getByText("Administrateur")).toThrow();
-    Object.keys(subscriberNavBarLinks).forEach((key) => {
-      expect(() => screen.getByText(key)).toThrow();
-    });
+    expect(screen.getByText("Connexion")).toBeInTheDocument();
+    expect(() => screen.getByText("Se déconnecter")).toThrow();
   });
 
   it("should signOut", () => {
-    render(<NavBar isSubscribed={false} isAdmin={false} userId="" />);
+    render(
+      <NavBar
+        currentUser={{ id: "1", isSubscribed: true, isAdmin: false }}
+      />,
+    );
 
     fireEvent.click(screen.getByText("Se déconnecter"));
     expect(signOut).toHaveBeenCalledTimes(1);
@@ -48,13 +40,16 @@ describe("@NavBar", () => {
 
   describe("@isSubscribed", () => {
     it("should render NavBar for subscribed user", () => {
-      render(<NavBar isSubscribed={true} isAdmin={false} userId="" />);
+      render(
+        <NavBar
+          currentUser={{ id: "1234", isSubscribed: true, isAdmin: false }}
+        />,
+      );
 
-      Object.entries(subscriberNavBarLinks).forEach(([key, value]) => {
-        const element = screen.getByText(key);
-        expect(element).toBeInTheDocument();
-        expect(element).toHaveAttribute("href", value);
-      });
+      expect(screen.getByText("Profil")).toHaveAttribute("href", "/profil/1234");
+      expect(screen.getByText("Quiz")).toHaveAttribute("href", "/quiz");
+      expect(screen.getByText("Contact")).toHaveAttribute("href", "/contact");
+      expect(screen.getByText("Se déconnecter")).toBeInTheDocument();
     });
   });
 
@@ -70,9 +65,13 @@ describe("@NavBar", () => {
     };
 
     it("should render NavBar for @isAdmin", () => {
-      render(<NavBar isSubscribed={false} isAdmin={true} userId="" />);
+      render(
+        <NavBar
+          currentUser={{ id: "1", isSubscribed: false, isAdmin: true }}
+        />,
+      );
 
-      const adminDropdown = screen.getByText("Administrateur");
+      const adminDropdown = screen.getByText("Admin");
       fireEvent.click(adminDropdown);
       Object.entries(adminNavBarLinks).forEach(([key, value]) => {
         const element = screen.getByText(key);
@@ -82,9 +81,13 @@ describe("@NavBar", () => {
     });
 
     it("should trigger createBlog and navigate to admin-edition", () => {
-      render(<NavBar isSubscribed={false} isAdmin={true} userId="" />);
+      render(
+        <NavBar
+          currentUser={{ id: "1", isSubscribed: false, isAdmin: true }}
+        />,
+      );
 
-      const adminDropdown = screen.getByText("Administrateur");
+      const adminDropdown = screen.getByText("Admin");
       fireEvent.click(adminDropdown);
 
       const newArticleButton = screen.getByText("Écrire un nouvel article");
@@ -94,7 +97,11 @@ describe("@NavBar", () => {
     });
 
     it("should throw error for createBlog if post fails", () => {
-      render(<NavBar isSubscribed={false} isAdmin={true} userId="" />);
+      render(
+        <NavBar
+          currentUser={{ id: "1", isSubscribed: false, isAdmin: true }}
+        />,
+      );
 
       const adminDropdown = screen.getByText("Administrateur");
       fireEvent.click(adminDropdown);
@@ -107,8 +114,12 @@ describe("@NavBar", () => {
   });
 
   describe("@userId", () => {
-    it("should render NavBar with Profil like including userId ", () => {
-      render(<NavBar isSubscribed={true} isAdmin={false} userId="1234" />);
+    it("should render NavBar with Profil link including userId ", () => {
+      render(
+        <NavBar
+          currentUser={{ id: "1234", isSubscribed: true, isAdmin: false }}
+        />,
+      );
       const profileLink = screen.getByText("Profil");
       expect(profileLink).toHaveAttribute("href", "/profil/1234");
     });

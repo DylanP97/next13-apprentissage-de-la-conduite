@@ -18,6 +18,36 @@ nav {
   color: var(--30color) !important;
 }
 
+.navbar-brand-text {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+
+  .brand-long {
+    display: block;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .brand-short {
+    display: none;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+}
+
+.navbar-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.navbar-quiz-cta {
+  padding: 6px 12px;
+}
+
 .nav-link {
   color: var(--30color) !important;
   transition:
@@ -57,5 +87,26 @@ nav {
     & a {
       text-align: center !important;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-brand-text .brand-long {
+    display: none !important;
+  }
+
+  .navbar-brand-text .brand-short {
+    display: block !important;
+  }
+
+  .navbar-cta-group {
+    gap: 6px;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Avoid double quiz entry on large screens; CTA mainly for mobile/tablet */
+  .navbar-quiz-cta {
+    display: none;
   }
 }

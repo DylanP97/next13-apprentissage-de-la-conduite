@@ -19,6 +19,11 @@ const WriteComment: React.FC<WriteCommentProps> = ({ currentUser }) => {
   const articleId = params?.articleId
 
   const postComment = () => {
+    if (!currentUser) {
+      toast.error("Connectez-vous pour commenter");
+      return;
+    }
+
     const data = {
       commenterId: currentUser && currentUser.id,
       content: content,
@@ -52,29 +57,35 @@ const WriteComment: React.FC<WriteCommentProps> = ({ currentUser }) => {
           overflow: "hidden",
         }}
       >
-        <Image src={currentUser && currentUser.image || defaultImage} alt="" height={35} width={35} />
+        <Image src={currentUser?.image || defaultImage} alt="" height={35} width={35} />
       </div>
-      <Form.Group
-        style={{
-          width: "100%",
-        }}
-      >
-        <InputGroup>
-          <FloatingLabel label={"Écrivez votre commentaire"}>
-            <Form.Control
-              required
-              type="text"
-              name="comment"
-              id="comment"
-              style={{
-                width: "100%",
-              }}
-              onChange={(event) => setContent(event.target.value)}
-            />
-          </FloatingLabel>
-          <InputGroup.Text className="write-comment-submit" onClick={() => postComment()} id="basic-addon1">Envoyer</InputGroup.Text>
-        </InputGroup>
-      </Form.Group>
+      {currentUser ? (
+        <Form.Group
+          style={{
+            width: "100%",
+          }}
+        >
+          <InputGroup>
+            <FloatingLabel label={"Écrivez votre commentaire"}>
+              <Form.Control
+                required
+                type="text"
+                name="comment"
+                id="comment"
+                style={{
+                  width: "100%",
+                }}
+                onChange={(event) => setContent(event.target.value)}
+              />
+            </FloatingLabel>
+            <InputGroup.Text className="write-comment-submit" onClick={() => postComment()} id="basic-addon1">Envoyer</InputGroup.Text>
+          </InputGroup>
+        </Form.Group>
+      ) : (
+        <Button variant="primary" onClick={() => window.location.assign("/connexion")}>
+          Connectez-vous pour commenter
+        </Button>
+      )}
     </div>
   );
 };

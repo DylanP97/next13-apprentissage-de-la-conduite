@@ -98,7 +98,7 @@ footer {
   height: max-content;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 40px 10%;
   flex-direction: row;
   background-color: var(--60color);
@@ -195,7 +195,7 @@ footer a:hover {
 }
 .home-card article .card-top {
   width: 100%;
-  height: 50%;
+  height: 70%;
   position: relative;
   top: 0;
 }
@@ -221,7 +221,7 @@ footer a:hover {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 50%;
+  height: 30%;
   color: var(--30color);
   text-align: center;
   padding: 4%;
@@ -235,7 +235,7 @@ footer a:hover {
   text-overflow: ellipsis;
   display: -webkit-box;
 }
-.home-card article .card-bottom .card-tags {
+.home-card article .card-top .card-tags {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -1308,3 +1308,30 @@ nav {
   color: var(--30color);
   text-decoration: underline;
 }/*# sourceMappingURL=style.css.map */
+
+
+/* Remove default dropdown caret */
+.dropdown-custom > .dropdown-toggle::after {
+  display: none;
+}
+
+/* Style the dropdown menu */
+.dropdown-menu {
+  background-color: #030213 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  margin-top: 8px !important;
+  padding: 8px 0 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item {
+  color: #e0e0e0 !important;
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+}
+
+.dropdown-item:hover {
+  background-color: #91e5f6 !important;
+  color: #030213 !important;
+}

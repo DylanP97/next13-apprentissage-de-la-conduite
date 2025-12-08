@@ -3,11 +3,11 @@
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Input from "../components/Input";
+import Input from "./Input";
 import { FloatingLabel, InputGroup, Button } from "react-bootstrap";
 import photo1 from "@/public/images/retroviseur.jpg";
 import view from "@/public/icons/view.png";
-import CustomButton from "../components/Button";
+import CustomButton from "./Button";
 import { showPassword } from "../libs/utils";
 import googleIcon from "@/public/icons/google.png";
 
