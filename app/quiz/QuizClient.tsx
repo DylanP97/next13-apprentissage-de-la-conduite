@@ -1,253 +1,193 @@
+// QuizClient.tsx – Version 100 % lisible + ultra compacte
 "use client";
 
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import AngleDoubleSmallRight from "@/public/icons/angle-double-small-right.png";
-import axios from "axios";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useTheme } from "../providers/ThemeProvider";
 
-interface QuizClientProps {
-  publishedQuestions: any;
+interface Question {
+  question: string;
+  answers: string[];
+  correctAnswer: number;
+  imageUrl?: string;
 }
 
-const QuizClient: React.FC<QuizClientProps> = ({ publishedQuestions }) => {
+const QuizClient: React.FC<{ publishedQuestions: Question[] }> = ({ publishedQuestions }) => {
+  const { isDarkMode } = useTheme();
+
   const [quizStarted, setQuizStarted] = useState(false);
   const [seeResults, setSeeResults] = useState(false);
-  const [slideScore, setSlideScore] = useState(false);
-  const [isAnswered, setIsAnswered] = useState(false);
-  const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState();
-  const [userAnswer, setUserAnswer] = useState<number>();
-  const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
-  const [image, setImage] = useState("");
-  const [questionHistory, setQuestionHistory] = useState<object[]>([]);
-  const [availableQuestions, setAvailableQuestions] =
-    useState(publishedQuestions);
-  const [infoText, setInfoText] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [availableQuestions, setAvailableQuestions] = useState(publishedQuestions);
+  const [questionHistory, setQuestionHistory] = useState<any[]>([]);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState(false);
 
-  const isMobile = window.innerWidth <= 768;
+  const progress = publishedQuestions.length
+    ? ((publishedQuestions.length - availableQuestions.length) / publishedQuestions.length) * 100
+    : 0;
 
-  function handleAnswerClick(answer: any, index: number) {
-    setIsAnswered(true);
-    if (isCorrect === undefined) {
-      let correctElement = document.getElementById(`answer${correctAnswer}`);
-      let elementId = `answer${index}`;
-      let element = document.getElementById(elementId);
-      setUserAnswer(index);
-      if (index === correctAnswer) {
-        setInfoText("Bravo, c'est la bonne réponse!");
-        setIsCorrect(true);
-        element?.classList.add("correct-answer");
-      } else {
-        setInfoText("C'est la mauvaise réponse!");
-        setIsCorrect(false);
-        element?.classList.add("wrong-answer");
-      }
-      correctElement?.classList.add("correct-answer");
-      const updatedQuestionHistory = questionHistory.map((q: any) => {
-        if (q.question === question) {
-          return {
-            ...q,
-            userAnswer: index,
-            isCorrect: correctAnswer === index ? true : false,
-          };
-        }
-        return q;
-      });
-      setQuestionHistory(updatedQuestionHistory);
-    } else {
-      setInfoText("Vous avez déjà répondu !");
+  const pickRandomQuestion = () => {
+    if (availableQuestions.length === 0) {
+      setSeeResults(true);
+      return;
     }
-  }
+    const idx = Math.floor(Math.random() * availableQuestions.length);
+    const q = availableQuestions[idx];
+    setCurrentQuestion(q);
+    setAvailableQuestions(prev => prev.filter((_, i) => i !== idx));
+    setSelectedAnswer(null);
+    setShowResult(false);
+  };
 
-  function handleNewQuestionClick() {
-    setIsAnswered(false);
-    setInfoText("");
-    if (isCorrect === undefined && quizStarted === true) {
-      setInfoText("Il faut que vous répondez à la question.");
-      setTimeout(() => {
-        setInfoText("");
-      }, 2000);
-    } else {
-      const previousAnswers = document.getElementsByClassName("response");
-      for (let i = 0; i < previousAnswers.length; i++) {
-        previousAnswers[i].classList.remove("correct-answer");
-        previousAnswers[i].classList.remove("wrong-answer");
-      }
-      if (availableQuestions.length !== 0) {
-        let newQuestion: any =
-          availableQuestions[
-            Math.floor(Math.random() * availableQuestions.length)
-          ];
-        setAvailableQuestions(
-          availableQuestions.filter(
-            (q: any) => q.question !== newQuestion.question,
-          ),
-        );
-        setQuestion(newQuestion.question);
-        setAnswers(newQuestion.answers);
-        setCorrectAnswer(newQuestion.correctAnswer);
-        newQuestion.imageUrl ? setImage(newQuestion.imageUrl) : setImage("");
-        setQuestionHistory([
-          ...questionHistory,
-          {
-            question: newQuestion.question,
-            answers: newQuestion.answers,
-            correctAnswer: newQuestion.correctAnswer,
-            imageUrl: newQuestion.imageUrl,
-          },
-        ]);
-      } else {
-        setSeeResults(true);
-      }
-      setIsCorrect(undefined);
-    }
-  }
+  const handleAnswer = (index: number) => {
+    if (showResult) return;
+    setSelectedAnswer(index);
+    setShowResult(true);
+    const correct = index === currentQuestion!.correctAnswer;
+    setQuestionHistory(prev => [...prev, { ...currentQuestion, userAnswer: index, isCorrect: correct }]);
+  };
 
-  function handleStartQuizClick() {
-    handleNewQuestionClick();
-    setQuizStarted(true);
-  }
+  const score = questionHistory.filter(q => q.isCorrect).length;
+  const total = questionHistory.length;
 
   return (
-    <div className="home-container">
-      {!quizStarted ? (
-        <>
-          <h1>Quiz</h1>
-          <p>
-            Répondez à une série de questions pour vous préparez à l&apos;examen
-            de la conduite.
-          </p>
-          <hr />
-          <button
-            className="btn btn-10color"
-            onClick={() => handleStartQuizClick()}
-          >
-            Démarrer le Quiz
-          </button>
-        </>
-      ) : (
-        <section className="quiz-section">
-          {!seeResults ? (
-            <>
-              <div className="quiz">
-                {image && (
-                  <Image
-                    width={1000}
-                    height={1000}
-                    src={image}
-                    alt=""
-                    className="question-img"
-                  />
-                )}
-                <p className="question">{question && question}</p>
-                <div className="responses">
-                  {answers &&
-                    answers.map((answer, index) => (
-                      <div
-                        data-testid={`answer-${index}`}
-                        key={index}
-                        className="response"
-                        id={"answer" + index}
-                        onClick={() => handleAnswerClick(answer, index)}
-                      >
-                        <p>{answer}</p>
-                      </div>
-                    ))}
-                </div>
-                <div className="quiz-btn">
-                  <p className="error-text">{infoText}</p>
-                  <hr />
-                </div>
+    <div className="min-h-screen flex flex-col items-center justify-start px-2 py-2 md:py-6"
+         style={{ background: isDarkMode ? "#0f172a" : "#f9fafb" }}>
+      
+      <div className="w-full max-w-xl">
+        <AnimatePresence mode="wait">
+          {!quizStarted ? (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center w-full">
+              <h1 className={`text-2xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                Quiz Conduite
+              </h1>
+              <button
+                onClick={() => { setQuizStarted(true); pickRandomQuestion(); }}
+                className="w-full py-4 text-white font-bold text-lg rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600"
+              >
+                Démarrer
+              </button>
+            </motion.div>
+          ) : !seeResults ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={`rounded-3xl shadow-2xl overflow-hidden md:border ${
+                isDarkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200"
+              }`}
+            >
+              {/* Progress */}
+              <div className="h-2 bg-gray-300 dark:bg-gray-800">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                />
+              </div>
 
-                {isMobile ? (
-                  <div>
-                    <p style={{ fontWeight: "600" }}>
-                      Score :{" "}
-                      {questionHistory.filter((q: any) => q.isCorrect).length}{" "}
-                      sur {questionHistory.length}
-                    </p>
-                    <p>{publishedQuestions.length} questions</p>
-                  </div>
-                ) : !slideScore ? (
-                  <div
-                    className="slide-score"
-                    data-testid="slide-score-inactive"
-                    onClick={() => setSlideScore(true)}
-                  >
+              <div className="p-2">
+                {/* Image */}
+                {currentQuestion?.imageUrl && (
+                  <div className="mb-2 md:mb-4 -mx-4">
                     <Image
-                      className="slide-score-img"
-                      src={AngleDoubleSmallRight}
-                      alt="slide"
-                      style={{ width: "48px", height: "auto" }}
+                      src={currentQuestion.imageUrl}
+                      alt=""
+                      width={800}
+                      height={400}
+                      className="w-full h-auto max-h-40 object-cover rounded-t-2xl"
+                      priority
                     />
                   </div>
-                ) : (
-                  <div
-                    className="slide-score active"
-                    data-testid="slide-score-active"
-                    onClick={() => setSlideScore(false)}
-                  >
-                    <p style={{ fontWeight: "600" }}>
-                      Score :{" "}
-                      {questionHistory.filter((q: any) => q.isCorrect).length}{" "}
-                      sur {questionHistory.length}
-                    </p>
-                    <p>{publishedQuestions.length} questions</p>
-                  </div>
                 )}
-                {isAnswered && (
-                  <button
-                    className="btn btn-10color"
-                    onClick={() => handleNewQuestionClick()}
-                  >
-                    {availableQuestions.length === 0
-                      ? "Voir mes scores"
-                      : "Question suivante"}
-                  </button>
-                )}
+
+                {/* Question */}
+                <h2 className={`text-md md:text-lg font-bold text-center mb-2 leading-tight ${
+                  isDarkMode ? "text-white" : "text-gray-900"
+                }`}>
+                  {currentQuestion?.question}
+                </h2>
+
+                {/* Réponses – TEXTE TOUJOURS LISBLE */}
+                <div className="space-y-3 mb-4">
+                  {currentQuestion?.answers.map((answer, i) => {
+                    const isSelected = selectedAnswer === i;
+                    const isCorrect = i === currentQuestion.correctAnswer;
+
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => handleAnswer(i)}
+                        disabled={showResult}
+                        className={`
+                          w-full px-5 py-3 rounded-2xl text-left font-medium transition-all
+                          ${showResult && isCorrect
+                            ? "bg-emerald-600 text-white"
+                            : showResult && isSelected && !isCorrect
+                            ? "bg-red-600 text-white"
+                            : isSelected
+                            ? "bg-indigo-600 text-white"
+                            : isDarkMode
+                            ? "bg-gray-800 text-white hover:bg-gray-700"
+                            : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                          }
+                          ${showResult ? "" : "active:scale-98"}
+                        `}
+                      >
+                        <div className="flex justify-between items-center">
+                          <span className="truncate pr-3 text-xs md:text-sm">{answer}</span>
+                          {showResult && isCorrect && <span className="font-bold  text-xs md:text-sm">Correct</span>}
+                          {showResult && isSelected && !isCorrect && <span className="font-bold  text-xs md:text-sm">Incorrect</span>}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Score + Bouton */}
+                <div className="text-center space-y-3">
+                  <p className={` text-xs md:text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                    <span className="font-bold text-indigo-500">Score : {score}/{total}</span>
+                    {" • "}
+                    <span>{availableQuestions.length} restante{availableQuestions.length > 1 ? "s" : ""}</span>
+                  </p>
+
+                  {showResult && (
+                    <button
+                      onClick={() => pickRandomQuestion()}
+                      className="w-full py-3.5 text-white font-bold rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600  text-xs md:text-sm"
+                    >
+                      {availableQuestions.length <= 1 ? "Voir les résultats" : "Question suivante"}
+                    </button>
+                  )}
+                </div>
               </div>
-            </>
+            </motion.div>
           ) : (
-            <div>
-              <h3>Voici le résulats de vos réponses avec correction:</h3>
-              <br />
-              <p>
-                Votre Score est de{" "}
-                {questionHistory.filter((q: any) => q.isCorrect).length} sur{" "}
-                {questionHistory.length}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={`rounded-3xl p-8 text-center ${
+                isDarkMode ? "bg-gray-900" : "bg-white"
+              } border ${isDarkMode ? "border-gray-800" : "border-gray-200"}`}
+            >
+              <h2 className={`text-2xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                Quiz terminé !
+              </h2>
+              <p className={`text-5xl font-black ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+                {score} / {publishedQuestions.length}
               </p>
-              <br />
-              {questionHistory.map((q: any) => {
-                return (
-                  <div key={q.question}>
-                    <hr />
-                    <h4>{q.question}</h4>
-                    <br />
-                    {q.imageUrl && (
-                      <Image
-                        className="img-score-results"
-                        src={q.imageUrl}
-                        alt=""
-                        width={1000}
-                        height={1000}
-                      />
-                    )}
-                    <p>
-                      {q.isCorrect
-                        ? "Bravo c'était la bonne réponse"
-                        : "Vous avez eu faux"}
-                    </p>
-                    <p>Vous aviez répondu : {q.answers[q.userAnswer]}</p>
-                    <p>La bonne réponse était : {q.answers[q.correctAnswer]}</p>
-                  </div>
-                );
-              })}
-            </div>
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-8 w-full py-4 text-white font-bold rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600"
+              >
+                Recommencer
+              </button>
+            </motion.div>
           )}
-        </section>
-      )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

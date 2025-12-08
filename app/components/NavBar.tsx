@@ -37,7 +37,7 @@ const NavBar = memo(function NavBar({
         expand="lg"
         className="border-b border-white/20 bg-[#030213]/95 backdrop-blur-lg sticky top-0 z-40"
       >
-        <Container className="max-w-7xl mx-auto px-4 py-3 lg:px-8">
+        <Container className="max-w-7xl mx-auto px-4 py-2 md:py-3 lg:px-8">
           {/* Logo */}
           <Navbar.Brand href="/" className="flex items-center">
             <div className="flex flex-col leading-none">

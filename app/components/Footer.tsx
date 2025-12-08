@@ -11,7 +11,7 @@ const Footer = () => {
     <div className="footer-wrap">
       <footer className="footer">
         <p style={{ fontSize: "12px" }}>
-          Copyright - apprentissagedelaconduite.fr - {year} - Si vous avez des
+          Copyright - apprentissagedelaconduite - {year} - Si vous avez des
           suggestions d&apos;articles n&apos;hésitez pas à me contacter.
         </p>
         <ThemeToggler />
