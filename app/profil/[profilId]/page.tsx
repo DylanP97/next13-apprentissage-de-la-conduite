@@ -18,11 +18,7 @@ export default async function ProfilePage() {
     } else {
       return (
         <ClientOnly>
-          <NavBar
-            isSubscribed={currentUser.isSubscribed}
-            isAdmin={currentUser.isAdmin}
-            userId={currentUser.id}
-          />
+          <NavBar currentUser={currentUser} />
           <ProfileClient currentUser={currentUser} />
           <Footer />
         </ClientOnly>
@@ -31,11 +27,7 @@ export default async function ProfilePage() {
   } else {
     return (
       <ClientOnly>
-        <NavBar
-          isSubscribed={currentUser.isSubscribed}
-          isAdmin={currentUser.isAdmin}
-          userId={currentUser.id}
-        />
+        <NavBar currentUser={currentUser} />
         <ProfileClient currentUser={currentUser} />
         <Footer />
       </ClientOnly>

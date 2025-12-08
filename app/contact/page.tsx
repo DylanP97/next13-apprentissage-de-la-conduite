@@ -18,11 +18,7 @@ const ContactPage = async () => {
     } else {
       return (
         <ClientOnly>
-          <NavBar
-            isSubscribed={currentUser.isSubscribed}
-            isAdmin={currentUser.isAdmin}
-            userId={currentUser.id}
-          />
+          <NavBar currentUser={currentUser} />
           <ContactClient currentUser={currentUser} />
           <Footer />
         </ClientOnly>
@@ -31,11 +27,7 @@ const ContactPage = async () => {
   } else {
     return (
       <ClientOnly>
-        <NavBar
-          isSubscribed={currentUser.isSubscribed}
-          isAdmin={currentUser.isAdmin}
-          userId={currentUser.id}
-        />
+        <NavBar currentUser={currentUser} />
         <ContactClient currentUser={currentUser} />
         <Footer />
       </ClientOnly>

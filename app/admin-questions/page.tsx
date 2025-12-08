@@ -20,11 +20,7 @@ const QuizAdminPage = async () => {
 
   return (
     <ClientOnly>
-      <NavBar
-        isSubscribed={currentUser.isSubscribed}
-        isAdmin={currentUser.isAdmin}
-        userId={currentUser.id}
-      />
+      <NavBar currentUser={currentUser} />
       {questions ? (
         <QuizAdminClient questions={questions} />
       ) : (

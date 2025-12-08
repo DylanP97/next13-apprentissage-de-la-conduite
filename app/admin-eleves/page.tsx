@@ -20,11 +20,7 @@ export default async function ElevesAdminPage() {
 
   return (
     <ClientOnly>
-      <NavBar
-        isSubscribed={currentUser.isSubscribed}
-        isAdmin={currentUser.isAdmin}
-        userId={currentUser.id}
-      />
+      <NavBar currentUser={currentUser} />
       {users ? (
         <ElevesAdminClient users={users} />
 

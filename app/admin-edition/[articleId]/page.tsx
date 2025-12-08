@@ -26,11 +26,7 @@ const EditionArticlePage = async ({ params }: { params: IParams }) => {
 
   return (
     <ClientOnly>
-      <NavBar
-        isSubscribed={currentUser.isSubscribed}
-        isAdmin={currentUser.isAdmin}
-        userId={currentUser.id}
-      />
+      <NavBar currentUser={currentUser} />
       <EditionArticleClient blogs={blogs} blog={blog} />
       <Footer />
     </ClientOnly>
