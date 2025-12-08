@@ -37,10 +37,8 @@ describe("ConnexionModal", () => {
   });
 
   it("should not render when isOpen is false", () => {
-    const { container } = render(
-      <ConnexionModal isOpen={false} onClose={onCloseMock} />
-    );
-    expect(container.firstChild).toBeNull();
+    render(<ConnexionModal isOpen={false} onClose={onCloseMock} />);
+    expect(screen.queryByText("Connexion")).not.toBeInTheDocument();
   });
 
   it("should render login form by default", () => {
@@ -128,6 +126,9 @@ describe("ConnexionModal", () => {
 
     await waitFor(() => {
       expect(toast.success).toHaveBeenCalledWith("Connecté !");
+    });
+
+    await waitFor(() => {
       expect(onCloseMock).toHaveBeenCalledTimes(1);
     });
   });

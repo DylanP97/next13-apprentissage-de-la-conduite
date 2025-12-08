@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { HomeCard } from "./HomeCard";
 import HomeGreeting from "./HomeGreeting";
 import { TagsEditor } from "./TagsEditor";
@@ -52,13 +53,16 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
           {/* Featured Article */}
           {featuredBlog && (
             <div
-              className="relative overflow-hidden rounded-xl cursor-pointer group"
+              className="relative overflow-hidden rounded-xl cursor-pointer group h-96"
               onClick={() => router.push(`/article/${featuredBlog.id}`)}
             >
-              <img
+              <Image
                 src={featuredBlog.imageUrl || "/images/illustration.jpg"}
                 alt={featuredBlog.title}
-                className="w-full h-96 object-cover transition-transform group-hover:scale-105"
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="object-cover transition-transform group-hover:scale-105"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <div className="absolute bottom-0 left-0 p-6 text-white">
