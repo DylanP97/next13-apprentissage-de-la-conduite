@@ -1,7 +1,11 @@
+// api/contact/route.ts
 import { NextResponse } from "next/server";
 
-const postmark = require("postmark");
-const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+let postmarkApp: any = null;
+if (process.env.POSTMARK_API) {
+  const postmark = require("postmark");
+  postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+}
 
 export async function POST(request: Request) {
   try {
@@ -13,8 +17,12 @@ export async function POST(request: Request) {
     }
 
     const fromEmail = process.env.POSTMARK_EMAIL;
-    if (!fromEmail) {
-      return NextResponse.json({ error: "POSTMARK_EMAIL not set" }, { status: 500 });
+    if (!postmarkApp || !fromEmail) {
+      console.log("Postmark not configured, skipping email send.");
+      return NextResponse.json({
+        message:
+          "Email sending is disabled (no Postmark token provided).",
+      });
     }
 
     const postmarkResponse = await postmarkApp.sendEmail({
@@ -32,7 +40,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: "Envoi échoué" }, { status: 500 });
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

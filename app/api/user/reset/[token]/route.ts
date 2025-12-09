@@ -6,8 +6,12 @@ interface IParams {
   token?: string;
 }
 
-const postmark = require("postmark");
-const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+// Conditional Postmark initialization
+let postmarkApp: any = null;
+if (process.env.POSTMARK_API) {
+  const postmark = require("postmark");
+  postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+}
 
 export async function POST(request: Request, { params }: { params: IParams }) {
   try {
@@ -17,11 +21,9 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await prisma.user.update({
-      where: {
-        resetPasswordToken: token,
-      },
+      where: { resetPasswordToken: token },
       data: {
-        hashedPassword: hashedPassword,
+        hashedPassword,
         resetPasswordToken: "",
         resetPasswordExpires: null,
       },
@@ -32,21 +34,30 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     }
 
     const email = user.email;
-
     if (!email) {
       throw new Error("Invalid Email");
     }
 
-    await postmarkApp.sendEmail({
-      From: process.env.POSTMARK_EMAIL,
-      To: email,
-      Subject: `Votre mot de passe a été changé avec succès.`,
-      TextBody: `Votre mot de passe a été modifié avec succès. En cas d'erreur n'hésitez pas à nous contacter ou à recommencer la procédure de changement de mot de passe.`,
-      MessageStream: "outbound",
-    });
+    // Only send email if Postmark is configured
+    if (postmarkApp && process.env.POSTMARK_EMAIL) {
+      try {
+        await postmarkApp.sendEmail({
+          From: process.env.POSTMARK_EMAIL,
+          To: email,
+          Subject: `Votre mot de passe a été changé avec succès.`,
+          TextBody: `Votre mot de passe a été modifié avec succès. En cas d'erreur n'hésitez pas à nous contacter ou à recommencer la procédure de changement de mot de passe.`,
+          MessageStream: "outbound",
+        });
+        console.log("Postmark email sent successfully");
+      } catch (err: any) {
+        console.error("Postmark send failed:", err.message);
+      }
+    } else {
+      console.log("Postmark not configured, skipping email send.");
+    }
 
     return NextResponse.json({
-      message: "email sended succesfully",
+      message: "Password updated. Email sending skipped or successful.",
       status: 200,
     });
   } catch (error: any) {

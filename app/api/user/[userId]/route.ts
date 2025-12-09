@@ -6,8 +6,12 @@ interface IParams {
   userId?: string;
 }
 
-const postmark = require("postmark");
-const postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+// Step 1: Conditional Postmark initialization
+let postmarkApp: any = null;
+if (process.env.POSTMARK_API) {
+  const postmark = require("postmark");
+  postmarkApp = new postmark.ServerClient(process.env.POSTMARK_API);
+}
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
   try {
@@ -16,9 +20,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     const { data } = body;
 
     const user = await prisma.user.update({
-      where: {
-        id: userId,
-      },
+      where: { id: userId },
       data: data,
     });
 
@@ -26,17 +28,26 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
       throw new Error("Invalid User");
     }
 
+    // Step 2: Only send email if Postmark is configured
     if (data.isAccepted) {
-      const postmarkResponse = await postmarkApp.sendEmail({
-        From: process.env.POSTMARK_EMAIL,
-        To: data.email,
-        Subject: `Votre demande d'inscription a été validé`,
-        TextBody: `Bonjour ${data.firstName} Vous pouvez désormais sélectionné votre abonnement : ${process.env.BASE_URL}`,
-        MessageStream: "outbound",
-      });
+      if (postmarkApp && process.env.POSTMARK_EMAIL) {
+        try {
+          const postmarkResponse = await postmarkApp.sendEmail({
+            From: process.env.POSTMARK_EMAIL,
+            To: data.email,
+            Subject: `Votre demande d'inscription a été validé`,
+            TextBody: `Bonjour ${data.firstName} Vous pouvez désormais sélectionner votre abonnement : ${process.env.BASE_URL}`,
+            MessageStream: "outbound",
+          });
 
-      if (!postmarkResponse.ErrorCode) {
-        return NextResponse.json({ message: "hii" });
+          if (!postmarkResponse.ErrorCode) {
+            console.log("Postmark email sent successfully");
+          }
+        } catch (err: any) {
+          console.error("Postmark send failed:", err.message);
+        }
+      } else {
+        console.log("Postmark not configured, skipping email send.");
       }
     }
 
@@ -66,24 +77,17 @@ export async function DELETE(
   }
 
   const user = await prisma.user.delete({
-    where: {
-      id: userId,
-    },
+    where: { id: userId },
   });
 
-  const account = await prisma.account
-    .findMany({
-      where: {
-        userId: userId,
-      },
-    })
-    .then((account: any) => {
-      prisma.account.delete({
-        where: {
-          id: account.id,
-        },
-      });
-    });
+  const accounts = await prisma.account.findMany({
+    where: { userId: userId },
+  });
 
-  return NextResponse.json({ user, account });
+  // Delete all accounts safely
+  for (const acc of accounts) {
+    await prisma.account.delete({ where: { id: acc.id } });
+  }
+
+  return NextResponse.json({ user, accounts });
 }
