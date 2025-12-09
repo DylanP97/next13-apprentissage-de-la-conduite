@@ -2,7 +2,6 @@ import getPublishedBlogs from "@/app/actions/getPublishedBlogs";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
 import HomePage from "./components/HomePage";
-import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
 export default async function Home() {
@@ -11,7 +10,6 @@ export default async function Home() {
 
   return (
     <ClientOnly>
-      <NavBar currentUser={currentUser} />
       <HomePage blogs={blogs} currentUser={currentUser} />
       <Footer />
     </ClientOnly>

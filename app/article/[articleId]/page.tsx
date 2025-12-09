@@ -2,7 +2,6 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import getBlogById from "@/app/actions/getBlogById";
 import ClientOnly from "@/app/components/ClientOnly";
 import ArticleClient from "./ArticleClient";
-import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import getUserById from "@/app/actions/getUserById";
 import getCommentsByBlogId from "@/app/actions/getCommentsByBlogId";
@@ -22,7 +21,6 @@ const ArticlePage = async ({ params }: { params: IParams }) => {
 
   return (
     <ClientOnly>
-      <NavBar currentUser={currentUser} />
       {!blog?.id ? (
         <h1>
           L&apos;article de blog que vous cherchez n&apos;existe pas

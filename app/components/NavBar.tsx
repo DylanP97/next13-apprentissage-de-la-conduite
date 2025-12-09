@@ -9,6 +9,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { memo, useState } from "react";
 import ConnexionModal from "./ConnexionModal";
+import getCurrentUser from "../actions/getCurrentUser";
 
 const NavBar = memo(function NavBar({
   currentUser,
@@ -61,31 +62,30 @@ const NavBar = memo(function NavBar({
 
           <Navbar.Collapse id="main-navbr">
             <Nav className="ms-auto items-center gap-2 md:gap-4 text-sm lg:text-base">
-              <Nav.Link href="/quiz" className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+              <Nav.Link href="/quiz" className="text-white font-medium transition rounded-full">
                 Démarrer un Quiz
               </Nav.Link>
-              <Nav.Link href="/contact" className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+              <Nav.Link href="/contact" className="text-white font-medium transition rounded-full">
                 Contact
               </Nav.Link>
-
               {isLoggedIn && (
-                <Nav.Link href={`/profil/${currentUser?.id}`} className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+                <Nav.Link href={`/profil/${currentUser?.id}`} className="text-white font-medium transition rounded-full">
                   Profil
                 </Nav.Link>
               )}
 
               {isAdmin && (
                 <NavDropdown title={<span className="text-white font-medium">Admin</span>} align="end">
-                  <NavDropdown.Item onClick={createBlog} className="text-gray-300 hover:bg-[#91e5f6] hover:text-[#030213]">
+                  <NavDropdown.Item onClick={createBlog} className="text-gray-300 hover:bg-[#91e5f6] hover:text-gray-700">
                     Écrire un article
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin-articles" className="text-gray-300 hover:bg-[#91e5f6] hover:text-[#030213]">
+                  <NavDropdown.Item href="/admin-articles" className="text-gray-300 hover:bg-[#91e5f6] hover:text-gray-700">
                     Gestion articles
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin-eleves" className="text-gray-300 hover:bg-[#91e5f6] hover:text-[#030213]">
+                  <NavDropdown.Item href="/admin-eleves" className="text-gray-300 hover:bg-[#91e5f6] hover:text-gray-700">
                     Gestion élèves
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/admin-questions" className="text-gray-300 hover:bg-[#91e5f6] hover:text-[#030213]">
+                  <NavDropdown.Item href="/admin-questions" className="text-gray-300 hover:bg-[#91e5f6] hover:text-gray-700">
                     Gestion questions
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -93,13 +93,13 @@ const NavBar = memo(function NavBar({
 
               {/* Bouton Connexion / Déconnexion */}
               {isLoggedIn ? (
-                <Nav.Link className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+                <Nav.Link className="text-white font-medium transition rounded-full">
                   <button onClick={() => signOut()}>
                     Déconnexion
                   </button>
                 </Nav.Link>
               ) : (
-                <Nav.Link className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+                <Nav.Link className="text-white font-medium transition rounded-full">
                   <button onClick={() => setModalOpen(true)}>
                     Connexion
                   </button>

@@ -1,26 +1,13 @@
 import getBlogs from "@/app/actions/getBlogs";
 import ClientOnly from "@/app/components/ClientOnly";
 import ArticleAdminClient from "./ArticleAdminClient";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import { redirect } from "next/navigation";
-import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 const ArticleAdminPage = async () => {
   const blogs = await getBlogs();
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser) {
-    redirect("/");
-  }
-
-  if (!currentUser?.isAdmin) {
-    redirect("/");
-  }
 
   return (
     <ClientOnly>
-      <NavBar currentUser={currentUser} />
       {blogs ? (
         <ArticleAdminClient blogs={blogs} />
       ) : (
