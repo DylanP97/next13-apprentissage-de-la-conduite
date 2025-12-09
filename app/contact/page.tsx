@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import ClientOnly from "../components/ClientOnly";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
@@ -8,31 +7,13 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 const ContactPage = async () => {
   const currentUser = await getCurrentUser();
 
-  if (!currentUser) {
-    redirect("/");
-  }
-
-  if (!currentUser.isAdmin) {
-    if (!currentUser?.isSubscribed || !currentUser?.isAccepted) {
-      redirect("/");
-    } else {
-      return (
-        <ClientOnly>
-          <NavBar currentUser={currentUser} />
-          <ContactClient currentUser={currentUser} />
-          <Footer />
-        </ClientOnly>
-      );
-    }
-  } else {
-    return (
-      <ClientOnly>
-        <NavBar currentUser={currentUser} />
-        <ContactClient currentUser={currentUser} />
-        <Footer />
-      </ClientOnly>
-    );
-  }
+  return (
+    <ClientOnly>
+      <NavBar currentUser={currentUser} />
+      <ContactClient currentUser={currentUser} />
+      <Footer />
+    </ClientOnly>
+  );
 };
 
 export default ContactPage;

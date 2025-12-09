@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import ClientOnly from "./components/ClientOnly";
 import ToasterProvider from "@/app/providers/ToasterProvider";
 import ThemeProvider from '@/app/providers/ThemeProvider';
+import { AuthModalProvider } from "@/app/AuthModalContext";
 
 export const metadata: Metadata = {
   title: "Apprentissage de la Conduite et de la Sécurité Routière",
@@ -21,15 +22,15 @@ export default async function RootLayout({
 }) {
 
   return (
-    <html lang="fr-FR">
-      <ThemeProvider>
-        <body suppressHydrationWarning={true}>
-          <ClientOnly>
+    <html lang="fr" suppressHydrationWarning={true}>
+      <body>
+        <ThemeProvider>
+          <AuthModalProvider>
             <ToasterProvider />
-          </ClientOnly>
-          {children}
-        </body>
-      </ThemeProvider>
+            {children}
+          </AuthModalProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

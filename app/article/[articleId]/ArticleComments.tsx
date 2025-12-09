@@ -1,41 +1,41 @@
+// ArticleComments.tsx
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Comment from "./Comment";
+import { useState, useEffect } from "react";
 import WriteComment from "./WriteComment";
+import Comment from "./Comment";
 
 interface ArticleCommentsProps {
-  commentsList: any;
+  commentsList: any[];
   currentUser: any;
 }
 
-const ArticleComments: React.FC<ArticleCommentsProps> = ({
-  commentsList,
-  currentUser,
-}) => {
-  const [commentsData, setCommentsData] = useState(commentsList || []);
+const ArticleComments: React.FC<ArticleCommentsProps> = ({ commentsList, currentUser }) => {
+  const [comments, setComments] = useState(commentsList);
 
   useEffect(() => {
-    setCommentsData(commentsList || []);
+    setComments(commentsList);
   }, [commentsList]);
 
+  const handleCommentPosted = () => {
+    // Simple refresh: refetch or use SWR later
+    window.location.reload(); // temporary
+    // Better: revalidate with router.refresh() or use SWR
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        gap: "1rem",
-        borderTop: "4px #fff solid",
-        padding: "1.5rem 0.5rem",
-        marginTop: "50px",
-      }}
-    >
-      <h3>{commentsData ? commentsData.length : "0"} commentaire{commentsData?.length > 1 && 's'}</h3>
-      <WriteComment currentUser={currentUser} />
-      {commentsData && commentsData.map((comment: any) => (
-        <Comment key={comment.id} {...comment} />
-      ))}
+    <div className="mt-16 pt-8 border-t-4 border-white">
+      <h3 className="text-2xl font-bold mb-8">
+        {comments.length} commentaire{comments.length > 1 ? "s" : ""}
+      </h3>
+
+      <WriteComment currentUser={currentUser} onCommentPosted={handleCommentPosted} />
+
+      <div className="mt-10 space-y-8">
+        {comments.map((comment) => (
+          <Comment key={comment.id} {...comment} />
+        ))}
+      </div>
     </div>
   );
 };

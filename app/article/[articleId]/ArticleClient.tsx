@@ -47,24 +47,13 @@ const ArticleClient: React.FC<ArticleClientProps> = ({
         priority={true}
         loading="eager"
       />
-      <h1>{blog.title}</h1>
-      <div style={{ marginBottom: "20px" }}>
-        {blog.tags.map((tag: string) => {
-          return (
-            <p style={{ width: "fit-content" }} key={tag}>
-              #{tag}
-            </p>
-          );
-        })}
-      </div>
+      <h1 className="text-xl md:text-3xl">{blog.title}</h1>
       {isAdmin && (
         <Link href={editLink} className="btn btn-30color">
           Modifier l&apos;article
         </Link>
       )}
-      <Link className="btn btn-10color" href="/">
-        Retour à l&apos;accueil
-      </Link>
+
       <hr />
       <div className="blog-content">{parse(html)}</div>
       <br />
@@ -88,6 +77,9 @@ const ArticleClient: React.FC<ArticleClientProps> = ({
           <ArticleComments currentUser={currentUser} commentsList={commentsData} />
         }
       </div>
+      <Link className="btn btn-10color" href="/">
+        Retour à l&apos;accueil
+      </Link>
     </div>
   );
 };

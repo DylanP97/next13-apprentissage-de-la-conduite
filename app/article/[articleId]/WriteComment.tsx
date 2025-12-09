@@ -1,91 +1,88 @@
+// components/WriteComment.tsx
+"use client";
+
 import Image from "next/image";
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
-import { FloatingLabel, InputGroup, Button } from "react-bootstrap";
-import defaultImage from '@/public/images/default.png';
+import defaultImage from "@/public/images/default.png";
+import { Form, FloatingLabel, InputGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { useState } from "react";
 import axios from "axios";
-import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
+import { useAuthModal } from "@/app/AuthModalContext"; // Import
 
 interface WriteCommentProps {
   currentUser: any;
+  onCommentPosted?: () => void; // optional callback to refresh comments
 }
 
-const WriteComment: React.FC<WriteCommentProps> = ({ currentUser }) => {
+const WriteComment: React.FC<WriteCommentProps> = ({ currentUser, onCommentPosted }) => {
   const [content, setContent] = useState("");
+  const { openAuthModal } = useAuthModal(); // This is magic
+  const params = useParams();
+  const articleId = params?.articleId as string;
 
-  let params = useParams();
+  const postComment = async () => {
+    if (!content.trim()) return;
 
-  const articleId = params?.articleId
+    try {
+      await axios.post("/api/comment", {
+        data: {
+          commenterId: currentUser.id,
+          content,
+          blogId: articleId,
+        },
+      });
+      toast.success("Commentaire ajouté !");
+      setContent("");
+      onCommentPosted?.();
+    } catch (error) {
+      toast.error("Erreur lors de l'ajout du commentaire");
+    }
+  };
 
-  const postComment = () => {
+  const handleClick = () => {
     if (!currentUser) {
-      toast.error("Connectez-vous pour commenter");
+      openAuthModal(); // Opens your beautiful modal
       return;
     }
-
-    const data = {
-      commenterId: currentUser && currentUser.id,
-      content: content,
-      blogId: articleId,
-    }
-
-    axios.post(`/api/comment`, { data })
-    .then(() => {
-      toast.success("Commentaire ajouté");
-    })
-    .catch((error) => {
-      toast.error("Il y a eu une erreur lors de l'ajout du commentaire");
-    });
-  }
-
+    postComment();
+  };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "start",
-        fontStyle: "italic",
-        gap: "1rem",
-        width: "100%",
-      }}
-    >
-      <div
-        style={{
-          borderRadius: "100%",
-          overflow: "hidden",
-        }}
-      >
-        <Image src={currentUser?.image || defaultImage} alt="" height={35} width={35} />
+    <div className="flex items-center gap-4 w-full">
+      <div className="shrink-0">
+        <Image
+          src={currentUser?.image || defaultImage}
+          alt="Avatar"
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
       </div>
-      {currentUser ? (
-        <Form.Group
-          style={{
-            width: "100%",
-          }}
-        >
+
+      <div className="">
+        {currentUser ? (
           <InputGroup>
-            <FloatingLabel label={"Écrivez votre commentaire"}>
+            <FloatingLabel label="Écrivez votre commentaire...">
               <Form.Control
-                required
                 type="text"
-                name="comment"
-                id="comment"
-                style={{
-                  width: "100%",
-                }}
-                onChange={(event) => setContent(event.target.value)}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), handleClick())}
+                placeholder="Écrivez votre commentaire..."
               />
             </FloatingLabel>
-            <InputGroup.Text className="write-comment-submit" onClick={() => postComment()} id="basic-addon1">Envoyer</InputGroup.Text>
+            <Button variant="primary" onClick={handleClick}>
+              Envoyer
+            </Button>
           </InputGroup>
-        </Form.Group>
-      ) : (
-        <Button variant="primary" onClick={() => window.location.assign("/connexion")}>
-          Connectez-vous pour commenter
-        </Button>
-      )}
+        ) : (
+          <Button variant="primary" onClick={openAuthModal} className="w-full">
+            Connectez-vous pour commenter
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

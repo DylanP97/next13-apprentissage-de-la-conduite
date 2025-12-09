@@ -90,10 +90,9 @@ td button {
   color: var(--30color) !important;
 }
 
+
 footer {
   width: 100%;
-  position: absolute;
-  bottom: 0;
   height: -moz-max-content;
   height: max-content;
   display: flex;
@@ -105,6 +104,7 @@ footer {
   color: var(--30color);
   border-top: 2px solid var(--30color);
   gap: 1rem;
+  margin-top: 20px;
 }
 footer a {
   color: black;
@@ -123,9 +123,10 @@ footer a:hover {
     flex-direction: column;
   }
   .footer-wrap {
-    padding-bottom: 20rem;
+    padding-bottom: 16rem;
   }
 }
+
 .theme-toggler {
   cursor: pointer;
   padding: 10px;
@@ -1284,6 +1285,7 @@ nav {
 
 .article {
   margin: 2% 20%;
+  padding: 2%;
 }
 
 .article h1 {

@@ -15,11 +15,8 @@ const HomeGreetings: React.FC<HomeGreetingProps> = ({ currentUser }) => {
           {currentUser.firstName ? currentUser.firstName : currentUser.name} vous êtes bien connecté.
         </p>
       ) : (
-        <p className="font-bold text-sm md:text-base">Bienvenue ! Connectez-vous pour commenter ou sauvegarder vos résultats.</p>
+        <p className="font-bold text-sm md:text-base">Bienvenue ! Connectez-vous pour commenter, accéder à des articles premium et sauvegarder vos résultats de quiz.</p>
       )}
-      <p className="italic text-xs md:text-sm">
-        Découvrez nos derniers articles sur le code de la route.
-      </p>
     </div>
   );
 };

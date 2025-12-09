@@ -15,6 +15,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const router = useRouter();
+  const [hover, setHover] = useState(false);
 
   // Sort blogs by createdAt descending to get latest first
   const sortedBlogs = [...blogs].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -40,11 +41,19 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
         <p className="my-2 italic text-sm">Accédez à notre quiz interactif sur le code de la route et améliorez vos compétences !</p>
         <button
           onClick={() => router.push("/quiz")}
-          className="bg-white text-[#030213] px-8 py-3 rounded-full font-bold text-lg hover:bg-[#030213] hover:text-white transition-colors"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          // add relative/z-index + pointer-events to avoid overlay issues
+          className={`relative z-10 px-8 py-3 rounded-full font-bold text-lg transition-colors
+          ${hover ? "bg-[#030213] text-white" : "bg-white text-gray-900"}`}
         >
           Commencer le Quiz
         </button>
       </div>
+
+      <p className="italic font-bold text-lg text-center md:text-start py-2">
+        Découvrez nos derniers articles sur le code de la route
+      </p>
 
       <TagsEditor blogs={blogs} tags={selectedTags} state={setSelectedTags} />
 
@@ -73,7 +82,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
                     </span>
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold mb-2">{featuredBlog.title}</h2>
+                <h2 className="text-xl md:text-3xl font-bold mb-2">{featuredBlog.title}</h2>
                 <time className="text-sm opacity-80">{new Date(featuredBlog.createdAt).toLocaleDateString("fr-FR")}</time>
               </div>
             </div>

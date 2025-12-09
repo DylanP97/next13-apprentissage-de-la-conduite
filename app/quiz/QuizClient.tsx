@@ -53,10 +53,10 @@ const QuizClient: React.FC<{ publishedQuestions: Question[] }> = ({ publishedQue
   const total = questionHistory.length;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start px-2 py-2 md:py-6"
+    <div className="min-h-[70vh] flex flex-col items-center justify-start md:justify-center px-2 py-2 md:py-6"
          style={{ background: isDarkMode ? "#0f172a" : "#f9fafb" }}>
       
-      <div className="w-full max-w-xl">
+      <div className="w-full max-w-2xl">
         <AnimatePresence mode="wait">
           {!quizStarted ? (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center w-full">
@@ -95,8 +95,8 @@ const QuizClient: React.FC<{ publishedQuestions: Question[] }> = ({ publishedQue
                       src={currentQuestion.imageUrl}
                       alt=""
                       width={800}
-                      height={400}
-                      className="w-full h-auto max-h-40 object-cover rounded-t-2xl"
+                      height={500}
+                      className="w-full h-auto max-h-52 md:max-h-60 object-cover rounded-t-2xl"
                       priority
                     />
                   </div>
@@ -121,7 +121,7 @@ const QuizClient: React.FC<{ publishedQuestions: Question[] }> = ({ publishedQue
                         onClick={() => handleAnswer(i)}
                         disabled={showResult}
                         className={`
-                          w-full px-5 py-3 rounded-2xl text-left font-medium transition-all
+                          w-full px-5 py-2.5 md:py-3 rounded-2xl text-left font-medium transition-all
                           ${showResult && isCorrect
                             ? "bg-emerald-600 text-white"
                             : showResult && isSelected && !isCorrect
@@ -136,7 +136,7 @@ const QuizClient: React.FC<{ publishedQuestions: Question[] }> = ({ publishedQue
                         `}
                       >
                         <div className="flex justify-between items-center">
-                          <span className="truncate pr-3 text-xs md:text-sm">{answer}</span>
+                          <span className="pr-3 text-xs md:text-sm">{answer}</span>
                           {showResult && isCorrect && <span className="font-bold  text-xs md:text-sm">Correct</span>}
                           {showResult && isSelected && !isCorrect && <span className="font-bold  text-xs md:text-sm">Incorrect</span>}
                         </div>

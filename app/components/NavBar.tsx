@@ -45,7 +45,7 @@ const NavBar = memo(function NavBar({
                 Apprentissage de la Conduite
               </span>
               <span className="md:hidden text-2xl font-bold text-white">
-                ADC
+                Blog & Quiz Code
               </span>
             </div>
           </Navbar.Brand>
@@ -59,17 +59,17 @@ const NavBar = memo(function NavBar({
             </svg>
           </Navbar.Toggle>
 
-          <Navbar.Collapse id="main-navbar">
-            <Nav className="ms-auto items-center gap-4 lg:gap-8 text-sm lg:text-base">
-              <Nav.Link href="/quiz" className="text-white hover:text-[#91e5f6] font-medium transition">
-                Quiz
+          <Navbar.Collapse id="main-navbr">
+            <Nav className="ms-auto items-center gap-2 md:gap-4 text-sm lg:text-base">
+              <Nav.Link href="/quiz" className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+                Démarrer un Quiz
               </Nav.Link>
-              <Nav.Link href="/contact" className="text-white hover:text-[#91e5f6] font-medium transition">
+              <Nav.Link href="/contact" className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
                 Contact
               </Nav.Link>
 
               {isLoggedIn && (
-                <Nav.Link href={`/profil/${currentUser?.id}`} className="text-white hover:text-[#91e5f6] font-medium transition">
+                <Nav.Link href={`/profil/${currentUser?.id}`} className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
                   Profil
                 </Nav.Link>
               )}
@@ -93,16 +93,17 @@ const NavBar = memo(function NavBar({
 
               {/* Bouton Connexion / Déconnexion */}
               {isLoggedIn ? (
-                <button onClick={() => signOut()} className="text-white hover:text-[#91e5f6] font-medium transition">
-                  Déconnexion
-                </button>
+                <Nav.Link className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+                  <button onClick={() => signOut()}>
+                    Déconnexion
+                  </button>
+                </Nav.Link>
               ) : (
-                <button
-                  onClick={() => setModalOpen(true)}
-                  className="bg-white text-[#030213] font-bold px-6 py-2.5 rounded-full hover:bg-gray-100 transition shadow-lg"
-                >
-                  Connexion
-                </button>
+                <Nav.Link className="text-white hover:text-[#91e5f6] font-medium transition hover:bg-white hover:text-[#91e5f6] rounded-full">
+                  <button onClick={() => setModalOpen(true)}>
+                    Connexion
+                  </button>
+                </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>

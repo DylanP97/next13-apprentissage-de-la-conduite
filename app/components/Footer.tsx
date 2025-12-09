@@ -8,15 +8,13 @@ const Footer = () => {
   const year = date.getFullYear();
 
   return (
-    <div className="footer-wrap">
-      <footer className="footer">
+      <footer className="">
         <p style={{ fontSize: "12px" }}>
           Copyright - apprentissagedelaconduite - {year} - Si vous avez des
           suggestions d&apos;articles n&apos;hésitez pas à me contacter.
         </p>
         <ThemeToggler />
       </footer>
-    </div>
   );
 };
 

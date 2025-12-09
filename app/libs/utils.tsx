@@ -1,5 +1,12 @@
+// lib/utils.ts
 import view from "@/public/icons/view.png";
 import hidden from "@/public/icons/hidden.png";
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 const options: object = {
   weekday: "short",
@@ -7,6 +14,7 @@ const options: object = {
   month: "short",
   day: "numeric",
 };
+
 
 export const dateParser = (num: any) => {
   let timestamp = Date.parse(num);

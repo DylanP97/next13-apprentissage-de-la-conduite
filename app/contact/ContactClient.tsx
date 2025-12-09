@@ -10,34 +10,40 @@ import Link from "next/link";
 import { FloatingLabel } from "react-bootstrap";
 
 interface ContactClientProps {
-  currentUser: any;
+  currentUser?: {
+    firstName?: string;
+    name?: string;
+    email?: string;
+  } | null;
 }
 
 const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
-  const firstName = currentUser?.firstName
-    ? currentUser?.firstName
-    : currentUser?.name;
-  const email = currentUser?.email;
+  const [firstName, setFirstName] = useState(
+    currentUser?.firstName || currentUser?.name || "",
+  );
+  const [email, setEmail] = useState(currentUser?.email || "");
   const [message, setMessage] = useState("");
   const [infoMessage, setInfoMessage] = useState("");
 
   const handleSend = async () => {
-    if (message.length === 0 || !message)
-      setInfoMessage("Il n'y a pas de contenu dans votre message");
-    else {
-      const data = { firstName, email, message };
-      axios
-        .post(`/api/contact`, { data })
-        .then(() => {
-          setInfoMessage(
-            "Votre message a bien été envoyé! Vous pouvez retourner à la page d'accueil",
-          );
-        })
-        .catch((err) => {
-          console.log(err.message);
-          setInfoMessage(err.message);
-        });
+    if (!firstName || !email || !message) {
+      setInfoMessage("Merci de remplir votre nom, email et message.");
+      return;
     }
+
+    const data = { firstName, email, message };
+    axios
+      .post(`/api/contact`, { data })
+      .then(() => {
+        setInfoMessage(
+          "Votre message a bien été envoyé! Vous pouvez retourner à la page d'accueil",
+        );
+        setMessage("");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setInfoMessage(err.message);
+      });
   };
 
   return (
@@ -47,11 +53,34 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
           <h1>Contact</h1>
           <div>
             <Form.Group className="mb-3">
+              <FloatingLabel label="Votre nom">
+                <Form.Control
+                  id="firstName"
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Votre nom"
+                />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Votre email">
+                <Form.Control
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Votre email"
+                />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
               <FloatingLabel label="Le Contenu de Votre Demande" className="mb-3">
                 <Form.Control
                   id="message"
                   as="textarea"
                   rows={3}
+                  value={message}
                   onInput={(e: any) => {
                     e.preventDefault();
                     setMessage(e.target.value);
@@ -71,7 +100,6 @@ const ContactClient: React.FC<ContactClientProps> = ({ currentUser }) => {
             <Link className="btn btn-30color" href="/">
               Revenir à la page d&apos;accueil
             </Link>
-            <hr />
             <p style={{ paddingTop: "10px", minHeight: "50px" }}>
               {infoMessage}
             </p>

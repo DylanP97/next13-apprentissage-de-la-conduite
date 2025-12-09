@@ -78,7 +78,7 @@ export default function ConnexionModal({ isOpen, onClose }: ConnexionModalProps)
           <h2 className="text-3xl font-bold text-white mb-2">
             {isLogin ? "Connexion" : "Inscription"}
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-white mb-2 italic text-sm">
             {isLogin ? "Ravi de vous revoir !" : "Rejoignez la communauté"}
           </p>
 
@@ -119,14 +119,14 @@ export default function ConnexionModal({ isOpen, onClose }: ConnexionModalProps)
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#91e5f6] to-[#118ba3] text-[#030213] font-bold py-4 rounded-xl hover:opacity-90 transition disabled:opacity-70 flex items-center justify-center gap-3"
+              className="w-full bg-gradient-to-r from-[#91e5f6] to-[#118ba3] text-[#030213] font-bold py-3 rounded-xl hover:opacity-90 transition disabled:opacity-70 flex items-center justify-center gap-3"
             >
               {isLoading ? <Loader2 className="animate-spin" size={24} /> : isLogin ? "Se connecter" : "S'inscrire"}
             </button>
           </form>
 
           <button onClick={() => signIn("google")}
-            className="w-full mt-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-3 rounded-xl transition flex items-center justify-center gap-3">
+            className="w-full mt-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-3 rounded-xl transition flex items-center justify-center gap-3">
             <Image src={googleIcon} alt="Google" width={20} height={20} />
             Continuer avec Google
           </button>
