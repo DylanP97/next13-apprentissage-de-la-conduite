@@ -38,7 +38,7 @@ const NavBar = memo(function NavBar({
         expand="lg"
         className="border-b border-white/20 bg-[#030213]/95 backdrop-blur-lg sticky top-0 z-40"
       >
-        <Container className="max-w-7xl mx-auto px-4 py-2 md:py-3 lg:px-8">
+        <Container className="max-w-7xl mx-auto px-4 md:py-3 lg:px-8">
           {/* Logo */}
           <Navbar.Brand href="/" className="flex items-center">
             <div className="flex flex-col leading-none">
@@ -62,8 +62,8 @@ const NavBar = memo(function NavBar({
 
           <Navbar.Collapse id="main-navbr">
             <Nav className="ms-auto items-center gap-2 md:gap-4 text-sm lg:text-base">
-              <Nav.Link href="/quiz" className="text-white font-medium transition rounded-full">
-                Démarrer un Quiz
+              <Nav.Link href="/quiz" className="text-white text-center font-medium transition rounded-full">
+                Quiz Connaissances Code & Conduite
               </Nav.Link>
               <Nav.Link href="/contact" className="text-white font-medium transition rounded-full">
                 Contact

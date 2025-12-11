@@ -31,6 +31,9 @@ export const HomeCard = ({ blog }: HomeCardProps) => {
       <div className="relative h-48">
         <Image
           fill
+          sizes="(max-width: 768px) 100vw,
+         (max-width: 1200px) 50vw,
+         33vw"
           src={blog?.imageUrl ? `${blog?.imageUrl}` : illustration}
           alt={blog.title}
           className="object-cover transition-transform group-hover:scale-105"
@@ -49,9 +52,8 @@ export const HomeCard = ({ blog }: HomeCardProps) => {
       </div>
       <div className="p-4">
         <h2
-          className={`text-md font-semibold transition-colors duration-200 line-clamp-2 ${
-            isHover ? "text-[#030213]" : "text-white"
-          } group-hover:text-[#030213] hover:text-[#91e5f6]`}
+          className={`text-md font-semibold transition-colors duration-200 line-clamp-2 ${isHover ? "text-[#030213]" : "text-white"
+            } group-hover:text-[#030213] hover:text-[#91e5f6]`}
         >
           {blog.title}
         </h2>

@@ -82,7 +82,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentUser, blogs }) => {
                     </span>
                   ))}
                 </div>
-                <h2 className="text-xl md:text-3xl font-bold mb-2">{featuredBlog.title}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">{featuredBlog.title}</h2>
                 <time className="text-sm opacity-80">{new Date(featuredBlog.createdAt).toLocaleDateString("fr-FR")}</time>
               </div>
             </div>
